@@ -11,10 +11,67 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </head>
 <body>
-    <div class="container">
+    
+    <form>
+
+    <div class="container" id="newStoryBlock">
+        <h1>New Article</h1>
         <div class="form-group">
-            <label for="title">Story Title</label>
-            <input type="storyTitle" class="form-control" id="title">
+            <label for="title">Article Title</label>
+            <input type="storyTitleType" class="form-control" id="title">
         </div>
+        
+        <div class="form-group">
+            <label for="organization">Organization</label>
+            <input type="organizationType" class="form-control" id="organization">
+        </div>
+        
+        <div class="form-group">
+             <label for="link">Link</label>
+            <input type="linkType" class="form-control" id="link">
+        </div>
+        
+        
+        <div class="form-group">
+             <label for="summary">Summary</label>
+            <textarea class="form-control" id="summary" rows="4"></textarea>
+        </div>
+
+        <div class="form-group">
+             <label for="location">Location</label>
+            <input type="locationType" class="form-control" id="location">
+        </div>
+        <div class="form-group">
+
+            <label for="exampleInputFile">Add Picture</label>
+            <input type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp">
+            <small id="fileHelp" class="form-text text-muted">If there is a photo associated with this article, upload it here.</small>
+        </div>
+        
+        <div class="form-check">
+            <label class="form-check-label">
+            <input type="checkbox" class="form-check-input">
+            Politics</label>
+            <label class="form-check-label">
+            <input type="checkbox" class="form-check-input">
+            Science</label>
+            <label class="form-check-label">
+            <input type="checkbox" class="form-check-input">
+            The Investigative Reporting Boston Needs!</label>
+            <label class="form-check-label">
+            <input type="checkbox" class="form-check-input">
+            Arts</label>        
+            <label class="form-check-label">
+            <input type="checkbox" class="form-check-input">
+            Education</label>        
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Submit</button>
+        
+        
+
     </div>
+    </form>
+    
+    
 </body>
