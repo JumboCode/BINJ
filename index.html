@@ -10,12 +10,12 @@ This file causes a JavaScript console syntax error, thohgh it is ignored and so 
 	<head>
 		<title>BINJ Map</title>
 		<meta name="viewport" content="initial-scale=1.0, user-scalable=no" http-equiv="content-type" charset="utf-8"/>
-		<script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=[INSERT API KEY HERE]&libraries=geometry"></script>
+		<script src="http://maps.googleapis.com/maps/api/js?libraries=geometry"></script>
 		<link rel="stylesheet" href="style.css" />
-		<script type="text/javascript" src="map.js"></script>
 	</head>
 	
-	<body onload="init()">
+	<body onload="setup()">
 		<div id="map_canvas"></div>
 	</body>
+	<script type="text/javascript" src="map.js"></script>
 </html>
