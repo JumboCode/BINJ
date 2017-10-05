@@ -29,12 +29,22 @@ app.post('/name', function(req, res) {
 });
 
 app.get('/name', function(req, res) {
-	db.collection("names", function(error, collection) {
-				
-		return res.send(collection.find().toArray());
+	db.collection("names", function(error, coll) {	    
+	    if(error)
+			res.send(500);
+	    else {
+			coll.find().toArray(
+			    function(err, results) {
+					if (err) {
+						res.send(500);
+					} else {
+						console.log(results);
+						res.send(results);
+					}
+				}
+			);
+		}
 	});
-	
-	//res.send(JSON.stringify(elems));
 });
 
 app.get('/admin', function(req, res){
