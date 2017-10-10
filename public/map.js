@@ -1,6 +1,8 @@
 var startLat = 0;
 var startLng = 0;
 
+// Here is the BINJ API key: AIzaSyCCPJ3Q8yqIUnauTodS9RgJWLNeQmxHEiw
+
 // maybe it'd be nice to go to user's location, unless user isn't in 
 // the boston area, in which case default to ... somewhere in boston
 var user; 
