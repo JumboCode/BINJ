@@ -16,39 +16,44 @@
 
     <div class="container" id="newStoryBlock">
         <h1>New Article</h1>
-        <div class="form-group">
-            <div class="col-md-6">
-                <label for="title">Article Title</label>
-                <input type="storyTitleType" class="form-control" id="title">
+        <div class="row">
+            <div class="form-group">
+                <div class="col-md-6">
+                    <label for="title">Article Title</label>
+                    <input type="storyTitleType" class="form-control" id="title">
+                </div>
+                <div class="col-md-6">
+                    <label for="organization">Organization</label>
+                    <input type="organizationType" class="form-control" id="organization">
+                </div>
             </div>
-            <div class="col-md-6">
-                <label for="organization">Organization</label>
-                <input type="organizationType" class="form-control" id="organization">
-            </div>
-        </div>
-
+      </div>
+      <div class="row">
         <div class="form-group">
              <label for="link">Link</label>
             <input type="linkType" class="form-control" id="link">
         </div>
-
-
-        <div class="form-group">
+      </div>
+      <div class="row">
+        <div class="col-md-6">
              <label for="summary">Summary</label>
             <textarea class="form-control" id="summary" rows="4"></textarea>
         </div>
-
+      </div>
+      <div class="row">
         <div class="form-group">
              <label for="location">Location</label>
             <input type="locationType" class="form-control" id="location">
         </div>
+      </div>
+      <div class="row">
         <div class="form-group">
-
             <label for="exampleInputFile">Add Picture</label>
             <input type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp">
             <small id="fileHelp" class="form-text text-muted">If there is a photo associated with this article, upload it here.</small>
         </div>
-
+      </div>
+      <div class="row">
         <div class="form-check">
             <label class="form-check-label">
             <input type="checkbox" class="form-check-input">
@@ -66,9 +71,10 @@
             <input type="checkbox" class="form-check-input">
             Education</label>
         </div>
-
+      </div>
+      <div class="row">
         <button type="submit" class="btn btn-primary">Submit</button>
-
+      </div>
 
 
     </div>
