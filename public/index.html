@@ -1,11 +1,21 @@
+<!-- Some code below is taken from Professor Chow's example here (https://github.com/tuftsdev/WebProgramming/blob/gh-pages/examples/google_maps/gmap_api_example.html) 
+
+This file causes a JavaScript console syntax error, thohgh it is ignored and so I, too, have decided to ignore the error. 
+-->
+
 <!DOCTYPE html>
-<html lang="en">
 
-<head>
-  <title>BINJ</title>
-</head>
+<html>
 
-<body>
+	<head>
+		<title>BINJ Map</title>
+		<meta name="viewport" content="initial-scale=1.0, user-scalable=no" http-equiv="content-type" charset="utf-8"/>
+		<script src="http://maps.googleapis.com/maps/api/js?libraries=geometry"></script>
+		<link rel="stylesheet" href="style.css" />
+	</head>
 	
-</body>
+	<body onload="setup()">
+		<div id="map_canvas"></div>
+	</body>
+	<script type="text/javascript" src="map.js"></script>
 </html>
