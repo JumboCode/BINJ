@@ -9,9 +9,49 @@ body {
 	height: 100%;
 	margin: 0px;
 	padding: 0px;
+    background-color: #f5f3a2
 }
 
 #map_canvas {
 	width: 100%;
 	height: 100%;
+}
+
+.wrapper {
+    display: flex;
+    align-items: flex-end;
+    -webkit-justify-content: flex-end;
+    justify-content: flex-end;
+
+}
+
+a {
+    display: flex;
+    flex-basis: content;
+    flex: flex-grow;
+    margin-right: 5%;
+
+}
+
+.logo {
+    display: flex;
+
+}
+
+.title {
+    display: flex;
+    align-items: flex-end;
+    -webkit-justify-content: flex-end;
+    justify-content: flex-end;
+    flex-direction: column;
+    padding-right: 5%;
+
+}
+
+h1 {
+    font-family: "System Font";
+    font-weight: thin;
+
+h2 {
+    font-family: medium-content-sans-serif-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Open Sans","Helvetica Neue",sans-serif;
 }
