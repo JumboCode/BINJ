@@ -1,3 +1,0 @@
-TODO:
-1. Sample data
-2. Start filtering things

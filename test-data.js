@@ -11,35 +11,15 @@ var point1 = {
       "type": "Feature",
       "properties": {},
       "geometry": {
-        "type": "Polygon",
+        "type": "Point",
         "coordinates": [
-          [
-            [
-              -71.12341225147247,
-              42.402303114395295
-            ],
-            [
-              -71.12352490425108,
-              42.40216050967468
-            ],
-            [
-              -71.12340152263641,
-              42.402081284689814
-            ],
-            [
-              -71.12329423427582,
-              42.40226350200542
-            ],
-            [
-              -71.12341225147247,
-              42.402303114395295
-            ]
-          ]
+          -71.12341225147247,
+          42.402303114395295    
         ]
       }
     },
     location_name: "28 Whitman St"
-}
+};
 
 var point2 = {
     _id: null,
@@ -62,4 +42,6 @@ var point2 = {
       }
     },
     location_name: "That one storm drain by Monaco's house"
-}
+};
+
+var data = [point1, point2];
