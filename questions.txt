@@ -1,4 +1,0 @@
-Name of classes (form-group, form-control, etc.)
-Container, special meaning? or normal div?
-
-Form inside or outside of div
