@@ -19,17 +19,6 @@ function initMap()
         center: {lat: startLat, lng: startLng}
     });    
     geocoder = new google.maps.Geocoder();
-
-    var marker = new google.maps.Marker({
-          position: {lat: startLat, lng: startLng},
-          map: map,
-    });
-    marker.addListener('click', function() {
-          alert("It worked");
-        });
-
-
-    
     
 }
 
