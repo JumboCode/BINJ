@@ -9,9 +9,20 @@ app.use(bodyParser.urlencoded({extended: true}));
 // Initialize mongo
 var mongoUri = process.env.MONGODB_URI || process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost/binj';
 var MongoClient = require('mongodb').MongoClient, format = require('util').format;
+var mongoose = require('mongoose');
 var db = MongoClient.connect(mongoUri, function(error, databaseConnection) {
 	db = databaseConnection;
 });
+mongoose.connect(mongoUri, err => {
+    if (err) 
+        console.log(err);
+    else
+        console.log("connected");
+});
+
+
+const stories = require('./routes/storyRoutes');
+app.use('/stories', stories);
 
 app.get('/', function(req, res) {
 	res.sendFile('index.html', {root: path.join(__dirname, 'public')});
@@ -42,6 +53,16 @@ app.get('/name', function(req, res) {
 			);
 		}
 	});
+});
+
+
+app.get('/story/:id', function(req, res) {
+    db.collection('stories', (err, coll) => {
+        
+    });
+    
+});
+app.get('/story', function(req, res) {
 });
 
 app.get('/admin', function(req, res) {
