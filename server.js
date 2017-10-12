@@ -18,7 +18,7 @@ app.get('/', function(req, res) {
 });
 
 app.post('/name', function(req, res) {
-    	var name = req.body.name;
+    var name = req.body.name;
 	db.collection("names", function(error, collection){
 		collection.insert( {"name" : name} )
 	});
