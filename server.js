@@ -5,6 +5,8 @@ const bodyParser = require('body-parser');
 const app = express();
 const http = require('http').Server(app);
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(express.static(path.join(__dirname, 'public')));
+
 
 // Initialize mongo
 var mongoUri = process.env.MONGODB_URI || process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost/binj';
@@ -66,7 +68,7 @@ app.get('/story', function(req, res) {
 });
 
 app.get('/admin', function(req, res) {
-	res.sendFile('admin.html', {root: path.join(__dirname, 'private')});
+	res.sendFile('admin.html', {root: path.join(__dirname, 'public')});
 });
 
 http.listen(process.env.PORT || 3000, function() {
