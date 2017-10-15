@@ -24,26 +24,25 @@ var userInfoWindow = new google.maps.InfoWindow();
 
 // approximately from https://developers.google.com/maps/documentation/javascript/importing_data
 // more on markers https://developers.google.com/maps/documentation/javascript/reference#Marker
-function addStoryPoints() {
+function addStoryPoints(data) {
 	console.log("gonna make some extra points");
 	// later on this data will come from a request to some endpoint
 	// but for now just some test data will do
-	var points = data;
 	for (var i = 0; i < data.length; i++) {
+        var point = data[i];
 		console.log(i);
-		var coords = data[i].location.geometry.coordinates;
-		console.log(coords);
-		var latlng = new google.maps.LatLng(coords[0], coords[1]);
+		var coords = point.location.geometry.coordinates;
+        console.log(coords);
+		var latlng = new google.maps.LatLng(coords[1], coords[0]);
 		var marker = new google.maps.Marker({
 			position: latlng,
 			map: map,
-			title: data.title
+			title: point.title
 		});
 		var infoWindow = new google.maps.InfoWindow();
-		console.log(marker);
-		marker.setMap(map);
+        console.log(infoWindow);
 		google.maps.event.addListener(marker, 'click', function() {
-			infoWindow.setContent(marker.title);
+			infoWindow.setContent("<h1>" + point.title + "</h1><img src='" + point.header_photo_url + "' width='150px'><h3>by " + point.author + "</h3><p>" + point.blurb + "</p>");
 			infoWindow.open(map, marker);
 		});
 	}
@@ -52,16 +51,16 @@ function addStoryPoints() {
 function initMap() {
 	console.log("about to pan to:", user.lat(), user.lng());
 	map.panTo(user);
-	userMarker = new google.maps.Marker({
-		position: user,
-		title: "lookie here"
-	});
-	userMarker.setMap(map);
-	google.maps.event.addListener(userMarker, 'click', function() {
-		userInfoWindow.setContent(userMarker.title);
-		userInfoWindow.open(map, userMarker);
-	});
-	addStoryPoints();
+	// userMarker = new google.maps.Marker({
+	// 	position: user,
+ //        map: map,
+	// 	title: "lookie here"
+	// });
+	// google.maps.event.addListener(userMarker, 'click', function() {
+	// 	userInfoWindow.setContent(userMarker.title);
+	// 	userInfoWindow.open(map, userMarker);
+	// });
+	addStoryPoints(samplePoints);
 }
 
 
@@ -130,4 +129,4 @@ var point2 = {
     location_name: "That one storm drain by Monaco's house"
 };
 
-var data = [point1, point2];
+var samplePoints = [point1, point2];
