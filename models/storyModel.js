@@ -9,7 +9,9 @@ var storySchema = new Schema({
 	'blurb' : String,
 	'published_date' : Date,
 	'tags' : [{type: String, lowercase: true}],
-	'location_name' : String
+	'location_name' : String,
+	'type' : String,
+	'coordinates' : [{type: Number}]
 });
 
 module.exports = mongoose.model('story', storySchema);

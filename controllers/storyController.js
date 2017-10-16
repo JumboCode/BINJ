@@ -79,8 +79,9 @@ module.exports = {
 			blurb : req.body.blurb,
 			published_date : req.body.published_date,
 			tags : req.body.tags,
-			location_name : req.body.location_name
-
+			location_name : req.body.location_name,
+            type : req.body.type,
+            coordinates : req.body.coordinates
         });
 
         story.save(function (err, story) {
@@ -121,7 +122,9 @@ module.exports = {
 			story.published_date = req.body.published_date ? req.body.published_date : story.published_date;
 			story.tags = req.body.tags ? req.body.tags : story.tags;
 			story.location_name = req.body.location_name ? req.body.location_name : story.location_name;
-			
+			story.type = req.body.type ? req.body.type : story.type;
+            story.coordinates = req.body.coordinates ? req.body.coordinates : story.coordinates;
+
             story.save(function (err, story) {
                 if (err) {
                     return res.status(500).json({
