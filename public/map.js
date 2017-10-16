@@ -31,19 +31,23 @@ function addStoryPoints(data) {
 	for (var i = 0; i < data.length; i++) {
         var point = data[i];
 		console.log(i);
+        // this only handles geojson points!
 		var coords = point.location.geometry.coordinates;
         console.log(coords);
 		var latlng = new google.maps.LatLng(coords[1], coords[0]);
 		var marker = new google.maps.Marker({
 			position: latlng,
 			map: map,
-			title: point.title
+			title: point.title,
+            author: point.author,
+            blurb: point.blurb,
+            photo: point.header_photo_url
 		});
 		var infoWindow = new google.maps.InfoWindow();
         console.log(infoWindow);
 		google.maps.event.addListener(marker, 'click', function() {
-			infoWindow.setContent("<h1>" + point.title + "</h1><img src='" + point.header_photo_url + "' width='150px'><h3>by " + point.author + "</h3><p>" + point.blurb + "</p>");
-			infoWindow.open(map, marker);
+			infoWindow.setContent("<h1>" + this.title + "</h1><img src='" + this.photo + "' width='150px'><h3>by " + this.author + "</h3><p>" + this.blurb + "</p>");
+			infoWindow.open(map, this);
 		});
 	}
 }
@@ -85,7 +89,7 @@ function setup() {
 // here lies some sample data
 var point1 = {
     _id: null,
-    title: "Somerville House Cat Complete Moon Mission",
+    title: "Somerville House Cat Completes Moon Mission",
     author: "Dennis the Cat",
     url: "hmm.com/story",
     header_photo_url: "https://i.ytimg.com/vi/E7BnKFl7lYI/hqdefault.jpg",
@@ -129,4 +133,27 @@ var point2 = {
     location_name: "That one storm drain by Monaco's house"
 };
 
-var samplePoints = [point1, point2];
+var point3 = {
+    _id: null,
+    title: "Boy Trips on Shoelace, Stays on Ground",
+    author: "Squilliam Fancypants",
+    url: "another-fake-url.io",
+    header_photo_url: "https://fittingchildrenshoes.com/wp-content/uploads/2016/02/38970378_s.jpg",
+    published_date: Date(),
+    blurb: "Local boy who never learned to tie his shoes falls yet again, but this time decides to cut his loses and just stay on the ground forever.",
+    tags: ["somerville", "tufts", "news"],
+    location: {
+      "type": "Feature",
+      "properties": {},
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.120490,
+          42.404189
+        ]
+      }
+    },
+    location_name: "Right by South, I mean Harleston"
+};
+
+var samplePoints = [point1, point2, point3];
