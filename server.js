@@ -7,8 +7,6 @@ const http = require('http').Server(app);
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(path.join(__dirname, 'public')));
 
-
-
 // Initialize mongo
 var mongoUri = process.env.MONGODB_URI || process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost/binj';
 var MongoClient = require('mongodb').MongoClient, format = require('util').format;
