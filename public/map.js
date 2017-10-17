@@ -25,15 +25,12 @@ var userInfoWindow = new google.maps.InfoWindow();
 // approximately from https://developers.google.com/maps/documentation/javascript/importing_data
 // more on markers https://developers.google.com/maps/documentation/javascript/reference#Marker
 function addStoryPoints(data) {
-	console.log("gonna make some extra points");
 	// later on this data will come from a request to some endpoint
 	// but for now just some test data will do
 	for (var i = 0; i < data.length; i++) {
         var point = data[i];
-		console.log(i);
         // this only handles geojson points!
 		var coords = point.location.geometry.coordinates;
-        console.log(coords);
 		var latlng = new google.maps.LatLng(coords[1], coords[0]);
 		var marker = new google.maps.Marker({
 			position: latlng,
@@ -44,7 +41,6 @@ function addStoryPoints(data) {
             photo: point.header_photo_url
 		});
 		var infoWindow = new google.maps.InfoWindow();
-        console.log(infoWindow);
 		google.maps.event.addListener(marker, 'click', function() {
 			infoWindow.setContent("<h1>" + this.title + "</h1><img src='" + this.photo + "' width='150px'><h3>by " + this.author + "</h3><p>" + this.blurb + "</p>");
 			infoWindow.open(map, this);
@@ -53,7 +49,6 @@ function addStoryPoints(data) {
 }
 
 function initMap() {
-	console.log("about to pan to:", user.lat(), user.lng());
 	map.panTo(user);
 	// userMarker = new google.maps.Marker({
 	// 	position: user,
@@ -64,6 +59,10 @@ function initMap() {
 	// 	userInfoWindow.setContent(userMarker.title);
 	// 	userInfoWindow.open(map, userMarker);
 	// });
+    var urlToParse = location.search;  
+    var result = parseQueryString(urlToParse );  
+    console.info(result);
+    console.info(result.filter);
 	addStoryPoints(samplePoints);
 }
 
@@ -75,7 +74,6 @@ function setup() {
 			startLat = position.coords.latitude;
 			startLng = position.coords.longitude;
 			user = new google.maps.LatLng(startLat, startLng);
-			console.log("user coords are", startLat, startLng);
 			initMap();
 		});
 	}
@@ -157,3 +155,17 @@ var point3 = {
 };
 
 var samplePoints = [point1, point2, point3];
+
+// parsing url parameters
+// special thanks to https://cmatskas.com/get-url-parameters-using-javascript/
+var parseQueryString = function(url) {
+  var urlParams = {};
+  url.replace(
+    new RegExp("([^?=&]+)(=([^&]*))?", "g"),
+    function($0, $1, $2, $3) {
+      urlParams[$1] = $3;
+    }
+  );
+  
+  return urlParams;
+}
