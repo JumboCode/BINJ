@@ -9,10 +9,10 @@ var startLng = 0;
 
 // Here is the BINJ API key: AIzaSyCCPJ3Q8yqIUnauTodS9RgJWLNeQmxHEiw
 
-// maybe it'd be nice to go to user's location, unless user isn't in 
+// maybe it'd be nice to go to user's location, unless user isn't in
 // the boston area, in which case default to ... somewhere in boston
 
-var user; 
+var user;
 var mapOptions = {
 	zoom: 13, // The larger the zoom number, the bigger the zoom
 	center: user,
@@ -59,8 +59,8 @@ function initMap() {
 	// 	userInfoWindow.setContent(userMarker.title);
 	// 	userInfoWindow.open(map, userMarker);
 	// });
-    var urlToParse = location.search;  
-    var result = parseQueryString(urlToParse );  
+    var urlToParse = location.search;
+    var result = parseQueryString(urlToParse);
     console.info(result);
     console.info(result.filter);
 	addStoryPoints(samplePoints);
@@ -101,7 +101,7 @@ var point1 = {
         "type": "Point",
         "coordinates": [
           -71.12341225147247,
-          42.402303114395295    
+          42.402303114395295
         ]
       }
     },
@@ -154,7 +154,7 @@ var point3 = {
     location_name: "Right by South, I mean Harleston"
 };
 
-var point5 = {
+var point4 = {
     _id: null,
     title: "Tufts Passes Legislation Offcially Combining Sports and Fraternity Houses",
     author: "Squilliam Fancysuds",
@@ -189,6 +189,6 @@ var parseQueryString = function(url) {
       urlParams[$1] = $3;
     }
   );
-  
+
   return urlParams;
 }
