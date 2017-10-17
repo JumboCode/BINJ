@@ -28,17 +28,17 @@ function addStoryPoints(data) {
 	// later on this data will come from a request to some endpoint
 	// but for now just some test data will do
 	for (var i = 0; i < data.length; i++) {
-        var point = data[i];
-        // this only handles geojson points!
+        	var point = data[i];
+        	// this only handles geojson points!
 		var coords = point.location.geometry.coordinates;
 		var latlng = new google.maps.LatLng(coords[1], coords[0]);
 		var marker = new google.maps.Marker({
 			position: latlng,
 			map: map,
 			title: point.title,
-            author: point.author,
-            blurb: point.blurb,
-            photo: point.header_photo_url
+            		author: point.author,
+            		blurb: point.blurb,
+            		photo: point.header_photo_url
 		});
 		var infoWindow = new google.maps.InfoWindow();
 		google.maps.event.addListener(marker, 'click', function() {
@@ -154,7 +154,30 @@ var point3 = {
     location_name: "Right by South, I mean Harleston"
 };
 
-var samplePoints = [point1, point2, point3];
+var point5 = {
+    _id: null,
+    title: "Tufts Passes Legislation Offcially Combining Sports and Fraternity Houses",
+    author: "Squilliam Fancysuds",
+    url: "yet_another-fake-url.io",
+    header_photo_url: "https://fittingchildrenshoes.com/wp-content/uploads/2016/02/38970378_s.jpg",
+    published_date: Date(),
+    blurb: "Some things happened. Some more things were done.",
+    tags: ["somerville", "tufts", "news", "satire"],
+    location: {
+      "type": "Feature",
+      "properties": {},
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.120499,
+          42.404183
+        ]
+      }
+    },
+    location_name: "Around Tufts Somewhere"
+};
+
+var samplePoints = [point1, point2, point3, point4];
 
 // parsing url parameters
 // special thanks to https://cmatskas.com/get-url-parameters-using-javascript/
