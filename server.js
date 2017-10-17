@@ -5,6 +5,8 @@ const bodyParser = require('body-parser');
 const app = express();
 const http = require('http').Server(app);
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(express.static(path.join(__dirname, 'public')));
+
 
 
 // Initialize mongo
@@ -15,13 +17,13 @@ var db = MongoClient.connect(mongoUri, function(error, databaseConnection) {
 });
 
 app.get('/', function(req, res){
-	res.sendFile('index.html', {root: path.join(__dirname, 'public')});
+	res.sendFile('index2.html', {root: path.join(__dirname, 'public')});
 });
 
 
 app.post('/name', function(req, res) {
     var name = req.body.name;
-	
+
 	db.collection("names", function(error, collection){
 		collection.insert( {"name" : name} )
 	});
@@ -29,7 +31,7 @@ app.post('/name', function(req, res) {
 });
 
 app.get('/name', function(req, res) {
-	db.collection("names", function(error, coll) {	    
+	db.collection("names", function(error, coll) {
 	    if(error)
 			res.send(500);
 	    else {
@@ -49,7 +51,7 @@ app.get('/name', function(req, res) {
 
 app.get('/admin', function(req, res){
 
-	res.sendFile('admin.html', {root: path.join(__dirname, 'private')});
+	res.sendFile('admin.html', {root: path.join(__dirname, 'public')});
 
 
 });
