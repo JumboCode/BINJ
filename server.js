@@ -4,9 +4,11 @@ const bodyParser = require('body-parser');
 
 const app = express();
 const http = require('http').Server(app);
+const stories = require('./routes/storyRoutes');
+
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(path.join(__dirname, 'public')));
-
+app.use('/stories', stories);
 
 // Initialize mongo
 var mongoUri = process.env.MONGODB_URI || process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost/binj';
@@ -15,6 +17,7 @@ var mongoose = require('mongoose');
 var db = MongoClient.connect(mongoUri, function(error, databaseConnection) {
 	db = databaseConnection;
 });
+
 mongoose.connect(mongoUri, err => {
     if (err) 
         console.log(err);
@@ -22,49 +25,8 @@ mongoose.connect(mongoUri, err => {
         console.log("connected");
 });
 
-
-const stories = require('./routes/storyRoutes');
-app.use('/stories', stories);
-
 app.get('/', function(req, res) {
 	res.sendFile('index.html', {root: path.join(__dirname, 'public')});
-});
-
-app.post('/name', function(req, res) {
-    var name = req.body.name;
-	db.collection("names", function(error, collection){
-		collection.insert( {"name" : name} )
-	});
-	res.send(200);
-});
-
-app.get('/name', function(req, res) {
-	db.collection("names", function(error, coll) {	    
-	    if (error) {
-			res.send(500);
-	    } else {
-			coll.find().toArray(
-			    function(err, results) {
-					if (err) {
-						res.send(500);
-					} else {
-						console.log(results);
-						res.send(results);
-					}
-				}
-			);
-		}
-	});
-});
-
-
-app.get('/story/:id', function(req, res) {
-    db.collection('stories', (err, coll) => {
-        
-    });
-    
-});
-app.get('/story', function(req, res) {
 });
 
 app.get('/admin', function(req, res) {
