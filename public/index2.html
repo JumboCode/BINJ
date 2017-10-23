@@ -10,6 +10,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="BINJ/test-data.js"></script>
 
     </head>
 
@@ -54,7 +55,7 @@
                 <hr />
 
                 <button type="button" class="btn btn-lg btn-info collapsed" data-toggle="collapse" data-target="#nbhood">Neighborhood</button>
-                <div id="nbhood" class="collapsed">
+                <div id="nbhood" class="collapse">
                     <div class="checkbox"><label><input type = "checkbox" value="Back Bay">Back Bay</label>
                     </div>
                     <div class="checkbox"><label><input type = "checkbox" value="South End">South End</label>
@@ -99,6 +100,11 @@
 
                 <hr />
             </div>
+            <script type="text/javascript">
+            <!--"fix all of this and link properly"-->
+                var elements = document.getElementById("form");
+                var title = elements["title"];
+            </script>
 
 
             <div id="map">
