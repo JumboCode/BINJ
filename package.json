@@ -4,8 +4,10 @@
   "description": "Boston Institute for Nonprofit Journalism",
   "main": "server.js",
   "dependencies": {
+    "body-parser": "^1.18.2",
     "express": "^4.16.1",
-    "mongodb": "^2.2.31"
+    "mongodb": "^2.2.31",
+    "mongoose": "^4.12.1"
   },
   "devDependencies": {},
   "scripts": {
