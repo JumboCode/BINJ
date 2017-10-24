@@ -53,6 +53,8 @@ function addStoryPoints(data, filter) {
   			infoWindow.open(map, this);
   		});
     }
+  }
+}
 
 function initMap() {
   var url = 'http://localhost:3000';
@@ -60,11 +62,11 @@ function initMap() {
 	map.panTo(boston);
   var urlToParse = location.search;  
   var result = parseQueryString(urlToParse );  
-  console.info(result);
-  console.info(result.filter);
-    $.get(url + '/stories/', function(data){
-      addStoryPoints(data, result.filter);
-    });
+  $.get(url + '/stories/', function(data){
+    addStoryPoints(data, result.filter);
+    console.log(data);
+  });
+}
 	
 
 
