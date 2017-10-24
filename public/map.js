@@ -15,10 +15,10 @@ var bostonLng = -71.10;
 
 // Here is the BINJ API key: AIzaSyCCPJ3Q8yqIUnauTodS9RgJWLNeQmxHEiw
 
-// maybe it'd be nice to go to user's location, unless user isn't in 
+// maybe it'd be nice to go to user's location, unless user isn't in
 // the boston area, in which case default to ... somewhere in boston
 
-var user; 
+var user;
 var mapOptions = {
 	zoom: 12, // The larger the zoom number, the bigger the zoom
 	center: user,
@@ -37,7 +37,7 @@ function addStoryPoints(data, filter) {
   	var point = data[i];
   	// this only handles geojson points!
     if (point.tags.includes(filter) || filter == undefined) {
-  		var coords = point.location.geometry.coordinates;
+  		var coords = point.coordinates;
   		var latlng = new google.maps.LatLng(coords[1], coords[0]);
   		var marker = new google.maps.Marker({
   			position: latlng,
@@ -53,23 +53,19 @@ function addStoryPoints(data, filter) {
   			infoWindow.open(map, this);
   		});
     }
-	}
-}
 
 function initMap() {
+  var url = 'http://localhost:3000';
   boston = new google.maps.LatLng(bostonLat, bostonLng);
 	map.panTo(boston);
   var urlToParse = location.search;  
   var result = parseQueryString(urlToParse );  
   console.info(result);
   console.info(result.filter);
-    $.get('http://mysterious-chamber-44366.herokuapp.com/stories/', function(data){
+    $.get(url + '/stories/', function(data){
       addStoryPoints(data, result.filter);
     });
 	
-}
-
-
 
 
 // here lies some sample data
@@ -82,17 +78,9 @@ var point1 = {
     published_date: new Date(),
     blurb: "Cat-stronaut pilots dry-food fueled engine to dark side of moon",
     tags: ["somerville", "cats", "news", "moon"],
-    location: {
-      "type": "Feature",
-      "properties": {},
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
+    coordinates: [
           -71.12341225147247,
-          42.402303114395295    
-        ]
-      }
-    },
+          42.402303114395295],
     location_name: "28 Whitman St"
 };
 
@@ -105,17 +93,9 @@ var point2 = {
     published_date: Date(),
     blurb: "Three Tufts students stuck it rich, discovering hidden gold in a storm drain while looking for that old iPhone 6 they dropped on the way to spanish class",
     tags: ["somerville", "tufts", "sewer", "poop"],
-    location: {
-      "type": "Feature",
-      "properties": {},
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
+    coordinates: [
           -71.12189412117003,
-          42.406751426673765
-        ]
-      }
-    },
+          42.406751426673765],
     location_name: "That one storm drain by Monaco's house"
 };
 
@@ -128,17 +108,9 @@ var point3 = {
     published_date: Date(),
     blurb: "Local boy who never learned to tie his shoes falls yet again, but this time decides to cut his loses and just stay on the ground forever.",
     tags: ["somerville", "tufts", "news"],
-    location: {
-      "type": "Feature",
-      "properties": {},
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
+    coordinates: [
           -71.120490,
-          42.404189
-        ]
-      }
-    },
+          42.404189],
     location_name: "Right by South, I mean Harleston"
 };
 
@@ -151,17 +123,9 @@ var point4 = {
     published_date: Date(),
     blurb: "Some things happened. Some more things were done.",
     tags: ["somerville", "tufts", "news", "satire"],
-    location: {
-      "type": "Feature",
-      "properties": {},
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -71.117033,
-          42.404474
-        ]
-      }
-    },
+    coordinates: [
+          -71.120499,
+          42.404183],
     location_name: "Around Tufts Somewhere"
 };
 
@@ -177,6 +141,6 @@ var parseQueryString = function(url) {
       urlParams[$1] = $3;
     }
   );
-  
+
   return urlParams;
 }
