@@ -5,6 +5,9 @@ var bostonLat =  42.35;
 var bostonLng = -71.10;
 
 
+// TO GET DATA 
+// send get request to http://mysterious-chamber-44366.herokuapp.com/stories/
+
 // Notes from Will:
 // maybe we should consider user this nice looking library to deal with
 // large quantities of markers:
@@ -60,7 +63,10 @@ function initMap() {
   var result = parseQueryString(urlToParse );  
   console.info(result);
   console.info(result.filter);
-	addStoryPoints(samplePoints, result.filter);
+    $.get('http://mysterious-chamber-44366.herokuapp.com/stories/', function(data){
+      addStoryPoints(data, result.filter);
+    });
+	
 }
 
 
