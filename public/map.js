@@ -63,7 +63,10 @@ function initMap() {
     var result = parseQueryString(urlToParse);
     console.info(result);
     console.info(result.filter);
-	addStoryPoints(samplePoints);
+    $.get(url + '/stories/', function(data) {
+      addStoryPoints(data);
+    });
+	  addStoryPoints(samplePoints);
 }
 
 
