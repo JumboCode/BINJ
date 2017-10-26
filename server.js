@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+var karma = require('karma');
 
 const app = express();
 const http = require('http').Server(app);

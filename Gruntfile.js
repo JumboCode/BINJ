@@ -52,13 +52,13 @@ module.exports = function(grunt) {
     	},
     	karma: {
       	unit: {
-        		configFile: 'karma.conf.js',
+        		configFile: 'bootstrap-tagsinput-master/karma.conf.js',
         		runnerPort: 9999,
         		singleRun: true,
         		autoWatch: false,
         		browsers: ['PhantomJS']
       	}
-    	},
+	},
     	zip: {
       	delpoy: {
         		// cwd: 'dist/',
