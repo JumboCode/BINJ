@@ -24,6 +24,13 @@ body {
     justify-content: flex-end;
 
 }
+form {
+    width: 100%;
+}
+
+.bootstrap-tagsinput {
+    width: 100%;
+}
 
 a {
     display: flex;
