@@ -31,7 +31,7 @@
   "devDependencies": {},
   "scripts": {
     "test": "echo \"No tests yet\" && exit 0",
-    "start": "grunt install; grunt build; npm install; node server.js"
+    "start": "npm update; grunt install; grunt build; npm install; node server.js"
   },
   "repository": {
     "type": "git",
