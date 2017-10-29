@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+var karma = require('karma');
 
 const app = express();
 const http = require('http').Server(app);
@@ -23,7 +24,7 @@ var db = MongoClient.connect(mongoUri, function(error, databaseConnection) {
 });
 
 mongoose.connect(mongoUri, err => {
-    if (err) 
+    if (err)
         console.log(err);
     else
         console.log("connected");
@@ -36,6 +37,10 @@ app.get('/', function(req, res){
 
 app.get('/admin', function(req, res) {
 	res.sendFile('admin.html', {root: path.join(__dirname, 'public')});
+});
+
+app.get('/edit', function(req, res) {
+	res.sendFile('edit.html', {root: path.join(__dirname, 'public')});
 });
 
 app.post('/name', function(req, res) {
