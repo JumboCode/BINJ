@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Boston Institute for Nonprofit Journalism",
   "main": "server.js",
+  "engines": {
+    "node": "7.7.4"
+  },
   "dependencies": {
     "body-parser": "^1.18.2",
     "cors": "^2.8.4",
