@@ -50,7 +50,7 @@ function addStoryPoints(data) {
 }
 
 function initMap() {
-  var url = 'http://localhost:3000';
+  var url = 'https://' + location.hostname + ':3000';
 	map.panTo(user);
 	// userMarker = new google.maps.Marker({
 	// 	position: user,

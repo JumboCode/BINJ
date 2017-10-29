@@ -6,7 +6,7 @@ function getStories() {
     $.ajax({
         dataType: "json",
         type: "GET",
-        url: "http://lvh.me:3000/stories",
+        url: location.hostname,
         success: function(response) {
             stories = response;
             $.holdReady(false);
