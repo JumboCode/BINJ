@@ -8,8 +8,57 @@
 
         <link rel="stylesheet" href="style.css"/>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="tags/bootstrap-tagsinput.css">
+        <script src="tags/bootstrap-tagsinput.js"></script>
 
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="./test-data.js"></script>
+
+        <script>
+            $('#tags-input').tagsinput({
+                confirmKeys: [13, 188]
+            });
+
+            $('#tags-input input').on('keypress', function(e){
+                if (e.keyCode == 13){
+                    e.keyCode = 188;
+                    e.preventDefault();
+                }
+            });
+
+            var tags = [];
+            var changed = false;
+            $(document).ready(function () {
+                $('#form')
+                    .find('[name="search"]')
+                        .change(function (e) {
+                            $('input').removeAttr('placeholder');
+                            tags.push($("input").val());
+                            console.log(tags);
+                            var filters = "map.html?filter=" + getFilters();
+                            console.log(filters);
+                            $("#iframe").attr("src", filters);
+                            var blah = $('iframe').attr('src');
+                            console.log(blah);
+
+                        })
+                    .end();
+
+            });
+
+            function getFilters() {
+                var str = tags[0];
+                for (var i = 1; i < tags.length; i++) {
+                    str += "+" + tags[i];
+                }
+                changed = true;
+                return str;
+
+            }
+
+
+
+        </script>
 
     </head>
 
@@ -35,40 +84,84 @@
         </div>
         <div id="content">
             <div id="filters">
-                <input type="text" id= "search" name="search" placeholder="Search..">
+
+                <form id="form">
+                <input type="text" id= "search" name="search" placeholder="Search.." data-role="tagsinput" value="">
+                </form>
+
                 <h3>Filter stories by...</h3>
                 <button type="button" class="btn btn-lg btn-info collapsed" data-toggle="collapse" data-target="#storytype">Story type</button>
                 <div id="storytype" class="collapse">
-                    Example alsdjals;d;
+                    <div class="checkbox"><label><input type = "checkbox" value="Politics">Politics</label>
+                    </div>
+                    <div class="checkbox"><label><input type = "checkbox" value="Sports">Sports</label>
+                    </div>
+                    <div class="checkbox"><label><input type = "checkbox" value="Arts">Arts</label>
+                    </div>
+                    <div class="checkbox"><label><input type = "checkbox" value="Feature">Feature</label>
+                    </div>
+                    <div class="checkbox"><label><input type = "checkbox" value="Columns">Columnns</label>
+                    </div></br>
                 </div>
 
                 <hr />
 
                 <button type="button" class="btn btn-lg btn-info collapsed" data-toggle="collapse" data-target="#nbhood">Neighborhood</button>
                 <div id="nbhood" class="collapse">
-                    Example alsdjals;d;
+                    <div class="checkbox"><label><input type = "checkbox" value="Back Bay">Back Bay</label>
+                    </div>
+                    <div class="checkbox"><label><input type = "checkbox" value="South End">South End</label>
+                    </div>
+                    <div class="checkbox"><label><input type = "checkbox" value="North End">North End</label>
+                    </div>
+                    <div class="checkbox"><label><input type = "checkbox" value="Jamaica Plain">Jamaica Plain</label>
+                    </div>
+                    <div class="checkbox"><label><input type = "checkbox" value="Beacon Hill">Beacon Hill</label></div>
+                    <div class="checkbox"><label><input type = "checkbox" value="Chinatown">Chinatown</label></div>
                 </div>
 
                 <hr />
 
                 <button type="button" class="btn btn-lg btn-info collapsed" data-toggle="collapse" data-target="#author">Author</button>
                 <div id="author" class="collapse">
-                    Example alsdjals;d;
+                    <div class="checkbox"><label><input type = "checkbox" value="Author1">Author1</label>
+                    </div>
+                    <div class="checkbox"><label><input type = "checkbox" value="Author2">Author2</label>
+                    </div>
+                    <div class="checkbox"><label><input type = "checkbox" value="Author3">Author3</label>
+                    </div>
+                    <div class="checkbox"><label><input type = "checkbox" value="Author4">Author4</label>
+                    </div>
+                    <div class="checkbox"><label><input type = "checkbox" value="Author5">Author5</label></div>
                 </div>
 
                 <hr />
 
                 <button type="button" class="btn btn-lg btn-info collapsed" data-toggle="collapse" data-target="#publisher">Publisher</button>
                 <div id="publisher" class="collapse">
-                    Example alsdjals;d;
+                    <div class="checkbox"><label><input type = "checkbox" value="Publisher1">Publisher1</label>
+                    </div>
+                    <div class="checkbox"><label><input type = "checkbox" value="Publisher2">Publisher2</label>
+                    </div>
+                    <div class="checkbox"><label><input type = "checkbox" value="Publisher3">Publisher3</label>
+                    </div>
+                    <div class="checkbox"><label><input type = "checkbox" value="Publisher4">Publisher4</label>
+                    </div>
+                    <div class="checkbox"><label><input type = "checkbox" value="Publisher5">Publisher5</label></div>
                 </div>
 
                 <hr />
             </div>
+            <!--"fix all of this and link properly"-->
+<!--             <script type="text/javascript">
 
+                var elements = document.getElementById("form");
+                var title = elements["title"];
+            </script> -->
+				<iframe src="map.html" width="100%" height="100%">
 
             <div id="map">
-                <iframe src="map.html" width="100%" height="100%">
+
 
             </div>
         </div>

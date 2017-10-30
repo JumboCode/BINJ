@@ -42,7 +42,7 @@ function getAddress()
 }
 
 
-//document.onload = 
+//document.onload =
 
 document.onload = google.maps.event.addListener(map, "click", function (e) {
     console.log("event triggered\n");

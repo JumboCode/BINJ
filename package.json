@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "body-parser": "^1.18.2",
-    "cors": "^2.8.4",
+    "cors": "latest",
     "express": "^4.16.1",
     "mongodb": "^2.2.31",
     "mongoose": "^4.12.1",
@@ -34,7 +34,7 @@
   "devDependencies": {},
   "scripts": {
     "test": "echo \"No tests yet\" && exit 0",
-    "start": "grunt build; npm install; node server.js"
+    "start": "grunt install; grunt build; npm install; node server.js"
   },
   "repository": {
     "type": "git",

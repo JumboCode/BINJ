@@ -1,6 +1,12 @@
 var startLat = 0;
 var startLng = 0;
 
+var bostonLat =  42.35;
+var bostonLng = -71.10;
+
+
+// TO GET DATA
+// send get request to http://mysterious-chamber-44366.herokuapp.com/stories/
 
 // Notes from Will:
 // maybe we should consider user this nice looking library to deal with
@@ -14,7 +20,7 @@ var startLng = 0;
 
 var user;
 var mapOptions = {
-	zoom: 13, // The larger the zoom number, the bigger the zoom
+	zoom: 12, // The larger the zoom number, the bigger the zoom
 	center: user,
 	mapTypeId: google.maps.MapTypeId.ROADMAP
 };
@@ -24,67 +30,45 @@ var userInfoWindow = new google.maps.InfoWindow();
 
 // approximately from https://developers.google.com/maps/documentation/javascript/importing_data
 // more on markers https://developers.google.com/maps/documentation/javascript/reference#Marker
-function addStoryPoints(data) {
+function addStoryPoints(data, filter) {
+	console.log("addStoryPoints called with this data: ", data);
 	// later on this data will come from a request to some endpoint
 	// but for now just some test data will do
 	for (var i = 0; i < data.length; i++) {
-        	var point = data[i];
-        	// this only handles geojson points!
-		var coords = point.coordinates;
-    console.log(coords);
-		var latlng = new google.maps.LatLng(coords[1], coords[0]);
-		var marker = new google.maps.Marker({
-			position: latlng,
-			map: map,
-			title: point.title,
-            		author: point.author,
-            		blurb: point.blurb,
-            		photo: point.header_photo_url
-		});
-		var infoWindow = new google.maps.InfoWindow();
-		google.maps.event.addListener(marker, 'click', function() {
-			infoWindow.setContent("<h1>" + this.title + "</h1><img src='" + this.photo + "' width='150px'><h3>by " + this.author + "</h3><p>" + this.blurb + "</p>");
-			infoWindow.open(map, this);
-		});
-	}
+  	var point = data[i];
+  	// this only handles geojson points!
+    if (point.tags.includes(filter) || typeof filter == "undefined") {
+  		var coords = point.coordinates;
+  		var latlng = new google.maps.LatLng(coords[1], coords[0]);
+  		var marker = new google.maps.Marker({
+  			position: latlng,
+  			map: map,
+  			title: point.title,
+              		author: point.author,
+              		blurb: point.blurb,
+              		photo: point.header_photo_url
+  		});
+  		var infoWindow = new google.maps.InfoWindow();
+  		google.maps.event.addListener(marker, 'click', function() {
+  			infoWindow.setContent("<h1>" + this.title + "</h1><img src='" + this.photo + "' width='150px'><h3>by " + this.author + "</h3><p>" + this.blurb + "</p>");
+  			infoWindow.open(map, this);
+  		});
+    }
+  }
 }
 
 function initMap() {
-  var url = 'https://' + location.hostname + ':3000';
-	map.panTo(user);
-	// userMarker = new google.maps.Marker({
-	// 	position: user,
- //        map: map,
-	// 	title: "lookie here"
-	// });
-	// google.maps.event.addListener(userMarker, 'click', function() {
-	// 	userInfoWindow.setContent(userMarker.title);
-	// 	userInfoWindow.open(map, userMarker);
-	// });
-    var urlToParse = location.search;
-    var result = parseQueryString(urlToParse);
-    $.get(url + '/stories/', function(data) {
-      addStoryPoints(data);
-    });
-	  // addStoryPoints(samplePoints);
+  var url = 'http://' + location.hostname + ':' + location.port;
+  boston = new google.maps.LatLng(bostonLat, bostonLng);
+	map.panTo(boston);
+  var urlToParse = location.search;
+  var result = parseQueryString(urlToParse );
+  $.get(url + '/stories/', function(data){
+    addStoryPoints(data, result.filter);
+    console.log(data);
+  });
 }
 
-
-
-function setup() {
-	if (navigator.geolocation) { // the navigator.geolocation object is supported on your browser
-		navigator.geolocation.getCurrentPosition(function(position) {
-			startLat = position.coords.latitude;
-			startLng = position.coords.longitude;
-			user = new google.maps.LatLng(startLat, startLng);
-			initMap();
-		});
-	}
-	else {
-		alert("Geolocation is not supported by your web browser.  What a shame!");
-		initMap();
-	}
-}
 
 
 // here lies some sample data
@@ -96,7 +80,7 @@ var point1 = {
     header_photo_url: "https://i.ytimg.com/vi/E7BnKFl7lYI/hqdefault.jpg",
     published_date: new Date(),
     blurb: "Cat-stronaut pilots dry-food fueled engine to dark side of moon",
-    tags: ["somerville", "cats", "news"],
+    tags: ["somerville", "cats", "news", "moon"],
     coordinates: [
           -71.12341225147247,
           42.402303114395295],
@@ -111,7 +95,7 @@ var point2 = {
     header_photo_url: "http://1.bp.blogspot.com/-5ZbU7ui6v_Q/Ti26NCiFeuI/AAAAAAAAHxw/B2HBln5KQcg/s1600/fW5nZ.St.11.jpg",
     published_date: Date(),
     blurb: "Three Tufts students stuck it rich, discovering hidden gold in a storm drain while looking for that old iPhone 6 they dropped on the way to spanish class",
-    tags: ["somerville", "tufts", "sewer"],
+    tags: ["somerville", "tufts", "sewer", "poop"],
     coordinates: [
           -71.12189412117003,
           42.406751426673765],
