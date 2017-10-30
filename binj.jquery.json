@@ -1,11 +1,19 @@
 {
   "name": "binj",
   "version": "1.0.0",
-  "description": "Boston Institute for Nonprofit Journalism",
-  "main": "server.js",
+  "title": "",
+  "author": {
+    "name": "JumboCode"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://opensource.org/licenses/MIT"
+    }
+  ],
   "dependencies": {
     "body-parser": "^1.18.2",
-    "cors": "latest",
+    "cors": "^2.8.4",
     "express": "^4.16.1",
     "mongodb": "^2.2.31",
     "mongoose": "^4.12.1",
@@ -26,19 +34,10 @@
     "karma": "~0.13.0",
     "karma-jasmine": "~0.1.5",
     "karma-phantomjs-launcher": "~0.1.3",
-    "phantomjs": "~1.9.7-15"
+    "phantomjs": "~1.9.7-15",
+    "jquery": "*"
   },
-  "devDependencies": {},
-  "scripts": {
-    "test": "echo \"No tests yet\" && exit 0",
-    "start": "grunt install; grunt build; npm install; node server.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/jumbocodefall2017/BINJ.git"
-  },
-  "author": "JumboCode",
-  "license": "MIT",
+  "description": "Boston Institute for Nonprofit Journalism",
   "bugs": {
     "url": "https://github.com/jumbocodefall2017/BINJ/issues"
   },
