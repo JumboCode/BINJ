@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script type="text/javascript">
+        function submit() {
+            username = document.getElementById('username').value;
+            password = document.getElementById('password').value;
+
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", '/account/login', true);
+
+            //Send the proper header information along with the request
+            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+            xhr.onreadystatechange = function() {//Call a function when the state changes.
+                if(xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200) {
+                    // Request finished. Do processing here.
+                    console.log(xhr.response);
+                }
+            }
+
+            xhr.send("username=" + username + "&password=" + password); 
+        }
+    </script>
+
+    <title>Login</title>
+</head>
+
+<body>
+    <h1>Login</h1>
+
+
+        <p>Username:</p>
+        <input type="text" name="username" id="username">
+        <br>
+        <p>Password:</p>
+        <input type="text" name="password" id="password">
+        <br><br>
+        <input type="submit" value="Submit" onclick="submit()">
+    </form> 
+</body>
+
+</html>

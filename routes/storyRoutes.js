@@ -19,7 +19,6 @@ router.get('/:filter/:value', storyController.filter);
  */
 router.post('/', storyController.create);
 
-
 /*
  * PUT
  */
