@@ -12,7 +12,7 @@
         <script src="../bootstrap-tagsinput-master/dist/bootstrap-tagsinput.js"></script>
 
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <script src="BINJ/test-data.js"></script>
+        <script src="./test-data.js"></script>
 
         <script>
             $('#tags-input').tagsinput({
@@ -27,6 +27,7 @@
             });
 
             var tags = [];
+            var changed = false;
             $(document).ready(function () {
                 $('#form')
                     .find('[name="search"]')
@@ -34,12 +35,30 @@
                             $('input').removeAttr('placeholder');
                             tags.push($("input").val());
                             console.log(tags);
+                            var filters = "map.html?filter=" + getFilters();
+                            console.log(filters);
+                            $("#iframe").attr("src", filters);
+                            var blah = $('iframe').attr('src');
+                            console.log(blah);
+                            
                         })
                     .end();
    
             });
+
+            function getFilters() {
+                var str = tags[0];
+                for (var i = 1; i < tags.length; i++) {
+                    str += "+" + tags[i];
+                }
+                changed = true;
+                return str;
+
+            }
+
+
+
         </script>
-        <script src="BINJ/test-data.js"></script>
 
     </head>
 
@@ -65,9 +84,11 @@
         </div>
         <div id="content">
             <div id="filters">
+
                 <form id="form">
                 <input type="text" id= "search" name="search" placeholder="Search.." data-role="tagsinput" value="">
                 </form>
+
                 <h3>Filter stories by...</h3>
                 <button type="button" class="btn btn-lg btn-info collapsed" data-toggle="collapse" data-target="#storytype">Story type</button>
                 <div id="storytype" class="collapse">
