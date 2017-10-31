@@ -4,7 +4,10 @@ var startLng = -71.0589;
 var map;
 var geocoder;
 var user;
-button = null;
+var coordinates = [];
+
+var button;
+
 
 
 function initMap()
@@ -21,6 +24,7 @@ function initMap()
     //Converts selected map location into formatted address which then goes into Location box
     function getAddress(latLng)
     {
+        this.coordinates = [latLng.latitude, latLng.longitude];
         geocoder.geocode({'latLng': latLng}, function(results, status) {
             if (status == google.maps.GeocoderStatus.OK) {
                 if (results[1]) {
@@ -39,18 +43,33 @@ document.onload = google.maps.event.addListener(map, "click", function (e) {
     //console.log(latlng);
 });
 
-function submitEdit(story){
+$(document).ready(function() {
+$("#submitbutton").on('click', function(){
+    alert("submit started");
+    var dataObject = new Object();
+    dataObject.title = $('#title').val();
+    dataObject.author = $('#author').val();
+    dataObject.url = $('#url').val();
+    dataObject.header_photo_url = $('#header_photo_url').val();
+    dataObject.published_date = new Date();
+    dataObject.blurb = $('#blurb').val();
+    dataObject.location_name = $('#location_name').val();
+    dataObject.coordinates = this.coordinates;
+
     button = story;
-    console.log("button clicked");
-    console.log(story);
-/*
+    console.log($('#title').val());
+
+    var dataString = JSON.stringify(dataObject);
+
     $.ajax({
-        url: "http://" + this.hostname + ":" + this.port + "/stories/" + id,
-        type: 'PUT',
+        url: "http://" + this.hostname + ":" + this.port + "/stories/",
+        type: 'POST',
+        data: {
+            story: dataString
+        },
         success: function(response) {
-            alert "success";
+            alert ("success");
         }
     })
-*/
-    //story.preventDefault();
-}
+})
+})
