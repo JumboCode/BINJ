@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+
+<html>
+
+	<head>
+		<title>BINJ Map</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+        <link rel="stylesheet" href="style.css"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    </head>
+
+    <body>
+
+        <div class=wrapper>
+            <a href="https://www.google.com" id="signin"> Sign in/Sign up</a>
+        </div>
+        <div class=logo>
+
+            <img src="https://cdn-images-1.medium.com/max/246/1*SQumLd1QIKdVJAM5nfvuqA@2x.png"/ />
+            <div id="title">
+                <h1>
+                    Boston Institute for NonProfit Journalism
+                </h1>
+                <h4>
+                    Reporting incubator and convener boosting independent media and journalists in Greater Boston
+                </h4>
+            </div>
+
+
+
+        </div>
+        <div id="content">
+            <div id="filters">
+                <input type="text" id= "search" name="search" placeholder="Search..">
+                <h3>Filter stories by...</h3>
+                <button type="button" class="btn btn-lg btn-info collapsed" data-toggle="collapse" data-target="#storytype">Story type</button>
+                <div id="storytype" class="collapse">
+                    Example alsdjals;d;
+                </div>
+
+                <hr />
+
+                <button type="button" class="btn btn-lg btn-info collapsed" data-toggle="collapse" data-target="#nbhood">Neighborhood</button>
+                <div id="nbhood" class="collapse">
+                    Example alsdjals;d;
+                </div>
+
+                <hr />
+
+                <button type="button" class="btn btn-lg btn-info collapsed" data-toggle="collapse" data-target="#author">Author</button>
+                <div id="author" class="collapse">
+                    Example alsdjals;d;
+                </div>
+
+                <hr />
+
+                <button type="button" class="btn btn-lg btn-info collapsed" data-toggle="collapse" data-target="#publisher">Publisher</button>
+                <div id="publisher" class="collapse">
+                    Example alsdjals;d;
+                </div>
+
+                <hr />
+            </div>
+				<iframe src="map.html" width="100%" height="100%">
+
+            <div id="map">
+
+
+            </div>
+        </div>
+        <!-- <div id="map_canvas"></div> -->
+    </body>
+    <!-- <script type="text/javascript" src="map.js"></script> -->
+</html>
