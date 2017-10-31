@@ -6,7 +6,7 @@ port = location.port;
 getStories();
 
 function getStories() {
-    $.get("http://" + this.hostname + ":" + this.port + "/stories", function( data ) {
+    $.get("https://" + this.hostname + ":" + this.port + "/stories", function( data ) {
         stories = data;
         $.holdReady(false);
     });
@@ -17,7 +17,7 @@ function deleteStory(story) {
     var id = $(story).data('id');
     console.log(id);
     $.ajax({
-    url: "http://" + this.hostname + ":" + this.port + "/stories/" + id,
+    url: "https://" + this.hostname + ":" + this.port + "/stories/" + id,
     type: 'DELETE',
     success: function(result) {
         alert(id + "deleted");
