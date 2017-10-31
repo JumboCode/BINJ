@@ -4,6 +4,7 @@ var startLng = -71.0589;
 var map;
 var geocoder;
 var user;
+button = null;
 
 
 function initMap()
@@ -29,10 +30,6 @@ function initMap()
         })
     }
 }
-<<<<<<< HEAD
-
-
-//document.onload = 
 
 document.onload = google.maps.event.addListener(map, "click", function (e) {
     console.log("event triggered\n");
@@ -43,6 +40,7 @@ document.onload = google.maps.event.addListener(map, "click", function (e) {
 });
 
 function submitEdit(story){
+    button = story;
     console.log("button clicked");
     console.log(story);
 /*
@@ -54,7 +52,5 @@ function submitEdit(story){
         }
     })
 */
-    story.preventDefault();
+    //story.preventDefault();
 }
-=======
->>>>>>> 5776de90920e82d05a2616120c03f85f1ecf8b1c
