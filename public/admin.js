@@ -1,5 +1,3 @@
-
-
 var startLat = 42.3601;
 var startLng = -71.0589;
 
@@ -51,3 +49,18 @@ document.onload = google.maps.event.addListener(map, "click", function (e) {
     //var latLng = e.latLng;
     //console.log(latlng);
 });
+
+function submitEdit(story){
+    console.log("button clicked");
+    console.log(story);
+/*
+    $.ajax({
+        url: "http://" + this.hostname + ":" + this.port + "/stories/" + id,
+        type: 'PUT',
+        success: function(response) {
+            alert "success";
+        }
+    })
+*/
+    story.preventDefault();
+}
