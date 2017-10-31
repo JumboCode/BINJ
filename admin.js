@@ -18,8 +18,27 @@ function initMap()
         zoom: 12,
         center: {lat: startLat, lng: startLng}
     });
+    //centers map on clicked location
     geocoder = new google.maps.Geocoder();
-    google.maps.event.addListener(map, 'click', function(event) {alert(event.latLng);});
+    google.maps.event.addListener(map, 'click', function(event) {map.setCenter(event.latLng);});
+
+    //Converts selected map location into formatted address which then goes into Location box
+    function getAddress()
+    {
+        var latlng = map.getCenter()
+        console.log(latlng);
+
+        //Geocoding
+        geocoder.geocode({'latLng': latlng}, function(results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+                if (results[1]) {
+                    document.getElementById("location").value = results[1].formatted_address;
+                }
+            }
+        })
+        //Grab element fill with value
+
+    }
 
 }
 
@@ -27,11 +46,12 @@ function getAddress()
 {
     var latlng = map.getCenter()
     console.log(latlng);
-    alert(latlng);
+  //  alert(latlng);
 
     //Geocoding
     geocoder.geocode({'latLng': latlng}, function(results, status) {
-        if (status == google.maps.GeocoderStatus.OK) {
+        if (status == google.maps.GeocoderStatus.OK)
+      {
             if (results[1]) {
                 document.getElementById("location").value = results[1].formatted_address;
             }
@@ -42,7 +62,7 @@ function getAddress()
 }
 
 
-//document.onload = 
+//document.onload =
 
 document.onload = google.maps.event.addListener(map, "click", function (e) {
     console.log("event triggered\n");
