@@ -35,7 +35,7 @@ function initMap()
 
 $(document).ready(function() {
     $("#submitbutton").on('click', function(){
-        $.post("http://" + location.hostname + ":" + location.port + "/stories", {
+        $.post("https://" + location.hostname + ":" + location.port + "/stories", {
             "title": $('#title').val(),
             "author": $('#author').val(),
             "url": $('#url').val(),
