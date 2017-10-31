@@ -1,8 +1,6 @@
 var startLat = 42.3601;
 var startLng = -71.0589;
 
-console.log("inside admin.js");
-
 var map;
 var geocoder;
 var user;
@@ -17,27 +15,21 @@ function initMap()
         center: {lat: startLat, lng: startLng}
     });
     geocoder = new google.maps.Geocoder();
-    google.maps.event.addListener(map, 'click', function(event) {alert(event.latLng);});
+    google.maps.event.addListener(map, 'click', function(event) {getAddress(event.latLng);});
 
-}
-
-function getAddress()
-{
-    var latlng = map.getCenter()
-    console.log(latlng);
-    alert(latlng);
-
-    //Geocoding
-    geocoder.geocode({'latLng': latlng}, function(results, status) {
-        if (status == google.maps.GeocoderStatus.OK) {
-            if (results[1]) {
-                document.getElementById("location").value = results[1].formatted_address;
+    //Converts selected map location into formatted address which then goes into Location box
+    function getAddress(latLng)
+    {
+        geocoder.geocode({'latLng': latLng}, function(results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+                if (results[1]) {
+                    document.getElementById("location").value = results[1].formatted_address;
+                }
             }
-        }
-    })
-    //Grab element fill with value
-
+        })
+    }
 }
+<<<<<<< HEAD
 
 
 //document.onload = 
@@ -64,3 +56,5 @@ function submitEdit(story){
 */
     story.preventDefault();
 }
+=======
+>>>>>>> 5776de90920e82d05a2616120c03f85f1ecf8b1c
