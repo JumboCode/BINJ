@@ -1,4 +1,5 @@
 node_modules/
+BINJ-admin/node_modules/
 admin_files/
 ./dist/
 lib/

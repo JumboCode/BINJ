@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+</head>
+    <body>
+        
+    <script>
+        hostname = location.hostname;
+        $.get("http://" + hostname + ":3000/stories", function( data ) {
+        stories = data; });
+    </script>
+        
+    </body>
+</html>
