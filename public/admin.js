@@ -1,9 +1,5 @@
-
-
 var startLat = 42.3601;
 var startLng = -71.0589;
-
-console.log("inside admin.js");
 
 var map;
 var geocoder;
@@ -18,56 +14,18 @@ function initMap()
         zoom: 12,
         center: {lat: startLat, lng: startLng}
     });
-    //centers map on clicked location
     geocoder = new google.maps.Geocoder();
-    google.maps.event.addListener(map, 'click', function(event) {map.setCenter(event.latLng);});
+    google.maps.event.addListener(map, 'click', function(event) {getAddress(event.latLng);});
 
     //Converts selected map location into formatted address which then goes into Location box
-    function getAddress()
+    function getAddress(latLng)
     {
-        var latlng = map.getCenter()
-        console.log(latlng);
-
-        //Geocoding
-        geocoder.geocode({'latLng': latlng}, function(results, status) {
+        geocoder.geocode({'latLng': latLng}, function(results, status) {
             if (status == google.maps.GeocoderStatus.OK) {
                 if (results[1]) {
                     document.getElementById("location").value = results[1].formatted_address;
                 }
             }
         })
-        //Grab element fill with value
-
     }
-
 }
-
-function getAddress()
-{
-    var latlng = map.getCenter()
-    console.log(latlng);
-  //  alert(latlng);
-
-    //Geocoding
-    geocoder.geocode({'latLng': latlng}, function(results, status) {
-        if (status == google.maps.GeocoderStatus.OK)
-      {
-            if (results[1]) {
-                document.getElementById("location").value = results[1].formatted_address;
-            }
-        }
-    })
-    //Grab element fill with value
-
-}
-
-
-//document.onload =
-
-document.onload = google.maps.event.addListener(map, "click", function (e) {
-    console.log("event triggered\n");
-    alert("recognized click")
-    //lat and lng is available in e object
-    //var latLng = e.latLng;
-    //console.log(latlng);
-});
