@@ -62,6 +62,7 @@ function initMap()
           // For each place, get the icon, name and location.
           var bounds = new google.maps.LatLngBounds();
           places.forEach(function(place) {
+            self.coordinates = [place.geometry.location.lng(), place.geometry.location.lat()];
             if (!place.geometry) {
               console.log("Returned place contains no geometry");
               return;
