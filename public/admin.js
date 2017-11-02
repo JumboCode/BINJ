@@ -102,7 +102,12 @@ function initMap()
 $(document).ready(function() {
     initMap();
     $("#submitbutton").on('click', function(){
-        $.post("http://" + location.hostname + ":" + location.port + "/stories", {
+        if (location.hostname == "localhost") {
+            url = "http://" + location.hostname + ":" + location.port + "/stories";
+        } else {
+            url = "https://" + location.hostname + ":" + location.port + "/stories";
+        }
+        $.post(url, {
             "title": $('#title').val(),
             "author": $('#author').val(),
             "url": $('#url').val(),

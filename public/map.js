@@ -58,7 +58,11 @@ function addStoryPoints(data, filter) {
 }
 
 function initMap() {
-  var url = 'http://' + location.hostname + ':' + location.port;
+  if (location.hostname == "localhost") {
+	  var url = 'http://' + location.hostname + ':' + location.port;
+  } else {
+	  var url = 'https://' + location.hostname + ':' + location.port;
+  }
   boston = new google.maps.LatLng(bostonLat, bostonLng);
 	map.panTo(boston);
   var urlToParse = location.search;

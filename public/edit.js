@@ -2,11 +2,17 @@ $.holdReady(true);
 stories = [];
 hostname = location.hostname;
 port = location.port;
+if (hostname == "localhost") {
+    url = "http://" + hostname + ":" + port + "/stories/";
+} else {
+    url = "https://" + hostname + ":" + port + "/stories/";
+}
+var self = this;
 
 getStories();
 
 function getStories() {
-    $.get("http://" + this.hostname + ":" + this.port + "/stories", function( data ) {
+    $.get(self.url, function( data ) {
         stories = data;
         $.holdReady(false);
     });
@@ -17,7 +23,7 @@ function deleteStory(story) {
     var id = $(story).data('id');
     console.log(id);
     $.ajax({
-    url: "http://" + this.hostname + ":" + this.port + "/stories/" + id,
+    url: self.url + id,
     type: 'DELETE',
     success: function(result) {
         alert(id + "deleted");
