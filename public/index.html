@@ -2,8 +2,8 @@
 
 <html>
 
-	<head>
-		<title>BINJ Map</title>
+    <head>
+        <title>BINJ Map</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
         <link rel="stylesheet" href="style.css"/>
@@ -33,13 +33,16 @@
                     .find('[name="search"]')
                         .change(function (e) {
                             $('input').removeAttr('placeholder');
+                            $('input').on('itemRemoved', function(event) {
+                                var index = tags.indexOf(event.item);
+                                if (index > -1) tags.splice(index, 1);
+                                // event.item: contains the item
+                                console.log(tags);
+
+                            });
                             tags.push($("input").val());
-                            console.log(tags);
                             var filters = "map.html?filter=" + getFilters();
-                            console.log(filters);
                             $("#iframe").attr("src", filters);
-                            var blah = $('iframe').attr('src');
-                            console.log(blah);
 
                         })
                     .end();
@@ -49,7 +52,9 @@
             function getFilters() {
                 var str = tags[0];
                 for (var i = 1; i < tags.length; i++) {
+                    if (tags[i] == "") tags.splice(i, 1);
                     str += "+" + tags[i];
+
                 }
                 changed = true;
                 return str;
@@ -158,7 +163,7 @@
                 var elements = document.getElementById("form");
                 var title = elements["title"];
             </script> -->
-				<iframe src="map.html" width="100%" height="100%">
+                <iframe id="iframe" src="map.html" width="100%" height="100%">
 
             <div id="map">
 
