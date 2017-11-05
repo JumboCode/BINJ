@@ -48,7 +48,13 @@
                 for (var i = 1; i < tags.length; i++) {
                     str += "+" + tags[i];
                 }
+
+                //Getting filters from checked boxes
+                $.each($("input:checked"), function() {
+                    str += "+" + ($(this).val());
+                });
                 changed = true;
+                console.log(str);
                 return str;
             }
         </script>
