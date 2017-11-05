@@ -5,7 +5,7 @@ var bostonLat =  42.35;
 var bostonLng = -71.10;
 
 
-// TO GET DATA 
+// TO GET DATA
 // send get request to http://mysterious-chamber-44366.herokuapp.com/stories/
 
 // Notes from Will:
@@ -20,9 +20,9 @@ var bostonLng = -71.10;
 
 var user;
 var mapOptions = {
-	zoom: 12, // The larger the zoom number, the bigger the zoom
-	center: user,
-	mapTypeId: google.maps.MapTypeId.ROADMAP
+    zoom: 12, // The larger the zoom number, the bigger the zoom
+    center: user,
+    mapTypeId: google.maps.MapTypeId.ROADMAP
 };
 var map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
 var userMarker;
@@ -31,43 +31,60 @@ var userInfoWindow = new google.maps.InfoWindow();
 // approximately from https://developers.google.com/maps/documentation/javascript/importing_data
 // more on markers https://developers.google.com/maps/documentation/javascript/reference#Marker
 function addStoryPoints(data, filter) {
-	// later on this data will come from a request to some endpoint
-	// but for now just some test data will do
-	for (var i = 0; i < data.length; i++) {
-  	var point = data[i];
-  	// this only handles geojson points!
-    if (point.tags.includes(filter) || filter == undefined) {
-  		var coords = point.coordinates;
-  		var latlng = new google.maps.LatLng(coords[1], coords[0]);
-  		var marker = new google.maps.Marker({
-  			position: latlng,
-  			map: map,
-  			title: point.title,
-              		author: point.author,
-              		blurb: point.blurb,
-              		photo: point.header_photo_url
-  		});
-  		var infoWindow = new google.maps.InfoWindow();
-  		google.maps.event.addListener(marker, 'click', function() {
-  			infoWindow.setContent("<h1>" + this.title + "</h1><img src='" + this.photo + "' width='150px'><h3>by " + this.author + "</h3><p>" + this.blurb + "</p>");
-  			infoWindow.open(map, this);
-  		});
-    }
+
+  var filters = String(filter).split("+");
+    for (var i = 0; i < data.length; i++) {
+    var point = data[i];
+    // this only handles geojson points!
+    // for (var j = 0; i < filters.length; j++) {
+      // var f = filters[j];
+    if (filterTags(point, filters) || typeof filter == "undefined") {
+      var coords = point.coordinates;
+      var latlng = new google.maps.LatLng(coords[1], coords[0]);
+      var marker = new google.maps.Marker({
+        position: latlng,
+        map: map,
+        title: point.title,
+                  author: point.author,
+                  blurb: point.blurb,
+                  photo: point.header_photo_url
+      });
+      var infoWindow = new google.maps.InfoWindow();
+      map.panTo(latlng);
+      google.maps.event.addListener(marker, 'click', function() {
+        infoWindow.setContent("<h1>" + this.title + "</h1><img src='" + this.photo + "' width='150px'><h3>by " + this.author + "</h3><p>" + this.blurb + "</p>");
+        infoWindow.open(map, this);
+      });
+    }  
+    // }
+
   }
 }
 
+function filterTags(story, filter) {
+  var tags = story.tags;
+  for (var i = 0; i < filter.length; i++) {
+    if (filter[i] != "" && tags.includes(filter[i])) return true;
+  }
+  return false;
+
+}
+
 function initMap() {
-  var url = 'http://localhost:3000';
+  if (location.hostname == "localhost") {
+      var url = 'http://' + location.hostname + ':' + location.port;
+  } else {
+      var url = 'https://' + location.hostname + ':' + location.port;
+  }
   boston = new google.maps.LatLng(bostonLat, bostonLng);
-	map.panTo(boston);
-  var urlToParse = location.search;  
-  var result = parseQueryString(urlToParse );  
+    map.panTo(boston);
+  var urlToParse = location.search;
+  var result = parseQueryString(urlToParse );
   $.get(url + '/stories/', function(data){
     addStoryPoints(data, result.filter);
-    console.log(data);
   });
 }
-	
+
 
 
 // here lies some sample data

@@ -2,8 +2,8 @@
 
 <html>
 
-	<head>
-		<title>BINJ Map</title>
+    <head>
+        <title>BINJ Map</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
         <link rel="stylesheet" href="style.css"/>
@@ -18,14 +18,12 @@
             $('#tags-input').tagsinput({
                 confirmKeys: [13, 188]
             });
-
             $('#tags-input input').on('keypress', function(e){
                 if (e.keyCode == 13){
                     e.keyCode = 188;
                     e.preventDefault();
                 }
             });
-
             var tags = [];
             var changed = false;
             $(document).ready(function () {
@@ -45,7 +43,6 @@
                     .end();
    
             });
-
             function getFilters() {
                 var str = tags[0];
                 for (var i = 1; i < tags.length; i++) {
@@ -53,11 +50,7 @@
                 }
                 changed = true;
                 return str;
-
             }
-
-
-
         </script>
 
     </head>
@@ -152,20 +145,13 @@
 
                 <hr />
             </div>
-            <!--"fix all of this and link properly"-->
-<!--             <script type="text/javascript">
-            
-                var elements = document.getElementById("form");
-                var title = elements["title"];
-            </script> -->
-				<iframe src="map.html" width="100%" height="100%">
+
+                <iframe src="map.html" width="100%" height="100%">
 
             <div id="map">
 
 
             </div>
         </div>
-        <!-- <div id="map_canvas"></div> -->
     </body>
-    <!-- <script type="text/javascript" src="map.js"></script> -->
 </html>
