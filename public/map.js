@@ -31,9 +31,6 @@ var userInfoWindow = new google.maps.InfoWindow();
 // approximately from https://developers.google.com/maps/documentation/javascript/importing_data
 // more on markers https://developers.google.com/maps/documentation/javascript/reference#Marker
 function addStoryPoints(data, filter) {
-    console.log("Github push worked! addStoryPoints called with this data: ", data);
-    // later on this data will come from a request to some endpoint
-    // but for now just some test data will do
 
   var filters = String(filter).split("+");
     for (var i = 0; i < data.length; i++) {
@@ -85,7 +82,6 @@ function initMap() {
   var result = parseQueryString(urlToParse );
   $.get(url + '/stories/', function(data){
     addStoryPoints(data, result.filter);
-    console.log(data);
   });
 }
 
