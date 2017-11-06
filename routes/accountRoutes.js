@@ -24,18 +24,27 @@ router.get('/logout', function(req, res) {
 });
 
 router.post('/register', function(req, res) {
-    Account.register(new Account({ username : req.body.username }), req.body.password, function(err, account) {
-        if (err) {
-            return res.sendStatus(500);
-        }
-        passport.authenticate('local')(req, res, function () {
-            res.redirect('/');
+    /* Route is only open if an environment variable DEV_MODE 
+     * was set to 'true' (String, not boolean).
+     */
+    if (process.env.DEV_MODE != "true") {
+        res.sendStatus(403);
+    } else {
+        console.log(typeof dev_mode);
+
+        Account.register(new Account({ username : req.body.username }), req.body.password, function(err, account) {
+            if (err) {
+                return res.sendStatus(500);
+            }
+            passport.authenticate('local')(req, res, function () {
+                res.redirect('/');
+            });
         });
-    });
+    }
 });
 
 router.get('/server', ensureAuthenticated, function(req, res) {
-    res.send("On");
+    res.send("you are authenticated");
 });
 
 module.exports = router;
