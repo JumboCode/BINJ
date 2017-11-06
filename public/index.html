@@ -1,21 +1,176 @@
-<!-- Some code below is taken from Professor Chow's example here (https://github.com/tuftsdev/WebProgramming/blob/gh-pages/examples/google_maps/gmap_api_example.html) 
-
-This file causes a JavaScript console syntax error, thohgh it is ignored and so I, too, have decided to ignore the error. 
--->
-
 <!DOCTYPE html>
 
 <html>
 
-	<head>
-		<title>BINJ Map</title>
-		<meta name="viewport" content="initial-scale=1.0, user-scalable=no" http-equiv="content-type" charset="utf-8"/>
-		<script src="http://maps.googleapis.com/maps/api/js?libraries=geometry"></script>
-		<link rel="stylesheet" href="style.css" />
-	</head>
-	
-	<body onload="setup()">
-		<div id="map_canvas"></div>
-	</body>
-	<script type="text/javascript" src="map.js"></script>
+    <head>
+        <title>BINJ Map</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+        <link rel="stylesheet" href="style.css"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="tags/bootstrap-tagsinput.css">
+        <script src="tags/bootstrap-tagsinput.js"></script>
+
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="./test-data.js"></script>
+
+        <script>
+            $('#tags-input').tagsinput({
+                confirmKeys: [13, 188]
+            });
+
+            $('#tags-input input').on('keypress', function(e){
+                if (e.keyCode == 13){
+                    e.keyCode = 188;
+                    e.preventDefault();
+                }
+            });
+
+            var tags = [];
+            var changed = false;
+            $(document).ready(function () {
+                $('#form')
+                    .find('[name="search"]')
+                        .change(function (e) {
+                            $('input').removeAttr('placeholder');
+                            $('input').on('itemRemoved', function(event) {
+                                var index = tags.indexOf(event.item);
+                                if (index > -1) tags.splice(index, 1);
+                                // event.item: contains the item
+                                console.log(tags);
+
+                            });
+                            tags.push($("input").val());
+                            var filters = "map.html?filter=" + getFilters();
+                            $("#iframe").attr("src", filters);
+
+                        })
+                    .end();
+
+            });
+
+            function getFilters() {
+                var str = tags[0];
+                for (var i = 1; i < tags.length; i++) {
+                    if (tags[i] == "") tags.splice(i, 1);
+                    str += "+" + tags[i];
+
+                }
+                changed = true;
+                return str;
+
+            }
+
+
+
+        </script>
+
+    </head>
+
+    <body>
+
+        <div class=wrapper>
+            <a href="https://www.google.com" id="signin"> Sign in/Sign up</a>
+        </div>
+        <div class=logo>
+
+            <img src="https://cdn-images-1.medium.com/max/246/1*SQumLd1QIKdVJAM5nfvuqA@2x.png"/ />
+            <div id="title">
+                <h1>
+                    Boston Institute for NonProfit Journalism
+                </h1>
+                <h4>
+                    Reporting incubator and convener boosting independent media and journalists in Greater Boston
+                </h4>
+            </div>
+
+
+
+        </div>
+        <div id="content">
+            <div id="filters">
+
+                <form id="form">
+                <input type="text" id= "search" name="search" placeholder="Search.." data-role="tagsinput" value="">
+                </form>
+
+                <h3>Filter stories by...</h3>
+                <button type="button" class="btn btn-lg btn-info collapsed" data-toggle="collapse" data-target="#storytype">Story type</button>
+                <div id="storytype" class="collapse">
+                    <div class="checkbox"><label><input type = "checkbox" value="Politics">Politics</label>
+                    </div>
+                    <div class="checkbox"><label><input type = "checkbox" value="Sports">Sports</label>
+                    </div>
+                    <div class="checkbox"><label><input type = "checkbox" value="Arts">Arts</label>
+                    </div>
+                    <div class="checkbox"><label><input type = "checkbox" value="Feature">Feature</label>
+                    </div>
+                    <div class="checkbox"><label><input type = "checkbox" value="Columns">Columnns</label>
+                    </div></br>
+                </div>
+
+                <hr />
+
+                <button type="button" class="btn btn-lg btn-info collapsed" data-toggle="collapse" data-target="#nbhood">Neighborhood</button>
+                <div id="nbhood" class="collapse">
+                    <div class="checkbox"><label><input type = "checkbox" value="Back Bay">Back Bay</label>
+                    </div>
+                    <div class="checkbox"><label><input type = "checkbox" value="South End">South End</label>
+                    </div>
+                    <div class="checkbox"><label><input type = "checkbox" value="North End">North End</label>
+                    </div>
+                    <div class="checkbox"><label><input type = "checkbox" value="Jamaica Plain">Jamaica Plain</label>
+                    </div>
+                    <div class="checkbox"><label><input type = "checkbox" value="Beacon Hill">Beacon Hill</label></div>
+                    <div class="checkbox"><label><input type = "checkbox" value="Chinatown">Chinatown</label></div>
+                </div>
+
+                <hr />
+
+                <button type="button" class="btn btn-lg btn-info collapsed" data-toggle="collapse" data-target="#author">Author</button>
+                <div id="author" class="collapse">
+                    <div class="checkbox"><label><input type = "checkbox" value="Author1">Author1</label>
+                    </div>
+                    <div class="checkbox"><label><input type = "checkbox" value="Author2">Author2</label>
+                    </div>
+                    <div class="checkbox"><label><input type = "checkbox" value="Author3">Author3</label>
+                    </div>
+                    <div class="checkbox"><label><input type = "checkbox" value="Author4">Author4</label>
+                    </div>
+                    <div class="checkbox"><label><input type = "checkbox" value="Author5">Author5</label></div>
+                </div>
+
+                <hr />
+
+                <button type="button" class="btn btn-lg btn-info collapsed" data-toggle="collapse" data-target="#publisher">Publisher</button>
+                <div id="publisher" class="collapse">
+                    <div class="checkbox"><label><input type = "checkbox" value="Publisher1">Publisher1</label>
+                    </div>
+                    <div class="checkbox"><label><input type = "checkbox" value="Publisher2">Publisher2</label>
+                    </div>
+                    <div class="checkbox"><label><input type = "checkbox" value="Publisher3">Publisher3</label>
+                    </div>
+                    <div class="checkbox"><label><input type = "checkbox" value="Publisher4">Publisher4</label>
+                    </div>
+                    <div class="checkbox"><label><input type = "checkbox" value="Publisher5">Publisher5</label></div>
+                </div>
+
+                <hr />
+            </div>
+            <!--"fix all of this and link properly"-->
+<!--             <script type="text/javascript">
+
+                var elements = document.getElementById("form");
+                var title = elements["title"];
+            </script> -->
+                <iframe id="iframe" src="map.html" width="100%" height="100%">
+
+            <div id="map">
+
+
+            </div>
+        </div>
+        <!-- <div id="map_canvas"></div> -->
+    </body>
+    <!-- <script type="text/javascript" src="map.js"></script> -->
 </html>

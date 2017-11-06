@@ -1,6 +1,11 @@
 <!DOCTYPE html>
-<head>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
     <title>BINJ Admin</title>
+    <link rel="stylesheet" href="tags/bootstrap-tagsinput.css">
+    <!-- Boostrap links -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
@@ -9,70 +14,97 @@
 
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCCPJ3Q8yqIUnauTodS9RgJWLNeQmxHEiw&libraries=geometry,places"></script>
+
+    <link rel="stylesheet" href="map.css">
+
+
 </head>
 <body>
-
-    <form>
-
+<form>
     <div class="container" id="newStoryBlock">
         <h1>New Article</h1>
         <div class="form-group">
-            <div class="col-md-6">
-                <label for="title">Article Title</label>
-                <input type="storyTitleType" class="form-control" id="title">
+            <label for="title">Article Title</label>
+            <input type="storyTitleType" class="form-control" id="title">
+        </div>
+
+        <div>
+            <label for="author">Author</label>
+            <input type="organizationType" class="form-control" id="author">
+        </div>
+
+        <div class="form-group">
+             <label for="link">URL</label>
+            <input type="linkType" class="form-control" id="url">
+        </div>
+
+        <div class="row">
+            <div class="col-xs-6">
+                 <label for="summary">Summary</label>
+                <textarea class="form-control" id="blurb" rows="18"></textarea>
             </div>
-            <div class="col-md-6">
-                <label for="organization">Organization</label>
-                <input type="organizationType" class="form-control" id="organization">
+            <div class="col-xs-6 centered-map" id="map_canvas" style="height:400px; width:400px"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                  <div class="form-group">
+                     <label for="location">Location</label>
+                    <input type="locationType" class="form-control" id="location_name" placeholder="Click on map or type location">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputFile">Add Picture</label>
+                    <input type="file" class="form-control-file" id="header_photo_url" aria-describedby="fileHelp">
+                    <small id="fileHelp" class="form-text text-muted">If there is a photo associated with this article, upload it here.</small>
+                </div>
+                <form>
+                    <label for="storytype">Story type</label>
+                    <div class="radio">
+                        <label><input type="radio" name="storytype" value="Politics">Politics</label>
+                    </div>
+                    <div class="radio">
+                        <label><input type="radio" name="storytype" value="Science">Science</label>
+                    </div>
+                    <div class="radio">
+                        <label><input type="radio" name="storytype" value="Arts">Arts</label>
+                    </div>
+                    <div class="radio">
+                        <label><input type="radio" name="storytype" value="Education">Education</label>
+                    </div>
+                </form>
+                <!--
+                <div class="form-check">
+                    <label class="form-check-label">
+                    <input type="checkbox" class="form-check-input">
+                    Politics</label>
+                    <label class="form-check-label">
+                    <input type="checkbox" class="form-check-input">
+                    Science</label>
+                    <label class="form-check-label">
+                    <input type="checkbox" class="form-check-input">
+                    Arts</label>
+                    <label class="form-check-label">
+                    <input type="checkbox" class="form-check-input">
+                    Education</label>
+                </div>
+                -->
             </div>
         </div>
-
+        <br />
         <div class="form-group">
-             <label for="link">Link</label>
-            <input type="linkType" class="form-control" id="link">
+            <label for="tags">Tags</label>
+            <input type="text" data-role="tagsinput" id="tags" placeholder="Enter story tags">
         </div>
-
-
-        <div class="form-group">
-             <label for="summary">Summary</label>
-            <textarea class="form-control" id="summary" rows="4"></textarea>
-        </div>
-
-        <div class="form-group">
-             <label for="location">Location</label>
-            <input type="locationType" class="form-control" id="location">
-        </div>
-        <div class="form-group">
-
-            <label for="exampleInputFile">Add Picture</label>
-            <input type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp">
-            <small id="fileHelp" class="form-text text-muted">If there is a photo associated with this article, upload it here.</small>
-        </div>
-
-        <div class="form-check">
-            <label class="form-check-label">
-            <input type="checkbox" class="form-check-input">
-            Politics</label>
-            <label class="form-check-label">
-            <input type="checkbox" class="form-check-input">
-            Science</label>
-            <label class="form-check-label">
-            <input type="checkbox" class="form-check-input">
-            The Investigative Reporting Boston Needs!</label>
-            <label class="form-check-label">
-            <input type="checkbox" class="form-check-input">
-            Arts</label>
-            <label class="form-check-label">
-            <input type="checkbox" class="form-check-input">
-            Education</label>
-        </div>
-
-        <button type="submit" class="btn btn-primary">Submit</button>
-
-
-
+        <br />
+        <button type="button" class="btn btn-primary" id="submitbutton">Submit</button>
+        <br />
     </div>
-    </form>
+</form>
+
+    <script type="text/javascript" src="tags/bootstrap-tagsinput.js"></script>
 
 
 </body>
+
+<script type="text/javascript" src="admin.js"></script>

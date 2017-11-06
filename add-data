@@ -1,0 +1,8 @@
+#!/bin/bash
+
+cat $1 | while read POINT
+do 
+	echo "$POINT"
+	curl -X POST 'localhost:3000/stories' -d "$POINT"
+done
+
