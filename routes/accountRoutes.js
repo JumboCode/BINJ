@@ -30,8 +30,6 @@ router.post('/register', function(req, res) {
     if (process.env.DEV_MODE != "true") {
         res.sendStatus(403);
     } else {
-        console.log(typeof dev_mode);
-
         Account.register(new Account({ username : req.body.username }), req.body.password, function(err, account) {
             if (err) {
                 return res.sendStatus(500);
