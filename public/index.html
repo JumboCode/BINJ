@@ -67,8 +67,6 @@
 
             }
 
-
-
         </script>
 
     </head>
@@ -89,10 +87,8 @@
                     Reporting incubator and convener boosting independent media and journalists in Greater Boston
                 </h4>
             </div>
-
-
-
         </div>
+
         <div id="content">
             <div id="filters">
 
@@ -163,20 +159,15 @@
 
                 <hr />
             </div>
-            <!--"fix all of this and link properly"-->
-<!--             <script type="text/javascript">
-
-                var elements = document.getElementById("form");
-                var title = elements["title"];
-            </script> -->
                 <iframe id="iframe" src="map.html" width="100%" height="100%">
-
-            <div id="map">
-
-
-            </div>
+                </iframe>
         </div>
-        <!-- <div id="map_canvas"></div> -->
+
+        <script>
+            $('#content').height($(window).height() - $('.logo').height() - $('.wrapper').height());
+
+        </script>
+
     </body>
-    <!-- <script type="text/javascript" src="map.js"></script> -->
+
 </html>
