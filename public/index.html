@@ -37,11 +37,16 @@
                                 var index = tags.indexOf(event.item);
                                 if (index > -1) tags.splice(index, 1);
                                 // event.item: contains the item
+                                var filters = "map.html?filter=" + getFilters();
+                                console.log(filters);
+                                $("#iframe").attr("src", filters);
                                 console.log(tags);
 
                             });
                             tags.push($("input").val());
-                            var filters = "map.html?filter=" + getFilters();
+
+                            var filters = "map.html" + getFilters();
+                            console.log(filters);
                             $("#iframe").attr("src", filters);
 
                         })
@@ -50,14 +55,15 @@
             });
 
             function getFilters() {
-                var str = tags[0];
-                for (var i = 1; i < tags.length; i++) {
+                var str = "";
+                for (var i = 0; i < tags.length; i++) {
                     if (tags[i] == "") tags.splice(i, 1);
-                    str += "+" + tags[i];
+                    str += tags[i] + "+";
 
                 }
                 changed = true;
-                return str;
+                if (str != "") return ("?filter=" + str.substring(0, str.length - 1));
+                else return "";
 
             }
 

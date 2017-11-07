@@ -35,10 +35,11 @@ function addStoryPoints(data, filter) {
   var filters = String(filter).split("+");
     for (var i = 0; i < data.length; i++) {
     var point = data[i];
+    console.log(filters);
     // this only handles geojson points!
     // for (var j = 0; i < filters.length; j++) {
       // var f = filters[j];
-    if (filterTags(point, filters) || typeof filter == "undefined") {
+    if (filterTags(point, filters) || typeof filter == "undefined" || filter == "") {
       var coords = point.coordinates;
       var latlng = new google.maps.LatLng(coords[1], coords[0]);
       var marker = new google.maps.Marker({
