@@ -7,18 +7,18 @@
     "node": "7.7.4"
   },
   "dependencies": {
-    "cookie-parser": "^1.4.3",
-    "express": "^4.16.1",
-    "express-session": "^1.15.6",
-    "passport": "^0.4.0",
-    "passport-local": "^1.0.0",
     "7": "latest",
     "body-parser": "latest",
     "bootstrap-tagsinput": "latest",
+    "cookie-parser": "^1.4.3",
     "cors": "latest",
     "express": "latest",
+    "express-session": "^1.15.6",
     "mongodb": "latest",
-    "mongoose": "latest"
+    "mongoose": "latest",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
+    "passport-local-mongoose": "^4.4.0"
   },
   "devDependencies": {},
   "scripts": {
