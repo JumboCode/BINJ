@@ -1,8 +1,7 @@
 const express = require('express');
 const passport = require('passport');
-const path = require('path');
-var Account = require('../models/accountModel');
 var router = express.Router();
+var accountController = require('../controllers/accountController.js');
 
 function ensureAuthenticated(req, res, next) {
     if (req.isAuthenticated()) { return next(); }
@@ -10,39 +9,14 @@ function ensureAuthenticated(req, res, next) {
 }
 
 /* temporary solution for testing : */
-router.get('/login', function(req, res) {
-    res.sendFile('login.html', {root: path.join(__dirname, '../public')});
-});
+router.get('/login', accountController.loginpage);
 
-router.post('/login', passport.authenticate('local'), function(req, res) {
-    res.send("logged on!")
-});
+router.post('/login', passport.authenticate('local'), accountController.login);
 
-router.get('/logout', function(req, res) {
-    req.logout();
-    res.redirect('/');
-});
+router.get('/logout', accountController.logout);
 
-router.post('/register', function(req, res) {
-    /* Route is only open if an environment variable DEV_MODE 
-     * was set to 'true' (String, not boolean).
-     */
-    if (process.env.DEV_MODE != "true") {
-        res.sendStatus(403);
-    } else {
-        Account.register(new Account({ username : req.body.username }), req.body.password, function(err, account) {
-            if (err) {
-                return res.sendStatus(500);
-            }
-            passport.authenticate('local')(req, res, function () {
-                res.redirect('/');
-            });
-        });
-    }
-});
+router.post('/register', accountController.register);
 
-router.get('/server', ensureAuthenticated, function(req, res) {
-    res.send("you are authenticated");
-});
+router.get('/server', ensureAuthenticated, accountController.server);
 
 module.exports = router;
