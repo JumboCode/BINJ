@@ -21,7 +21,7 @@
     "express": "latest",
     "express-session": "^1.15.6",
     "mongodb": "latest",
-    "mongoose": "latest",
+    "mongoose": "latest"
   },
   "devDependencies": {},
   "scripts": {
