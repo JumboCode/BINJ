@@ -15,7 +15,9 @@ router.post('/login', passport.authenticate('local'), accountController.login);
 
 router.get('/logout', accountController.logout);
 
-router.post('/register', accountController.register);
+router.get('/register', accountController.registerpage)
+
+router.post('/register', ensureAuthenticated, accountController.register);
 
 router.get('/server', ensureAuthenticated, accountController.server);
 
