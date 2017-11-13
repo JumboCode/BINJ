@@ -31,17 +31,22 @@ module.exports = {
             res.sendStatus(403);
         } else { */
 
-
-
-        Account.register(new Account({ username : req.body.username }), req.body.password, function(err, account) {
+        Account.findOne({username: req.body.username}, function(err, user){ 
             if (err) {
-                return res.send('{"error":"Username taken. Try a different one."}');
+                res.send(500);
+            } else if (user) {
+                res.send('{"error":"Username taken. Try a different one."}');
+            } else {
+                Account.register(new Account({ username : req.body.username }), req.body.password, function(err, account) {
+                    if (err) {
+                        res.send(500); 
+                    }
+                    passport.authenticate('local')(req, res, function () {
+                        res.sendStatus(200);
+                    });
+                });
             }
-            passport.authenticate('local')(req, res, function () {
-                res.sendStatus(200);
-            });
         });
-        
     },
 
     server: function(req, res) {

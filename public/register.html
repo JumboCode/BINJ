@@ -24,9 +24,10 @@
             if (xhr.response != 'OK'){
                 document.getElementById('message').innerHTML = 
                     JSON.parse(xhr.response).error;
+            } else {
+                document.getElementById('message').innerHTML = 
+                    "You successfully registered!";
             }
-            document.getElementById('message').innerHTML = 
-                "You successfully registered!";
         }
 
         function submit() {
@@ -47,7 +48,8 @@
                 console.log(xhr.responseURL);
 
                 if (xhr.responseURL != window.location.href) {
-                    window.location = xhr.responseURL;
+                    console.log(xhr.responseURL);
+                    //window.location = xhr.responseURL;
                 }
                 if(xhr.readyState == XMLHttpRequest.DONE){
                     if (xhr.status == 200) {
@@ -57,6 +59,9 @@
                             document.getElementById('message').innerHTML = 
                                 "You do not have permission to register."
                         }
+                    } else if (xhr.status == 500) {
+                        document.getElementById('message').innerHTML = 
+                            "Internal Server Error."
                     }
                 }
             }
