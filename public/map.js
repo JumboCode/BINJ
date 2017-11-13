@@ -71,11 +71,13 @@ function filterTags(story, filter) {
 }
 
 function initMap() {
-  if (location.hostname == "localhost") {
-      var url = 'http://' + location.hostname + ':' + location.port;
-  } else {
-      var url = 'https://' + location.hostname + ':' + location.port;
-  }
+  // if (location.hostname == "localhost") {
+  //     var url = 'http://' + location.hostname + ':' + location.port;
+  // } else {
+  //     var url = 'https://' + location.hostname + ':' + location.port;
+  // }
+  // Will did this while developing list view
+  var url = 'http://binj-map.herokuapp.com';
   boston = new google.maps.LatLng(bostonLat, bostonLng);
     map.panTo(boston);
   var urlToParse = location.search;
