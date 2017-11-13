@@ -3,6 +3,7 @@ var startLng = 0;
 
 var bostonLat =  42.35;
 var bostonLng = -71.10;
+var bostonLatLng = new google.maps.LatLng(bostonLat, bostonLng);
 
 
 // TO GET DATA
@@ -41,22 +42,26 @@ function addStoryPoints(data, filter) {
       // var f = filters[j];
     if (filterTags(point, filters) || typeof filter == "undefined" || filter == "") {
       var coords = point.coordinates;
-      var latlng = new google.maps.LatLng(coords[1], coords[0]);
-      var marker = new google.maps.Marker({
-        position: latlng,
-        map: map,
-        title: point.title,
-                  author: point.author,
-                  blurb: point.blurb,
-                  photo: point.header_photo_url
-      });
-      var infoWindow = new google.maps.InfoWindow();
-      map.panTo(latlng);
-      google.maps.event.addListener(marker, 'click', function() {
-        infoWindow.setContent("<h1>" + this.title + "</h1><img src='" + this.photo + "' width='150px'><h3>by " + this.author + "</h3><p>" + this.blurb + "</p>");
-        infoWindow.open(map, this);
-      });
-    }  
+      if (coords[1] != "" && typeof coords[1] != "undefined" && coords[0] != "" && coords[0] != "undefined") {
+        var latlng = new google.maps.LatLng(coords[1], coords[0]);
+      
+
+        var marker = new google.maps.Marker({
+          position: latlng,
+          map: map,
+          title: point.title,
+                    author: point.author,
+                    blurb: point.blurb,
+                    photo: point.header_photo_url
+        });
+        var infoWindow = new google.maps.InfoWindow();
+        map.panTo(latlng);
+        google.maps.event.addListener(marker, 'click', function() {
+          infoWindow.setContent("<h1>" + this.title + "</h1><img src='" + this.photo + "' width='150px'><h3>by " + this.author + "</h3><p>" + this.blurb + "</p>");
+          infoWindow.open(map, this);
+        });
+      }
+    } 
     // }
 
   }
