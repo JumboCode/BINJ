@@ -31,6 +31,10 @@ module.exports = {
             res.sendStatus(403);
         } else { */
 
+        if (req.user.username != process.env.ADMIN_USERNAME) {
+            return res.send(401);
+        }
+
         Account.findOne({username: req.body.username}, function(err, user){ 
             if (err) {
                 res.send(500);

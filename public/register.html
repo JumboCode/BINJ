@@ -62,6 +62,9 @@
                     } else if (xhr.status == 500) {
                         document.getElementById('message').innerHTML = 
                             "Internal Server Error."
+                    } else if (xhr.status == 401) {
+                        document.getElementById('message').innerHTML = 
+                            "Unauthorized. Make sure you have admin privileges."
                     }
                 }
             }
