@@ -40,7 +40,7 @@ function editStory(story) {
         initMap(artInfo["coordinates"]);
         $("#titleId").replaceWith( '<input type="text" class="form-control" id="titleId" value="'+ artInfo["title"] + '">');
         $("#author").replaceWith( '<input type="text" class="form-control" id="author" value="'+ artInfo["author"] + '">');
-        $("#blurbId").replaceWith( '<textarea id="blurbId" class="form-control" rows="15" >' + artInfo["blurb"] + '</textarea>');
+        $("#blurbId").replaceWith( '<textarea id="blurbId" class="form-control" rows="18" >' + artInfo["blurb"] + '</textarea>');
         $("#location").replaceWith( '<input type="text" class="form-control" id="location" value="'+ artInfo["location_name"] + '">');
         $("#tags").replaceWith( '<input type="text" class="form-control" id="tags" value="'+ artInfo["type"] + '">');
         $("#url").replaceWith( '<input type="text" class="form-control" id="url" rows="1" value="'+ artInfo["url"] + '">');
