@@ -3,6 +3,7 @@ stories = [];
 var artInfo = new Object();
 hostname = location.hostname;
 port = location.port;
+storyId = -1;
 if (hostname == "localhost") {
     url = "http://" + hostname + ":" + port + "/stories/";
 } else {
@@ -33,6 +34,7 @@ function deleteStory(story) {
 }
 
 function editStory(story) {
+    storyId = $(story).data('id');
     console.log($(story).data('id'));
     $.get(self.url + $(story).data('id'), function( data ) {
         console.log(data);
@@ -166,3 +168,30 @@ function initMap(coords)
 
     }
 }
+$("#titleId").val
+
+
+ $("#submitButton").on('click', function(){
+    if (location.hostname == "localhost") {
+        url = "http://" + location.hostname + ":" + location.port + "/stories/" + storyId;
+    } else {
+        url = "https://" + location.hostname + ":" + location.port + "/stories/" + storyId;
+    }
+    console.log(url);
+    $.ajax({
+        url: url,
+        type: 'PUT', 
+        data: JSON.stringify({
+            "title": $('#titleId').val(),
+            "author": $('#author').val(),
+            "url": $('#url').val(),
+            //"header_photo_url": $('#header_photo_url').val(),
+            //"published_date": new Date(),
+            "blurb": $('#blurbId').val(),
+            //"tags": $("#tags").tagsinput('items'),
+            "location_name": $('#location').val(),
+            //"type": $("input[name='storytype']:checked").val(),
+            //"coordinates": self.coordinates
+        }), success: function() {alert("success"); console.log($('#author').val());}
+    })
+});

@@ -29,7 +29,10 @@
         <h1>Active Articles</h1>
         <div class="form-group">
                 <div class="input-group">
-                  <input type="text" class="form-control" placeholder="Search for title, author, or organziation">
+                    <!--Search Bar-->
+                    <form class="navbar-search pull-left" action="search.php" method="GET">
+                        <input class="form-control" placeholder="Search" type="text" />
+                    </form>
                   <span class="input-group-btn">
                     <button class="btn btn-default" type="button">Go!</button>
                   </span>
@@ -134,7 +137,7 @@
 
             <!-- Modal Footer -->
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-primary" id="submitButton">Save changes</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
                     
@@ -146,5 +149,5 @@
 
     <script type="text/javascript" src="edit.js"></script>
 
-</form> -->
+    </form>
 </body>
