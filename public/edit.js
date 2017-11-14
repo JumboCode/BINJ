@@ -44,9 +44,10 @@ function editStory(story) {
         $("#location").replaceWith( '<input type="text" class="form-control" id="location" value="'+ artInfo["location_name"] + '">');
         $("#tags").replaceWith( '<input type="text" class="form-control" id="tags" value="'+ artInfo["type"] + '">');
         $("#url").replaceWith( '<input type="text" class="form-control" id="url" rows="1" value="'+ artInfo["url"] + '">');
+        google.maps.event.trigger(map, 'resize');
 
 
-        
+
     });
 }
 
@@ -71,10 +72,22 @@ function initMap(coords)
         center: {lat: coords[1], lng: coords[0]}
     });
     geocoder = new google.maps.Geocoder();
-    //searchBox();
-    google.maps.event.trigger(map, 'resize');
+    searchBox();
     google.maps.event.addListener(map, 'click', function(event) {getAddress(event.latLng);});
 
+    // refresh the map to stop the greying-out bug
+    var refresh = function() {
+        var center = map.getCenter();
+            google.maps.event.trigger(map, "resize");
+            map.setCenter(center);
+        }
+    setTimeout(refresh, 500);
+
+    var latlng = new google.maps.LatLng(coords[1], coords[0]);
+    var marker = new google.maps.Marker({
+      position: latlng,
+      map: map
+    });
     //Converts selected map location into formatted address which then goes into Location box
     function getAddress(latLng)
     {
