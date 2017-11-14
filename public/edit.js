@@ -1,8 +1,9 @@
 $.holdReady(true);
-stories = [];
+stories =  [];
 var artInfo = new Object();
 hostname = location.hostname;
 port = location.port;
+storyId = -1;
 if (hostname == "localhost") {
     url = "http://" + hostname + ":" + port + "/stories/";
 } else {
@@ -22,7 +23,6 @@ function getStories() {
 
 function deleteStory(story) {
     var id = $(story).data('id');
-    console.log(id);
     $.ajax({
     url: self.url + id,
     type: 'DELETE',
@@ -33,9 +33,8 @@ function deleteStory(story) {
 }
 
 function editStory(story) {
-    console.log($(story).data('id'));
+    storyId = $(story).data('id');
     $.get(self.url + $(story).data('id'), function( data ) {
-        console.log(data);
         artInfo = data;
         initMap(artInfo["coordinates"]);
         $("#titleId").replaceWith( '<input type="text" class="form-control" id="titleId" value="'+ artInfo["title"] + '">');
@@ -68,7 +67,6 @@ function initMap(coords)
         center: {lat: coords[1], lng: coords[0]}
     });
     geocoder = new google.maps.Geocoder();
-    searchBox();
     google.maps.event.addListener(map, 'click', function(event) {getAddress(event.latLng);});
 
     // refresh the map to stop the greying-out bug
@@ -76,6 +74,7 @@ function initMap(coords)
         var center = map.getCenter();
             google.maps.event.trigger(map, "resize");
             map.setCenter(center);
+            searchBox()
         }
     setTimeout(refresh, 500);
 
@@ -89,7 +88,6 @@ function initMap(coords)
     {
         self.coordinates = [latLng.lng(), latLng.lat()];
         geocoder.geocode({'latLng': latLng}, function(results, status) {
-            console.log(results[1]);
             document.getElementById("location_name_modal").value = results[1].formatted_address;
             initMap(self.coordinates);
         })
@@ -130,6 +128,16 @@ function initMap(coords)
               console.log("Returned place contains no geometry");
               return;
             }
+
+            var latlng = new google.maps.LatLng(self.coordinates[1], self.coordinates[0]);
+            var marker = new google.maps.Marker({
+              position: latlng,
+              map: map,
+             /* title: point.title,
+                        author: point.author,
+                        blurb: point.blurb,
+                        photo: point.header_photo_url */
+            });
             // This creates an icon and puts it on the map. I'm not sure it's necessary because
             // this is the admin page, but it could be useful later down the line
             /*var icon = {
@@ -160,3 +168,27 @@ function initMap(coords)
 
     }
 }
+
+ $("#submitButton").on('click', function(){
+    if (location.hostname == "localhost") {
+        url = "http://" + location.hostname + ":" + location.port + "/stories/" + storyId;
+    } else {
+        url = "https://" + location.hostname + ":" + location.port + "/stories/" + storyId;
+    }
+    $.ajax({
+        url: url,
+        type: 'PUT',
+        data: JSON.stringify({
+            "title": $('#titleId').val(),
+            "author": $('#author').val(),
+            "url": $('#url').val(),
+            //"header_photo_url": $('#header_photo_url').val(),
+            //"published_date": new Date(),
+            "blurb": $('#blurbId').val(),
+            //"tags": $("#tags").tagsinput('items'),
+            "location_name": $('#location').val(),
+            //"type": $("input[name='storytype']:checked").val(),
+            //"coordinates": self.coordinates
+        }), success: function() {alert("success"); console.log($('#author').val());}
+    })
+});
