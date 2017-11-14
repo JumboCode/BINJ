@@ -58,8 +58,8 @@ $(document).ready(function() {
                           '</h5> <small id="published_date">' + tempStory['published_date'] +
                          ' </small></div><p id="blurb">' + tempStory['blurb'] +
                          '</p><small id="location_name">' + tempStory['location_name'] +
-                         '</small><div><button type="button" onClick="deleteStory(this)" data-id="'+ tempStory['_id'] + '" id="delete" class="btn-danger">Delete</button>' +
-                         '<button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#edit-modal" onClick="editStory(this)" data-id="'+ tempStory['_id'] + '">Edit</button></div></div>'
+                         '</small><div><button type="button" onClick="deleteStory(this)" data-id="'+ tempStory['_id'] + '" id="delete" class="btn btn-danger">Delete</button>' +
+                         '<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#edit-modal" onClick="editStory(this)" data-id="'+ tempStory['_id'] + '">Edit</button></div></div>'
         $("#storiesList").append(tempHTML);
     })
 })
