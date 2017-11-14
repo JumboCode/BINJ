@@ -15,7 +15,6 @@
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 </head>
 <body>
@@ -34,30 +33,55 @@
             </div><!-- /.row -->
 
         <div class="list-group" id="storiesList"></div>
-
+                
+        <!--Open Modal-->
         <div class="modal fade" id="edit-modal">
-          <div class="modal-dialog" role="document">
+          <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
+                        
+                <!-- Modal Header -->
               <div class="modal-header">
-                <h5 class="modal-title">Modal title</h5>
+                <h3 class="modal-title">Edit Article</h3>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 </button>
               </div>
 
-              <!-- Summary -->
+                <!--<div class="container" id="newStoryBlock">-->
+                <div class="modal-body">
+    
+                <!-- Title -->
+                <div class="form-group">
+                    <label for="title">Title</label>
+                    <textarea class="form-control" id="title" rows="1"></textarea>
+                </div>
+                
+                <!-- Author -->
+                <div class="form-group">
+                    <label for="author">Author</label>
+                    <textarea class="form-control" id="author" rows="1"></textarea>
+                </div>
+                
+                <!-- Summary -->
+                <div class="row">
+                  <div class="col-xs-6">
+                        <label for="summary">Summary</label>
+                        <textarea class="form-control" id="blurb" rows="18"></textarea>
+                  </div>
+                    
+                <!-- Map -->
+                  <div class="col-xs-6 centered-map" id="map_canvas" style="height:400px; width:400px"></div>
+                  <button type="button" onclick="getAddress()">Pick Location</button>
+                </div>
+
+                <!-- URL -->
               <div class="row">
                 <div class="col-xs-6">
-                     <label for="summary">Summary</label>
-                    <textarea class="form-control" id="summary" rows="4"></textarea>
+                     <label for="url">URL</label>
+                    <textarea class="form-control" id="url" rows="4"></textarea>
                 </div>
-
-                <!-- Map -->
-                <div class="col-xs-6" id="map_canvas" style="height:400px; width:400px">
-                </div>
-                <button type="button" onclick="getAddress()">Pick Location</button>
-
+             </div>
+                
               <!-- Location -->
-              </div>
               <div class="row">
                 <div class="col-md-12">
                   <div class="form-group">
@@ -83,7 +107,7 @@
                 <div class="col-md-12">
                   <div class="form-check">
                     <label class="form-check-label">
-                    <input type="checkbox" class="form-check-input">
+                    <input type="checkbox" class="form-check-input" id="tags">
                     Politics</label>
                     <label class="form-check-label">
                     <input type="checkbox" class="form-check-input">
@@ -100,39 +124,21 @@
                   </div>
                 </div>
               </div>
-            </div>
+
 
             <!-- Modal Footer -->
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+                    
+            </div>
           </div>
         </div>
       </div>
     </div>
 
-    <script src="http://code.jquery.com/jquery-latest.min.js"
-        type="text/javascript"></script>
-
     <script type="text/javascript" src="edit.js"></script>
-
-    <!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCCPJ3Q8yqIUnauTodS9RgJWLNeQmxHEiw&callback=initMap"
-    async defer></script>
-
-    <script type="text/javascript" src="public/admin.js"></script>
-
-    <script>
-    $(document).on("click", ".open-AddBookDialog", function () {
-    var myBookId = $(this).data('id');
-    $(".modal-body #bookId").val( myBookId );});
-    </script>
-
-    <script>
-    $(edit-btn-one).click(function(){
-    hostname = location.hostname;
-    $.get("http://" + hostname + "/stories", function( data ) {
-    stories = data; });
-    </script>
 
 </form> -->
 </body>
