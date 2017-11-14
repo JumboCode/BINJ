@@ -26,6 +26,9 @@ var mapOptions = {
     mapTypeId: google.maps.MapTypeId.ROADMAP
 };
 var map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
+var markers = [];
+var markerCluster = new MarkerClusterer(map, markers,
+            {imagePath: 'markercluster/icons'});
 var userMarker;
 var userInfoWindow = new google.maps.InfoWindow();
 
@@ -36,13 +39,15 @@ function addStoryPoints(data, filter) {
   var filters = String(filter).split("+");
     for (var i = 0; i < data.length; i++) {
     var point = data[i];
-    console.log(filters);
     // this only handles geojson points!
     // for (var j = 0; i < filters.length; j++) {
       // var f = filters[j];
     if (filterTags(point, filters) || typeof filter == "undefined" || filter == "") {
       var coords = point.coordinates;
-      if (coords[1] != "" && typeof coords[1] != "undefined" && coords[0] != "" && coords[0] != "undefined") {
+
+      //check for incorrectly formatted coordinates
+      if (coords[1] != "" && typeof coords[1] != "undefined" 
+          && coords[0] != "" && coords[0] != "undefined") {
         var latlng = new google.maps.LatLng(coords[1], coords[0]);
       
 
@@ -54,6 +59,9 @@ function addStoryPoints(data, filter) {
                     blurb: point.blurb,
                     photo: point.header_photo_url
         });
+        markers.push(marker);
+        console.log(markers);
+        markerCluster.addMarker(marker);
         var infoWindow = new google.maps.InfoWindow();
         map.panTo(latlng);
         google.maps.event.addListener(marker, 'click', function() {
