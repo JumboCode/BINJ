@@ -15,6 +15,10 @@
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
+    <!-- Map -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCCPJ3Q8yqIUnauTodS9RgJWLNeQmxHEiw&libraries=geometry,places"></script>
+
+    <link rel="stylesheet" href="map.css">
 
 </head>
 <body>
@@ -52,7 +56,7 @@
                 <!-- Title -->
                 <div class="form-group">
                     <label for="title">Title</label>
-                    <textarea class="form-control" id="title" rows="1"></textarea>
+                    <textarea class="form-control" id="titleId" rows="1"></textarea>
                 </div>
                 
                 <!-- Author -->
@@ -65,7 +69,7 @@
                 <div class="row">
                   <div class="col-xs-6">
                         <label for="summary">Summary</label>
-                        <textarea class="form-control" id="blurb" rows="18"></textarea>
+                        <textarea class="form-control" id="blurbId" rows="18"></textarea>
                   </div>
                     
                 <!-- Map -->
@@ -75,10 +79,10 @@
 
                 <!-- URL -->
               <div class="row">
-                <div class="col-xs-6">
-                     <label for="url">URL</label>
+                  <div class="col-md-12">
+                    <label for="url">URL</label>
                     <textarea class="form-control" id="url" rows="4"></textarea>
-                </div>
+                  </div>
              </div>
                 
               <!-- Location -->
