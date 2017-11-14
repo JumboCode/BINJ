@@ -41,13 +41,9 @@ function editStory(story) {
         $("#titleId").replaceWith( '<input type="text" class="form-control" id="titleId" value="'+ artInfo["title"] + '">');
         $("#author").replaceWith( '<input type="text" class="form-control" id="author" value="'+ artInfo["author"] + '">');
         $("#blurbId").replaceWith( '<textarea id="blurbId" class="form-control" rows="15" >' + artInfo["blurb"] + '</textarea>');
-        $("#location").replaceWith( '<input type="text" class="form-control" id="location" value="'+ artInfo["location_name"] + '">');
+        $("#location_name_modal").replaceWith( '<input type="text" class="form-control" id="location_name_modal" value="'+ artInfo["location_name"] + '">');
         $("#tags").replaceWith( '<input type="text" class="form-control" id="tags" value="'+ artInfo["type"] + '">');
         $("#url").replaceWith( '<input type="text" class="form-control" id="url" rows="1" value="'+ artInfo["url"] + '">');
-        google.maps.event.trigger(map, 'resize');
-
-
-
     });
 }
 
@@ -93,18 +89,16 @@ function initMap(coords)
     {
         self.coordinates = [latLng.lng(), latLng.lat()];
         geocoder.geocode({'latLng': latLng}, function(results, status) {
-            if (status == google.maps.GeocoderStatus.OK) {
-                if (results[1]) {
-                    document.getElementById("location_name").value = results[1].formatted_address;
-                }
-            }
+            console.log(results[1]);
+            document.getElementById("location_name_modal").value = results[1].formatted_address;
+            initMap(self.coordinates);
         })
     }
 
     function searchBox()
     {
         // Create the search box and link it to the UI element.
-        var input = document.getElementById('location_name');
+        var input = document.getElementById('location_name_modal');
         var searchBox = new google.maps.places.SearchBox(input);
 
         // Bias the SearchBox results towards current map's viewport.
