@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <head>
     <title>BINJ Admin</title>
+
+    <link rel="stylesheet" href="tags/bootstrap-tagsinput.css">
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 
     <!-- Latest compiled and minified CSS -->
@@ -108,27 +111,26 @@
                 </div>
               </div>
 
-              <!-- Tags -->
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="form-check">
-                    <label class="form-check-label">
-                    <input type="checkbox" class="form-check-input" id="tags">
-                    Politics</label>
-                    <label class="form-check-label">
-                    <input type="checkbox" class="form-check-input">
-                    Science</label>
-                    <label class="form-check-label">
-                    <input type="checkbox" class="form-check-input">
-                    The Investigative Reporting Boston Needs!</label>
-                    <label class="form-check-label">
-                    <input type="checkbox" class="form-check-input">
-                    Arts</label>
-                    <label class="form-check-label">
-                    <input type="checkbox" class="form-check-input">
-                    Education</label>
+              <form>
+                  <label for="storytype">Story type</label>
+                  <div class="radio">
+                      <label><input type="radio" name="storytype" value="Politics">Politics</label>
                   </div>
-                </div>
+                  <div class="radio">
+                      <label><input type="radio" name="storytype" value="Science">Science</label>
+                  </div>
+                  <div class="radio">
+                      <label><input type="radio" name="storytype" value="Arts">Arts</label>
+                  </div>
+                  <div class="radio">
+                      <label><input type="radio" name="storytype" value="Education">Education</label>
+                  </div>
+              </form>
+
+              <!--tags-->
+              <div class="form-group">
+                  <label for="tags">Tags</label>
+                  <input type="text" data-role="tagsinput" id="tags" placeholder="Enter story tags">
               </div>
 
 
@@ -144,7 +146,9 @@
       </div>
     </div>
 
+    <script type="text/javascript" src="tags/bootstrap-tagsinput.js"></script>
     <script type="text/javascript" src="edit.js"></script>
+
 
     </form>
 </body>

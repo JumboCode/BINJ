@@ -1,9 +1,12 @@
 $.holdReady(true);
 stories =  [];
+coordinates = [];
+
 var artInfo = new Object();
 hostname = location.hostname;
 port = location.port;
 storyId = -1;
+
 if (hostname == "localhost") {
     url = "http://" + hostname + ":" + port + "/stories/";
 } else {
@@ -37,6 +40,7 @@ function editStory(story) {
     $.get(self.url + $(story).data('id'), function( data ) {
         artInfo = data;
         initMap(artInfo["coordinates"]);
+        self.coordinates = artInfo["coordinates"];
         $("#titleId").replaceWith( '<input type="text" class="form-control" id="titleId" value="'+ artInfo["title"] + '">');
         $("#author").replaceWith( '<input type="text" class="form-control" id="author" value="'+ artInfo["author"] + '">');
         $("#blurbId").replaceWith( '<textarea id="blurbId" class="form-control" rows="15" >' + artInfo["blurb"] + '</textarea>');
@@ -133,28 +137,7 @@ function initMap(coords)
             var marker = new google.maps.Marker({
               position: latlng,
               map: map,
-             /* title: point.title,
-                        author: point.author,
-                        blurb: point.blurb,
-                        photo: point.header_photo_url */
             });
-            // This creates an icon and puts it on the map. I'm not sure it's necessary because
-            // this is the admin page, but it could be useful later down the line
-            /*var icon = {
-              url: place.icon,
-              size: new google.maps.Size(71, 71),
-              origin: new google.maps.Point(0, 0),
-              anchor: new google.maps.Point(17, 34),
-              scaledSize: new google.maps.Size(25, 25)
-            };
-
-            // Create a marker for each place.
-            markers.push(new google.maps.Marker({
-              map: map,
-              icon: icon,
-              title: place.name,
-              position: place.geometry.location
-          }));*/
 
             if (place.geometry.viewport) {
               // Only geocodes have viewport.
@@ -171,24 +154,31 @@ function initMap(coords)
 
  $("#submitButton").on('click', function(){
     if (location.hostname == "localhost") {
-        url = "http://" + location.hostname + ":" + location.port + "/stories/" + storyId;
+        PUTurl = "http://" + location.hostname + ":" + location.port + "/stories/" + storyId;
     } else {
-        url = "https://" + location.hostname + ":" + location.port + "/stories/" + storyId;
+        PUTurl = "https://" + location.hostname + ":" + location.port + "/stories/" + storyId;
     }
+    toSubmit = {
+        "title": $('#titleId').val(),
+        "author": $('#author').val(),
+        "url": $('#url').val(),
+        "blurb": $('#blurbId').val(),
+        "location_name": $('#location').val(),
+        "type": $("input[name='storytype']:checked").val(),
+        "coordinates": self.coordinates
+    };
+    //"header_photo_url": $('#header_photo_url').val(),
+
+    //"published_date": new Date(),
+
+    //"tags": $("#tags").tagsinput('items'),
+
+    console.log(toSubmit);
+
     $.ajax({
-        url: url,
+        url: PUTurl,
+        data: toSubmit,
         type: 'PUT',
-        data: JSON.stringify({
-            "title": $('#titleId').val(),
-            "author": $('#author').val(),
-            "url": $('#url').val(),
-            //"header_photo_url": $('#header_photo_url').val(),
-            //"published_date": new Date(),
-            "blurb": $('#blurbId').val(),
-            //"tags": $("#tags").tagsinput('items'),
-            "location_name": $('#location').val(),
-            //"type": $("input[name='storytype']:checked").val(),
-            //"coordinates": self.coordinates
-        }), success: function() {alert("success"); console.log($('#author').val());}
+        success: function() {alert("success"); console.log($('#author').val());}
     })
 });

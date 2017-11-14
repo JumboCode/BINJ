@@ -67,23 +67,12 @@ function initMap()
               console.log("Returned place contains no geometry");
               return;
             }
-            // This creates an icon and puts it on the map. I'm not sure it's necessary because
-            // this is the admin page, but it could be useful later down the line
-            /*var icon = {
-              url: place.icon,
-              size: new google.maps.Size(71, 71),
-              origin: new google.maps.Point(0, 0),
-              anchor: new google.maps.Point(17, 34),
-              scaledSize: new google.maps.Size(25, 25)
-            };
 
-            // Create a marker for each place.
-            markers.push(new google.maps.Marker({
-              map: map,
-              icon: icon,
-              title: place.name,
-              position: place.geometry.location
-          }));*/
+            var latlng = new google.maps.LatLng(self.coordinates[1], self.coordinates[0]);
+            var marker = new google.maps.Marker({
+              position: latlng,
+              map: map
+            });
 
             if (place.geometry.viewport) {
               // Only geocodes have viewport.

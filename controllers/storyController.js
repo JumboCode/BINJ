@@ -11,7 +11,7 @@ module.exports = {
      * storyController.list()
      */
     list: function (req, res) {
-        console.log("listing");
+        //console.log("listing");
         storyModel.find(function (err, storys) {
             if (err) {
                 console.log(err);
