@@ -6,9 +6,6 @@ var bostonLng = -71.10;
 var bostonLatLng = new google.maps.LatLng(bostonLat, bostonLng);
 
 
-// TO GET DATA
-// send get request to http://mysterious-chamber-44366.herokuapp.com/stories/
-
 // Notes from Will:
 // maybe we should consider user this nice looking library to deal with
 // large quantities of markers:
@@ -23,6 +20,7 @@ var user;
 var mapOptions = {
     zoom: 12, // The larger the zoom number, the bigger the zoom
     center: user,
+    gestureHandling: 'greedy',
     mapTypeId: google.maps.MapTypeId.ROADMAP
 };
 var map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
@@ -46,10 +44,10 @@ function addStoryPoints(data, filter) {
       var coords = point.coordinates;
 
       //check for incorrectly formatted coordinates
-      if (coords[1] != "" && typeof coords[1] != "undefined" 
+      if (coords[1] != "" && typeof coords[1] != "undefined"
           && coords[0] != "" && coords[0] != "undefined") {
         var latlng = new google.maps.LatLng(coords[1], coords[0]);
-      
+
 
         var marker = new google.maps.Marker({
           position: latlng,
@@ -69,7 +67,7 @@ function addStoryPoints(data, filter) {
           infoWindow.open(map, this);
         });
       }
-    } 
+    }
     // }
 
   }
