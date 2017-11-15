@@ -28,7 +28,7 @@ var mapOptions = {
 var map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
 var markers = [];
 var markerCluster = new MarkerClusterer(map, markers,
-            {imagePath: 'markercluster/icons'});
+            {imagePath: '../images/m'});
 var userMarker;
 var userInfoWindow = new google.maps.InfoWindow();
 
