@@ -165,20 +165,17 @@ function initMap(coords)
         "blurb": $('#blurbId').val(),
         "location_name": $('#location').val(),
         "type": $("input[name='storytype']:checked").val(),
+        "tags": $("#modalTags").tagsinput('items'),
+        "header_photo_url": $('#header_photo_url').val(),
         "coordinates": self.coordinates
     };
-    //"header_photo_url": $('#header_photo_url').val(),
-
-    //"published_date": new Date(),
-
-    //"tags": $("#tags").tagsinput('items'),
-
-    console.log(toSubmit);
 
     $.ajax({
         url: PUTurl,
         data: toSubmit,
         type: 'PUT',
-        success: function() {alert("success"); console.log($('#author').val());}
+        success: function() {
+            alert("success");
+        }
     })
 });
