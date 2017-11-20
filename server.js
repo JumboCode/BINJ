@@ -13,22 +13,18 @@ const accounts = require('./routes/accountRoutes');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 
-
 // Enabling CORS:
 app.use(cors());
-
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(session({ secret: 'keyboard cat' }));
 app.use(cookieParser());
 app.use(passport.initialize());
-
 app.use(passport.session());
 
 app.use('/stories', stories);
 app.use('/account', accounts);
-
 
 // passport config
 var Account = require('./models/accountModel');
@@ -51,51 +47,26 @@ mongoose.connect(mongoUri, err => {
         console.log("connected");
 });
 
+function ensureAuthenticated(req, res, next) {
+    if (req.isAuthenticated()) { return next(); }
+    res.redirect('/account/login');
+}
 
 app.get('/', function(req, res){
 	res.sendFile('index2.html', {root: path.join(__dirname, 'public')});
 });
 
-app.get('/admin', function(req, res) {
+app.get('/admin', ensureAuthenticated, function(req, res) {
 	res.sendFile('admin.html', {root: path.join(__dirname, 'public')});
 });
 
 app.post('*', function(req, res) {
 	console.log(req.url.substring(1));
-
 	res.send("200")
 });
 
 app.get('/edit', function(req, res) {
 	res.sendFile('edit.html', {root: path.join(__dirname, 'public')});
-});
-
-app.post('/name', function(req, res) {
-    var name = req.body.name;
-
-	db.collection("names", function(error, collection){
-		collection.insert( {"name" : name} )
-	});
-	res.send(200);
-});
-
-app.get('/name', function(req, res) {
-	db.collection("names", function(error, coll) {
-	    if(error)
-			res.send(500);
-	    else {
-			coll.find().toArray(
-			    function(err, results) {
-					if (err) {
-						res.send(500);
-					} else {
-						console.log(results);
-						res.send(results);
-					}
-				}
-			);
-		}
-	});
 });
 
 app.get('/admin', function(req, res){
