@@ -68,7 +68,8 @@ function initMap(coords)
 {
     map = new google.maps.Map(document.getElementById('map_canvas'), {
         zoom: 12,
-        center: {lat: coords[1], lng: coords[0]}
+        center: {lat: coords[1], lng: coords[0]},
+        gestureHandling: 'greedy'
     });
     geocoder = new google.maps.Geocoder();
     google.maps.event.addListener(map, 'click', function(event) {getAddress(event.latLng);});
