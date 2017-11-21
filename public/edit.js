@@ -30,7 +30,7 @@ function deleteStory(story) {
     url: self.url + id,
     type: 'DELETE',
     success: function(result) {
-        alert(id + "deleted");
+        $(story).parent().parent().remove();
     }
 });
 }
