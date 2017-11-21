@@ -49,15 +49,29 @@ function editStory(story) {
         $("#url").replaceWith( '<input type="text" class="form-control" id="url" rows="1" value="'+ artInfo["url"] + '">');
     });
 }
+function cleanDate(published_date)
+{
+    var year = published_date.slice(0, 4);
+    console.log(year);
+    var month = published_date.slice(5, 7);
+    console.log(month);
+    var day = published_date.slice(8, 10);
+    console.log(day);
+    return clean_date = (month + "-" + day + "-" + year);
+};
 
 $(document).ready(function() {
     $.each(stories, function(index) {
         tempStory = stories[index];
+        published_date=tempStory["published_date"];
+        console.log(published_date.toString());
+        var clean_date=cleanDate(published_date.toString());
+        console.log(clean_date);
         tempHTML =  '<div class="list-group-item">' + '<div id="overview" class="d-flex w-100 justify-content-between">' +
                           '<h5 id="title">' + tempStory['title'] +
-                          '</h5> <small id="published_date">' + tempStory['published_date'] +
+                          '</h5> <small id="published_date">' + clean_date +
                          ' </small></div><p id="blurb">' + tempStory['blurb'] +
-                         '</p><small id="location_name">' + tempStory['location_name'] +
+                         '</p><small id="modal-author">' + tempStory['author'] +
                          '</small><div><button type="button" onClick="deleteStory(this)" data-id="'+ tempStory['_id'] + '" id="delete" class="btn btn-danger">Delete</button>' +
                          '<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#edit-modal" onClick="editStory(this)" data-id="'+ tempStory['_id'] + '">Edit</button></div></div>'
         $("#storiesList").append(tempHTML);
@@ -159,6 +173,7 @@ function initMap(coords)
     } else {
         PUTurl = "https://" + location.hostname + ":" + location.port + "/stories/" + storyId;
     }
+    window.location.reload();
     toSubmit = {
         "title": $('#titleId').val(),
         "author": $('#author').val(),
@@ -170,13 +185,12 @@ function initMap(coords)
         "header_photo_url": $('#header_photo_url').val(),
         "coordinates": self.coordinates
     };
-
+     
     $.ajax({
         url: PUTurl,
         data: toSubmit,
         type: 'PUT',
         success: function() {
-            alert("success");
         }
     })
 });
