@@ -149,7 +149,7 @@ h4 {
 }
 
 
-#search {
+#search, #location_name {
     width: 100%;
 }
 
@@ -170,3 +170,18 @@ hr {
     margin-bottom: 2%;
 
 }
+#loc_search {
+	 background-color: #fff;
+	 font-family: Roboto;
+	 font-size: 15px;
+	 font-weight: 1000;
+	 margin-left: 12px;
+	 padding: 0 11px 0 13px;
+	 text-overflow: ellipsis;
+	 width: 400px;
+	 height: 40px;
+ }
+
+ #loc_search:focus {
+	 border-color: #4d90fe;
+ }
