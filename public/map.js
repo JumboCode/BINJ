@@ -114,13 +114,11 @@ function searchBox()
       map.addListener('bounds_changed', function() {
         searchBox.setBounds(map.getBounds());
       });
-      console.log("1");
 
       var markers = [];
       // Listen for the event fired when the user selects a prediction and retrieve
       // more details for that place.
       searchBox.addListener('places_changed', function() {
-        console.log("2");
         var places = searchBox.getPlaces();
 
         if (places.length == 0) {
@@ -142,12 +140,6 @@ function searchBox()
             return;
           }
 
-        /*  var latlng = new google.maps.LatLng(self.coordinates[1], self.coordinates[0]);
-          var marker = new google.maps.Marker({
-            position: latlng,
-            map: map,
-          }); */
-          console.log("3");
           if (place.geometry.viewport) {
             // Only geocodes have viewport.
             bounds.union(place.geometry.viewport);
