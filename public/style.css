@@ -97,6 +97,13 @@ h4 {
     background-color: #ffffff;
 }
 
+/* some thigs for the list view cards */
+.list-view-card {
+    min-height: 20px;
+    background: white;
+    color: black;
+}
+
 .btn:after {
     font-family: "Glyphicons Halflings";
     font-weight: 100;
