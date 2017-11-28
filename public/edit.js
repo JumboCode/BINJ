@@ -47,6 +47,7 @@ function editStory(story) {
         $("#location_name_modal").replaceWith( '<input type="text" class="form-control" id="location_name_modal" value="'+ artInfo["location_name"] + '">');
         $("#tags").replaceWith( '<input type="text" class="form-control" id="tags" value="'+ artInfo["type"] + '">');
         $("#url").replaceWith( '<input type="text" class="form-control" id="url" rows="1" value="'+ artInfo["url"] + '">');
+        $("#header_photo_url").replaceWith( '<input type="text" class="form-control" id="header_photo_url" rows="1" value="'+ artInfo["header_photo_url"] + '">');
     });
 }
 function cleanDate(published_date)
@@ -57,7 +58,7 @@ function cleanDate(published_date)
     console.log(month);
     var day = published_date.slice(8, 10);
     console.log(day);
-    return clean_date = (month + "-" + day + "-" + year);
+    return clean_date = (month + "/" + day + "/" + year);
 };
 
 $(document).ready(function() {
@@ -67,13 +68,13 @@ $(document).ready(function() {
         console.log(published_date.toString());
         var clean_date=cleanDate(published_date.toString());
         console.log(clean_date);
-        tempHTML =  '<div class="list-group-item">' + '<div id="overview" class="d-flex w-100 justify-content-between">' +
+        tempHTML =  '<div class="list-group-item clearfix">' + '<div class="container-fluid"><div class="col-xs-6">' + '<div id="overview" class="d-flex w-100 justify-content-between">' +
                           '<h5 id="title">' + tempStory['title'] +
                           '</h5> <small id="published_date">' + clean_date +
                          ' </small></div><p id="blurb">' + tempStory['blurb'] +
                          '</p><small id="modal-author">' + tempStory['author'] +
-                         '</small><div><button type="button" onClick="deleteStory(this)" data-id="'+ tempStory['_id'] + '" id="delete" class="btn btn-danger">Delete</button>' +
-                         '<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#edit-modal" onClick="editStory(this)" data-id="'+ tempStory['_id'] + '">Edit</button></div></div>'
+                         '</small></div><div class="col-xs-6"> <div class="row"> <img src="'+ tempStory['header_photo_url'] +'" class="thumbnail pull-right" alt="No image" style="height:150px; width:200px"></div><div class="row"> <button type="button" onClick="deleteStory(this)" data-id="'+ tempStory['_id'] + '" id="delete" class="btn btn-danger pull-right">Delete</button>' +
+                         '<button type="button" class="btn btn-warning pull-right" data-toggle="modal" data-target="#edit-modal" onClick="editStory(this)" data-id="'+ tempStory['_id'] + '">Edit</button></div></div></div>'
         $("#storiesList").append(tempHTML);
     })
 })
