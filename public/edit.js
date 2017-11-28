@@ -185,7 +185,7 @@ function initMap(coords)
         "header_photo_url": $('#header_photo_url').val(),
         "coordinates": self.coordinates
     };
-     
+
     $.ajax({
         url: PUTurl,
         data: toSubmit,

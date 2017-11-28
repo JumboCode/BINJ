@@ -6,6 +6,9 @@ var bostonLng = -71.10;
 var bostonLatLng = new google.maps.LatLng(bostonLat, bostonLng);
 
 
+// TO GET DATA
+// send get request to http://mysterious-chamber-44366.herokuapp.com/stories/
+
 // Notes from Will:
 // maybe we should consider user this nice looking library to deal with
 // large quantities of markers:
