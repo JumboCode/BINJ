@@ -87,12 +87,17 @@ function initMap() {
   } else {
       var url = 'https://' + location.hostname + ':' + location.port;
   }
+
+  // this has been added for testing -wm
+  // url = 'http://binj-map.herokuapp.com';
+
   boston = new google.maps.LatLng(bostonLat, bostonLng);
     map.panTo(boston);
   var urlToParse = location.search;
   var result = parseQueryString(urlToParse );
   $.get(url + '/stories/', function(data){
     addStoryPoints(data, result.filter);
+    localStorage.setItem('storyData', JSON.stringify(data));
     searchBox();
   });
 
