@@ -98,6 +98,11 @@ h4 {
 }
 
 /* some thigs for the list view cards */
+#list-view{
+    height: 300px;
+    overflow: auto;
+}
+
 .list-view-card {
     min-height: 20px;
     background: white;
