@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script type="text/javascript">
+        function validate(username, password) {
+            valid = true;
+            if (username.length < 4) {
+                document.getElementById('message').innerHTML = 
+                    "Username must contain at least 4 characters. \n";
+                valid = false;
+            }
+            if (password.length < 4) {
+                document.getElementById('message').innerHTML += 
+                    "Password must contain at least 4 characters. \n";
+                valid = false
+            }
+            return valid;
+        }
+
+        function handleOK(xhr) {
+            if (xhr.response != 'OK'){
+                document.getElementById('message').innerHTML = 
+                    JSON.parse(xhr.response).error;
+            } else {
+                document.getElementById('message').innerHTML = 
+                    "You successfully registered!";
+            }
+        }
+
+        function submit() {
+            username = document.getElementById('username').value;
+            password = document.getElementById('password').value;
+
+            if (!validate(username, password)) {
+                return false;
+            }
+
+            var xhr = new XMLHttpRequest();
+
+            xhr.open("POST", '/account/register', true);
+
+            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+            xhr.onreadystatechange = function() {//Call a function when the state changes.
+                console.log(xhr.responseURL);
+
+                if (xhr.responseURL != window.location.href) {
+                    console.log(xhr.responseURL);
+                    //window.location = xhr.responseURL;
+                }
+                if(xhr.readyState == XMLHttpRequest.DONE){
+                    if (xhr.status == 200) {
+                        handleOK(xhr);
+                    } else if (xhr.status == 403) {
+                        if (xhr.status == 403) {
+                            document.getElementById('message').innerHTML = 
+                                "You do not have permission to register."
+                        }
+                    } else if (xhr.status == 500) {
+                        document.getElementById('message').innerHTML = 
+                            "Internal Server Error."
+                    } else if (xhr.status == 401) {
+                        document.getElementById('message').innerHTML = 
+                            "Unauthorized. Make sure you have admin privileges."
+                    }
+                }
+            }
+
+            xhr.send("username=" + username + "&password=" + password); 
+        }
+    </script>
+
+    <title>Register</title>
+</head>
+
+<body>
+    <h1>Register</h1>
+        <p>Username:</p>
+        <input type="text" name="username" id="username">
+        <br>
+        <p>Password:</p>
+        <input type="password" name="password" id="password">
+        <br><br>
+        <input type="submit" value="Submit" onclick="submit()">
+        <p id="message" style="color:red"/>
+    </form> 
+</body>
+
+</html>

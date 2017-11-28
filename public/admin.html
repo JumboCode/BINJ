@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
-    <title>BINJ Admin</title>
+    <title>New Story</title>
     <link rel="stylesheet" href="tags/bootstrap-tagsinput.css">
     <!-- Boostrap links -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -55,9 +55,8 @@
                     <input type="locationType" class="form-control" id="location_name" placeholder="Click on map or type location">
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputFile">Add Picture</label>
-                    <input type="file" class="form-control-file" id="header_photo_url" aria-describedby="fileHelp">
-                    <small id="fileHelp" class="form-text text-muted">If there is a photo associated with this article, upload it here.</small>
+                    <label for="exampleInputFile">Picture URL</label>
+                    <input type="linkType" class="form-control" id="header_photo_url">
                 </div>
                 <form>
                     <label for="storytype">Story type</label>
@@ -83,6 +82,8 @@
         </div>
         <br />
         <button type="button" class="btn btn-primary" id="submitbutton">Submit</button>
+        <br />
+        <br />
         <br />
     </div>
 </form>

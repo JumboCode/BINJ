@@ -4,6 +4,7 @@
 
     <head>
         <title>BINJ Map</title>
+        <link rel="icon" type="img/png" href="favicon.png">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
         <link rel="stylesheet" href="style.css"/>
@@ -13,6 +14,8 @@
 
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <script src="./test-data.js"></script>
+        
+
 
         <script>
             $('#tags-input').tagsinput({
@@ -37,11 +40,16 @@
                                 var index = tags.indexOf(event.item);
                                 if (index > -1) tags.splice(index, 1);
                                 // event.item: contains the item
+                                var filters = "map.html?filter=" + getFilters();
+                                console.log(filters);
+                                $("#iframe").attr("src", filters);
                                 console.log(tags);
 
                             });
                             tags.push($("input").val());
-                            var filters = "map.html?filter=" + getFilters();
+
+                            var filters = "map.html" + getFilters();
+                            console.log(filters);
                             $("#iframe").attr("src", filters);
 
                         })
@@ -50,18 +58,17 @@
             });
 
             function getFilters() {
-                var str = tags[0];
-                for (var i = 1; i < tags.length; i++) {
+                var str = "";
+                for (var i = 0; i < tags.length; i++) {
                     if (tags[i] == "") tags.splice(i, 1);
-                    str += "+" + tags[i];
+                    str += tags[i] + "+";
 
                 }
                 changed = true;
-                return str;
+                if (str != "") return ("?filter=" + str.substring(0, str.length - 1));
+                else return "";
 
             }
-
-
 
         </script>
 
@@ -83,10 +90,8 @@
                     Reporting incubator and convener boosting independent media and journalists in Greater Boston
                 </h4>
             </div>
-
-
-
         </div>
+
         <div id="content">
             <div id="filters">
 
@@ -157,20 +162,15 @@
 
                 <hr />
             </div>
-            <!--"fix all of this and link properly"-->
-<!--             <script type="text/javascript">
-
-                var elements = document.getElementById("form");
-                var title = elements["title"];
-            </script> -->
                 <iframe id="iframe" src="map.html" width="100%" height="100%">
-
-            <div id="map">
-
-
-            </div>
+                </iframe>
         </div>
-        <!-- <div id="map_canvas"></div> -->
+
+        <script>
+            $('#content').height($(window).height() - $('.logo').height() - $('.wrapper').height());
+
+        </script>
+
     </body>
-    <!-- <script type="text/javascript" src="map.js"></script> -->
+
 </html>
