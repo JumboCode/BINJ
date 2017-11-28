@@ -30,7 +30,7 @@ function deleteStory(story) {
     url: self.url + id,
     type: 'DELETE',
     success: function(result) {
-        $(story).parent().parent().remove();
+        $(story).parent().parent().parent().parent().remove();
     }
 });
 }
@@ -53,11 +53,8 @@ function editStory(story) {
 function cleanDate(published_date)
 {
     var year = published_date.slice(0, 4);
-    console.log(year);
     var month = published_date.slice(5, 7);
-    console.log(month);
     var day = published_date.slice(8, 10);
-    console.log(day);
     return clean_date = (month + "/" + day + "/" + year);
 };
 
@@ -186,7 +183,7 @@ function initMap(coords)
         "header_photo_url": $('#header_photo_url').val(),
         "coordinates": self.coordinates
     };
-     
+
     $.ajax({
         url: PUTurl,
         data: toSubmit,
