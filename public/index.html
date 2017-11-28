@@ -176,7 +176,7 @@
                 </div>
                 <div id="list-view" class="tab-pane fade in">
                     <h3>LIST VIEW</h3>
-                    <p>Some shit'll get loaded here by some javascript</p>
+                    <p id="loading-message"></p>
                 </div>
             </div>
           </div>
@@ -186,27 +186,40 @@
 
         <script>
             $('#content').height($(window).height() - $('.logo').height() - $('.wrapper').height());
+            waitForData();
 
-            // this is to load the list view
-            var data = JSON.parse(localStorage.getItem("storyData"));
-            console.log(data);
-            for (var i = 0; i < data.length; i++) {
-                var newCard = document.createElement("div");
-                newCard.className = "list-view-card";
-                // make a title
-                var title = document.createElement("h2")
-                title.innerHTML = data[i].title;
-                newCard.appendChild(title);
-                // make an author
-                var author = document.createElement("h3");
-                author.innerHTML = data[i].author;
-                newCard.appendChild(author);
-                // make a blurb
-                var blurb = document.createElement("p");
-                blurb.innerHTML = data[i].blurb;
-                newCard.appendChild(blurb);
-                // maybe header photo?
-                document.getElementById("list-view").appendChild(newCard);
+            function waitForData() {
+                if (localStorage.getItem("storyData") !== null) {
+                    console.log(localStorage.getItem("storyData"));
+                    loadCards(JSON.parse(localStorage.getItem("storyData")));
+
+                } else {
+                    setTimeout(waitForData, 250);
+                }
+            }
+
+            function loadCards(data) {
+                // this is to load the list view
+                
+                document.getElementById("loading-message").innerHTML = "";
+                for (var i = 0; i < data.length; i++) {
+                    var newCard = document.createElement("div");
+                    newCard.className = "list-view-card";
+                    // make a title
+                    var title = document.createElement("h2")
+                    title.innerHTML = data[i].title;
+                    newCard.appendChild(title);
+                    // make an author
+                    var author = document.createElement("h3");
+                    author.innerHTML = data[i].author;
+                    newCard.appendChild(author);
+                    // make a blurb
+                    var blurb = document.createElement("p");
+                    blurb.innerHTML = data[i].blurb;
+                    newCard.appendChild(blurb);
+                    // maybe header photo?
+                    document.getElementById("list-view").appendChild(newCard);
+                }
             }
         </script>
 

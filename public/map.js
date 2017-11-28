@@ -90,7 +90,7 @@ function initMap() {
   }
 
   // this has been added for testing -wm
-  url = 'http://binj-map.herokuapp.com';
+  // url = 'http://binj-map.herokuapp.com';
 
   boston = new google.maps.LatLng(bostonLat, bostonLng);
     map.panTo(boston);
