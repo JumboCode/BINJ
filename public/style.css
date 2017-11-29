@@ -9,7 +9,7 @@ body {
 	height: 100%;
 	margin: 0px;
 	padding: 0px;
-    background-color: #f5f3a2
+  background-color: #f5f3a2
 }
 
 #map_canvas {
@@ -98,10 +98,19 @@ h4 {
 }
 
 /* some thigs for the list view cards */
+#list-view {
+	margin: 5%;
+	overflow: auto;
+	height: 500px;
+}
+
 .list-view-card {
+		margin: 10px;
     min-height: 20px;
-    background: white;
     color: black;
+		background-color: #f5f3a2;
+		border-style: solid;
+		padding: 10px;
 }
 
 .btn:after {
