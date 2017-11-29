@@ -1,6 +1,6 @@
-<!-- Some code below is taken from Professor Chow's example here (https://github.com/tuftsdev/WebProgramming/blob/gh-pages/examples/google_maps/gmap_api_example.html) 
+<!-- Some code below is taken from Professor Chow's example here (https://github.com/tuftsdev/WebProgramming/blob/gh-pages/examples/google_maps/gmap_api_example.html)
 
-This file causes a JavaScript console syntax error, thohgh it is ignored and so I, too, have decided to ignore the error. 
+This file causes a JavaScript console syntax error, thohgh it is ignored and so I, too, have decided to ignore the error.
 -->
 
 <!DOCTYPE html>
@@ -10,19 +10,15 @@ This file causes a JavaScript console syntax error, thohgh it is ignored and so 
 	<head>
 		<title>BINJ Map</title>
 		<meta name="viewport" content="initial-scale=1.0, user-scalable=no" http-equiv="content-type" charset="utf-8"/>
-		
-		
-		<!-- The line below keeps causing an error (according to Travis Cl), but I'm not sure why. The line directly below is 
-			straight from Google:
-			<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=geometry,places"></script>
-		-->
+
 		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCCPJ3Q8yqIUnauTodS9RgJWLNeQmxHEiw&libraries=geometry,places"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 		<script src="markercluster/markerclusterer.js"></script>
 		<link rel="stylesheet" href="style.css" />
 	</head>
-	
+
 	<body onload="initMap()">
+		<input id="loc_search" class="controls" type="text" placeholder="Search for a location">
 		<div id="map_canvas"></div>
 	</body>
 	<script type="text/javascript" src="map.js"></script>
