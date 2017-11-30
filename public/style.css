@@ -46,6 +46,12 @@ a {
 
 }
 
+#login {
+	float: right;
+	text-align: right;
+	margin-right: 5%;
+}
+
 .logo {
     display: flex;
 
