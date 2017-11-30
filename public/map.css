@@ -2,3 +2,7 @@
     float: none;
     margin: 0 auto;
 }
+
+div.pac-container {
+   z-index: 1050 !important;
+}

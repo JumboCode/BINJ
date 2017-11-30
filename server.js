@@ -58,18 +58,20 @@ app.get('/', function(req, res){
 	res.sendFile('index2.html', {root: path.join(__dirname, 'public')});
 });
 
-app.get('/admin', ensureAuthenticated, function(req, res) {
+// authentication for admin page. necessary in the future, but not yet.
+/*app.get('/admin', ensureAuthenticated, function(req, res) {
 	res.sendFile('admin.html', {root: path.join(__dirname, 'public')});
-});
+});*/
 
 app.post('*', function(req, res) {
 	console.log(req.url.substring(1));
 	res.send("200")
 });
 
-app.get('/edit', function(req, res) {
+app.get('/admin', function(req, res) {
 	res.sendFile('edit.html', {root: path.join(__dirname, 'public')});
 });
+
 
 app.get('/imgurl', function (req, res) {
 	var url = req.query.url;
@@ -98,7 +100,9 @@ app.get('/imgurl', function (req, res) {
     });
 });
 
-app.get('/admin', function(req, res){
+
+app.get('/newStory', function(req, res){
+
 	res.sendFile('admin.html', {root: path.join(__dirname, 'public')});
 });
 
