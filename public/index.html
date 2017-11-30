@@ -39,15 +39,12 @@
                                 if (index > -1) tags.splice(index, 1);
                                 // event.item: contains the item
                                 var filters = "map.html?filter=" + getFilters();
-                                console.log(filters);
                                 $("#iframe").attr("src", filters);
-                                console.log(tags);
 
                             });
                             tags.push($("input").val());
 
                             var filters = "map.html" + getFilters();
-                            console.log(filters);
                             $("#iframe").attr("src", filters);
 
                         })
@@ -113,47 +110,12 @@
                         <h3>Filter stories by...</h3>
                         <button type="button" class="btn btn-lg btn-info collapsed" data-toggle="collapse" data-target="#storytype">Story type</button>
                         <div id="storytype" class="collapse">
-                            <div class="checkbox"><label><input type = "checkbox" value="Politics">Politics</label>
-                            </div>
-                            <div class="checkbox"><label><input type = "checkbox" value="Sports">Sports</label>
-                            </div>
-                            <div class="checkbox"><label><input type = "checkbox" value="Arts">Arts</label>
-                            </div>
-                            <div class="checkbox"><label><input type = "checkbox" value="Feature">Feature</label>
-                            </div>
-                            <div class="checkbox"><label><input type = "checkbox" value="Columns">Columnns</label>
-                            </div></br>
                         </div>
                         <hr />
 
                         <button type="button" class="btn btn-lg btn-info collapsed" data-toggle="collapse" data-target="#author">Author</button>
                         <div id="author" class="collapse">
-                            <div class="checkbox"><label><input type = "checkbox" value="Author1">Author1</label>
-                            </div>
-                            <div class="checkbox"><label><input type = "checkbox" value="Author2">Author2</label>
-                            </div>
-                            <div class="checkbox"><label><input type = "checkbox" value="Author3">Author3</label>
-                            </div>
-                            <div class="checkbox"><label><input type = "checkbox" value="Author4">Author4</label>
-                            </div>
-                            <div class="checkbox"><label><input type = "checkbox" value="Author5">Author5</label></div>
                         </div>
-
-                        <hr />
-
-                        <button type="button" class="btn btn-lg btn-info collapsed" data-toggle="collapse" data-target="#publisher">Publisher</button>
-                        <div id="publisher" class="collapse">
-                            <div class="checkbox"><label><input type = "checkbox" value="Publisher1">Publisher1</label>
-                            </div>
-                            <div class="checkbox"><label><input type = "checkbox" value="Publisher2">Publisher2</label>
-                            </div>
-                            <div class="checkbox"><label><input type = "checkbox" value="Publisher3">Publisher3</label>
-                            </div>
-                            <div class="checkbox"><label><input type = "checkbox" value="Publisher4">Publisher4</label>
-                            </div>
-                            <div class="checkbox"><label><input type = "checkbox" value="Publisher5">Publisher5</label></div>
-                        </div>
-
                         <hr />
                     </div>
                 </div>
@@ -173,8 +135,8 @@
 
             function waitForData() {
                 if (localStorage.getItem("storyData") !== null) {
-                    console.log(localStorage.getItem("storyData"));
                     loadCards(JSON.parse(localStorage.getItem("storyData")));
+                    loadFilters(JSON.parse(localStorage.getItem("storyData")));
 
                 } else {
                     setTimeout(waitForData, 250);
@@ -207,6 +169,37 @@
                     // maybe header photo?
                     document.getElementById("list-view").appendChild(newCard);
                 }
+            }
+
+            function loadFilters(data) {
+              var authors = [];
+              var storytypes = [];
+              // to load and show relevant filters
+              document.getElementById("author").innerHTML = "";
+              document.getElementById("storytype").innerHTML = "";
+              for (var i = 0; i < data.length; i++) {
+                  if (authors.includes(data[i].author)) {
+                    // do nothing
+                  } else {
+                    // make author entry
+                    var author = document.createElement("div");
+                    author.className += "checkbox";
+                    author.innerHTML = '<label><input type = "checkbox" value="' + data[i].author + '">' + data[i].author + '</label>';
+                    document.getElementById("author").appendChild(author);
+                    authors.push(data[i].author);
+                  }
+                  if (storytypes.includes(data[i].type)) {
+                    // do nothing
+                  } else {
+                    // make type entry
+                    var type = document.createElement("div");
+                    type.className += "checkbox";
+                    type.innerHTML = '<label><input type = "checkbox" value="' + data[i].type + '">' + data[i].type + '</label>';
+                    document.getElementById("storytype").appendChild(type);
+                    storytypes.push(data[i].type);
+                  }
+              }
+
             }
         </script>
 
