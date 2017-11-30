@@ -1,0 +1,22 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+
+	<title>Airport Simulation</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script>
+	$.get('https://medium.com/binj-reports/small-town-swat-team-c4a4d85a2b49', function(data) {
+	    var imgs = $('<div/>').html(data).find('img');
+	    imgs.each(function(i, img) {
+	        alert(img.src); // show a dialog containing the url of image
+	    });
+	});
+	</script>
+</head>
+
+<body style="margin: 0px">
+	<!-- Container for three.js -->
+	<div id="theContainer"></div>
+</body>
+</html>
