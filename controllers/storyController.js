@@ -1,8 +1,5 @@
 var storyModel = require('../models/storyModel.js');
 
-var express = require('express');
-var request = require('request');
-var cheerio = require('cheerio');
 
 function getStoryImageURL (url) {
     request(url, function(error, response, html){
@@ -96,54 +93,36 @@ module.exports = {
         });
     },
 
+    
+
     /**
      * storyController.create()
      */
     create: function (req, res) {
-        request(req.body.url, function(error, response, html){
-            if(!error){
-                var $ = cheerio.load(html);
-                var src = "";
-                var i = 0;
-                $('img').filter(function(){
-                    if (i == 2) {
-                        var data = $(this);
-                        console.log(data.attr("src"))
-                        src = data.attr("src");
-                    }
-                    i++;
-                });
-                console.log("imageurl = " + src);
-
-                var story = new storyModel({
-                    title : req.body.title,
-                    author : req.body.author,
-                    url : req.body.url,
-                    header_photo_url : req.body.header_photo_url,
-                    blurb : req.body.blurb,
-                    published_date : req.body.published_date,
-                    tags : req.body.tags,
-                    location_name : req.body.location_name,
-                    type : req.body.type,
-                    coordinates : req.body.coordinates
-                });
-
-                story.save(function (err, story) {
-                    if (err) {
-                        console.log(err);
-                        return res.status(500).json({
-                            message: 'Error when creating story',
-                            error: err
-                        });
-                    }
-                    return res.status(201).json(story);
-                });
-                
-            } else {
-                console.log("error in request:");
-                console.log(error);
-            }
+        var story = new storyModel({
+            title : req.body.title,
+            author : req.body.author,
+            url : req.body.url,
+            header_photo_url : req.body.header_photo_url,
+            blurb : req.body.blurb,
+            published_date : req.body.published_date,
+            tags : req.body.tags,
+            location_name : req.body.location_name,
+            type : req.body.type,
+            coordinates : req.body.coordinates
         });
+
+        story.save(function (err, story) {
+            if (err) {
+                console.log(err);
+                return res.status(500).json({
+                    message: 'Error when creating story',
+                    error: err
+                });
+            }
+            return res.status(201).json(story);
+        });
+        
     },
 
     /**
@@ -203,10 +182,4 @@ module.exports = {
             return res.status(204).json();
         });
     },
-
-    
-
-
-
-
 };
