@@ -118,7 +118,7 @@ h4 {
 		border-style: solid;
 		padding: 10px;
 }
-
+/*
 .btn:after {
     font-family: "Glyphicons Halflings";
     font-weight: 100;
@@ -128,14 +128,14 @@ h4 {
     margin-left: 15px;
     text-align: left;
     color: #000000;
-    /*width: 100%;*/
+    /*width: 100%;
 }
-  /* Icon when the collapsible content is hidden */
+  //Icon when the collapsible content is hidden
 .btn.collapsed:after {
     content: "\e258";
     text-align: right;
     color: #000000;
-    /*width: 100%;*/
+    /*width: 100%;
 
 }
 
@@ -207,3 +207,4 @@ hr {
  #loc_search:focus {
 	 border-color: #4d90fe;
  }
+*/
