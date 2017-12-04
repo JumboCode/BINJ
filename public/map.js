@@ -32,44 +32,51 @@ var userInfoWindow = new google.maps.InfoWindow();
 
 // approximately from https://developers.google.com/maps/documentation/javascript/importing_data
 // more on markers https://developers.google.com/maps/documentation/javascript/reference#Marker
-function addStoryPoints(data, filter) {
+function addStoryPoints(data, filter, author) {
 
   var filters = String(filter).split("+");
+  var authors = String(author).split("+");
+
     for (var i = 0; i < data.length; i++) {
     var point = data[i];
     // this only handles geojson points!
     // for (var j = 0; i < filters.length; j++) {
       // var f = filters[j];
-    if (filterTags(point, filters) || typeof filter == "undefined" || filter == "") {
-      var coords = point.coordinates;
+    if (filterAuthor(point, authors) || typeof author == "undefined" || author == "") {
+      if (filterTags(point, filters) || typeof filter == "undefined" || filter == "") {
+        var coords = point.coordinates;
+        //check for incorrectly formatted coordinates
+        if (coords[1] != "" && typeof coords[1] != "undefined"
+            && coords[0] != "" && coords[0] != "undefined") {
+          var latlng = new google.maps.LatLng(coords[1], coords[0]);
 
-      //check for incorrectly formatted coordinates
-      if (coords[1] != "" && typeof coords[1] != "undefined"
-          && coords[0] != "" && coords[0] != "undefined") {
-        var latlng = new google.maps.LatLng(coords[1], coords[0]);
 
-
-        var marker = new google.maps.Marker({
-          position: latlng,
-          map: map,
-          title: point.title,
-                    author: point.author,
-                    blurb: point.blurb,
-                    photo: point.header_photo_url
-        });
-        markers.push(marker);
-        markerCluster.addMarker(marker);
-        var infoWindow = new google.maps.InfoWindow();
-        map.panTo(latlng);
-        google.maps.event.addListener(marker, 'click', function() {
-          infoWindow.setContent("<h1>" + this.title + "</h1><img src='" + this.photo + "' width='150px'><h3>by " + this.author + "</h3><p>" + this.blurb + "</p>");
-          infoWindow.open(map, this);
-        });
+          var marker = new google.maps.Marker({
+            position: latlng,
+            map: map,
+            title: point.title,
+                      author: point.author,
+                      blurb: point.blurb,
+                      photo: point.header_photo_url
+          });
+          markers.push(marker);
+          markerCluster.addMarker(marker);
+          var infoWindow = new google.maps.InfoWindow();
+          map.panTo(latlng);
+          google.maps.event.addListener(marker, 'click', function() {
+            infoWindow.setContent("<h1>" + this.title + "</h1><img src='" + this.photo + "' width='150px'><h3>by " + this.author + "</h3><p>" + this.blurb + "</p>");
+            infoWindow.open(map, this);
+          });
+        }
       }
     }
-    // }
 
   }
+}
+
+function filterAuthor(story, authors) {
+  if (authors.includes(story.author)) return true;
+  return false;
 }
 
 function filterTags(story, filter) {
@@ -96,7 +103,7 @@ function initMap() {
   var urlToParse = location.search;
   var result = parseQueryString(urlToParse );
   $.get(url + '/stories/', function(data){
-    addStoryPoints(data, result.filter);
+    addStoryPoints(data, result.filter, result.author);
     localStorage.setItem('storyData', JSON.stringify(data));
     searchBox();
   });

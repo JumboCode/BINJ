@@ -132,6 +132,8 @@
         <script>
             $('#content').height($(window).height() - $('.logo').height() - $('.wrapper').height());
             waitForData();
+            var filterAuthors = [];
+
 
             function waitForData() {
                 if (localStorage.getItem("storyData") !== null) {
@@ -184,7 +186,7 @@
                     // make author entry
                     var author = document.createElement("div");
                     author.className += "checkbox";
-                    author.innerHTML = '<label><input type = "checkbox" value="' + data[i].author + '">' + data[i].author + '</label>';
+                    author.innerHTML = '<label><input type = "checkbox" onclick="authorCheck(this);" value="' + data[i].author + '">' + data[i].author + '</label>';
                     document.getElementById("author").appendChild(author);
                     authors.push(data[i].author);
                   }
@@ -194,13 +196,26 @@
                     // make type entry
                     var type = document.createElement("div");
                     type.className += "checkbox";
-                    type.innerHTML = '<label><input type = "checkbox" value="' + data[i].type + '">' + data[i].type + '</label>';
+                    type.innerHTML = '<label><input type = "checkbox" name="storytype" value="' + data[i].type + '">' + data[i].type + '</label>';
                     document.getElementById("storytype").appendChild(type);
                     storytypes.push(data[i].type);
                   }
               }
-
             }
+            function authorCheck(cb) {
+              if ($(cb).is(':checked')) {
+                filterAuthors.push($(cb).val());
+              } else if (filterAuthors.includes($(cb).val())) {
+                  filterAuthors.pop(filterAuthors.indexOf($(cb).val()), 1);
+              }
+              query = "map.html?author=" + filterAuthors.join('+');
+              console.log(filterAuthors);
+              $("#iframe").attr("src", query);
+            }
+
+            $('input[name="storytype"]').click(function () {
+              alert($(this).val());
+            });
         </script>
 
     </body>
