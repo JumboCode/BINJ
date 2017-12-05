@@ -1,4 +1,6 @@
-// this part was before the DOM
+// this shit has to do with retrieving filters and passing that information
+// to the map
+
 $('#tags-input').tagsinput({
     confirmKeys: [13, 188]
 });
@@ -24,7 +26,6 @@ $(document).ready(function () {
 
                 });
                 tags.push($("input").val());
-
                 var filters = "map.html" + getFilters();
                 $("#iframe").attr("src", filters);
 
@@ -33,28 +34,33 @@ $(document).ready(function () {
 
 });
 function getFilters() {
+    var filterTags = [];
     var str = "";
     for (var i = 0; i < tags.length; i++) {
         if (tags[i] == "") tags.splice(i, 1);
         str += tags[i] + "+";
+        filterTags.push(tags[i]);
 
     }
-
+    var filterBoxes = []
     //Getting filters from checked boxes
     $.each($("input:checked"), function() {
         str += "+" + ($(this).val());
+        filterBoxes.push(($(this).val()));
     });
     changed = true;
+    localStorage.setItem("filter", JSON.stringify({"tags": filterTags,
+                                                   "boxes": filterBoxes}));
     if (str != "") return ("?filter=" + str.substring(0, str.length - 1));
     else return "";
 
 }
 
 
-
-
-// this part was after the DOM
+// this shit has to do with loading the list view and the filters 
+// currently displayed
 $('#content').height($(window).height() - $('.logo').height() - $('.wrapper').height());
+
 waitForData();
 var filterAuthors = [];
 
@@ -98,7 +104,6 @@ function loadCards(data) {
 }
 
 function loadFilters(data) {
-    console.log("load filters caleed");
   var authors = [];
   var storytypes = [];
   // to load and show relevant filters
