@@ -106,8 +106,10 @@
                         <form id="form">
                         <input type="text" id= "search" name="search" placeholder="Search for tags..." data-role="tagsinput" value="">
                         </form>
+                        <br>
 
                         <h3>Filter stories by...</h3>
+                        <br>
                         <button type="button" class="btn btn-lg btn-info collapsed" data-toggle="collapse" data-target="#storytype">Story type</button>
                         <div id="storytype" class="collapse">
                         </div>
@@ -155,7 +157,7 @@
                     title.innerHTML = data[i].title;
                     newCard.appendChild(title);
                     // make an author
-                    var author = document.createElement("h3");
+                    var author = document.createElement("h4");
                     author.innerHTML = "By " + data[i].author;
                     newCard.appendChild(author);
                     // link to full text
