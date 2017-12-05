@@ -35,18 +35,16 @@ var userInfoWindow = new google.maps.InfoWindow();
 
 // approximately from https://developers.google.com/maps/documentation/javascript/importing_data
 // more on markers https://developers.google.com/maps/documentation/javascript/reference#Marker
-function addStoryPoints(data, filter, author) {
+function addStoryPoints(data, tags, authors) {
 
-  var filters = String(filter).split("+");
-  var authors = String(author).split("+");
-
+    console.log(authors);  
     for (var i = 0; i < data.length; i++) {
     var point = data[i];
     // this only handles geojson points!
-    // for (var j = 0; i < filters.length; j++) {
-      // var f = filters[j];
-    if (filterAuthor(point, authors) || typeof author == "undefined" || author == "") {
-      if (filterTags(point, filters) || typeof filter == "undefined" || filter == "") {
+    // for (var j = 0; i < tags.length; j++) {
+      // var f = tags[j];
+    if (authors.length == 0 || filterAuthor(point, authors)) {
+      if (tags.length == 0 || filterTags(point, tags)) {
         var coords = point.coordinates;
         //check for incorrectly formatted coordinates
         if (coords[1] != "" && typeof coords[1] != "undefined"
@@ -92,21 +90,19 @@ function filterTags(story, filter) {
 }
 
 function initMap() {
+  var filter = JSON.parse(localStorage.getItem("filter"));
   if (location.hostname == "localhost") {
       var url = 'http://' + location.hostname + ':' + location.port;
   } else {
       var url = 'https://' + location.hostname + ':' + location.port;
   }
 
-  // this has been added for testing -wm
-  // url = 'http://binj-map.herokuapp.com';
-
   boston = new google.maps.LatLng(bostonLat, bostonLng);
     map.panTo(boston);
   var urlToParse = location.search;
   var result = parseQueryString(urlToParse );
   $.get(url + '/stories/', function(data){
-    addStoryPoints(data, result.filter, result.author);
+    addStoryPoints(data, filter.tags, filter.boxes);
     localStorage.setItem('storyData', JSON.stringify(data));
     searchBox();
   });

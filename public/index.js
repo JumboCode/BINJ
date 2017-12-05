@@ -13,6 +13,9 @@ $('#tags-input input').on('keypress', function(e){
 var tags = [];
 var changed = false;
 $(document).ready(function () {
+  // gotta initialize things, kids
+  localStorage.setItem('filter', JSON.stringify({"tags" : [], "boxes" : []}));
+  
     $('#form')
         .find('[name="search"]')
             .change(function (e) {
