@@ -1067,10 +1067,26 @@ ClusterIcon.prototype.triggerClusterClick = function() {
   // Trigger the clusterclick event.
   google.maps.event.trigger(markerClusterer.map_, 'clusterclick', this.cluster_);
 
-  if (markerClusterer.isZoomOnClick()) {
+  var numMarkers = (this.cluster_.markers_).length;
+  var sameCoords = false;
+  for (var i = 0; i < numMarkers -1; i++) { //TODO:
+    console.log(this.cluster_.markers_[i].position);
+    if (this.cluster_.markers_[i].position.equals(this.cluster_.markers_[i+1].position)) {
+      sameCoords = true;
+      var story = this.cluster_.markers_[i];
+      var infoWindow = new google.maps.InfoWindow();
+      infoWindow.setContent("<h1>" + story.title + "</h1><img src='" + story.photo + "' width='150px'><h3>by " + story.author + "</h3><p>" + story.blurb + "</p>");
+          infoWindow.open(map, story);
+
+    }
+  }
+  if (!sameCoords) {
+    if (markerClusterer.isZoomOnClick()) {
     // Zoom into the cluster.
     this.map_.fitBounds(this.cluster_.getBounds());
+    }
   }
+  
 };
 
 
