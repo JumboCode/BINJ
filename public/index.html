@@ -95,19 +95,21 @@
         <div id="map-list">
 
             <ul class="nav nav-tabs">
-                <li class="active"><a data-toggle="tab" href="#map-view">Filter</a></li>
+                <li class="active"><a data-toggle="tab" href="#map-view" id="activeTab">Filter</a></li>
                 <li><a data-toggle="tab" href="#list-view">List</a></li>
             </ul>
 
-            <div class="tab-content">
+            <div class="tab-content" id="tab-content">
                 <div id="map-view" class="tab-pane fade in active">
                     <div id="filters">
 
                         <form id="form">
                         <input type="text" id= "search" name="search" placeholder="Search for tags..." data-role="tagsinput" value="">
                         </form>
+                        <br>
 
                         <h3>Filter stories by...</h3>
+                        <br>
                         <button type="button" class="btn btn-lg btn-info collapsed" data-toggle="collapse" data-target="#storytype">Story type</button>
                         <div id="storytype" class="collapse">
                         </div>
@@ -157,7 +159,7 @@
                     title.innerHTML = data[i].title;
                     newCard.appendChild(title);
                     // make an author
-                    var author = document.createElement("h3");
+                    var author = document.createElement("h4");
                     author.innerHTML = "By " + data[i].author;
                     newCard.appendChild(author);
                     // link to full text
