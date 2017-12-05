@@ -92,6 +92,7 @@ p {
     display: block;
     width: 40%;
 		margin: 2%;
+		margin-top: 0;
 }
 
 #filters {
