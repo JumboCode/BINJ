@@ -25,8 +25,28 @@ var mapOptions = {
 };
 var map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
 var markers = [];
-var markerCluster = new MarkerClusterer(map, markers,
-            {imagePath: '../images/m'});
+// var markerCluster = new MarkerClusterer(map, markers,
+//             {imagePath: '../images/m'});
+var oms = new OverlappingMarkerSpiderfier(map, {
+  markersWontMove: true,
+  markersWontHide: true,
+  basicFormatEvents: true
+});
+
+//look at other icons https://github.com/jawj/OverlappingMarkerSpiderfier
+// oms.addListener('format', function(marker, status) {
+//         var iconURL = status == OverlappingMarkerSpiderfier.markerStatus.SPIDERFIED ? 'images/m1' :
+//           status == OverlappingMarkerSpiderfier.markerStatus.SPIDERFIABLE ? 'images/m2' :
+//           status == OverlappingMarkerSpiderfier.markerStatus.UNSPIDERFIABLE ? 'images/m3' : 
+//           null;
+//         var iconSize = new google.maps.Size(23, 32);
+//         marker.setIcon({
+//           url: iconURL,
+//           size: iconSize,
+//           scaledSize: iconSize  // makes SVG icons work in IE
+//         });
+//       });
+
 var userMarker;
 var userInfoWindow = new google.maps.InfoWindow();
 
@@ -58,13 +78,13 @@ function addStoryPoints(data, filter) {
                     photo: point.header_photo_url
         });
         markers.push(marker);
-        markerCluster.addMarker(marker);
         var infoWindow = new google.maps.InfoWindow();
         map.panTo(latlng);
-        google.maps.event.addListener(marker, 'click', function() {
+        google.maps.event.addListener(marker, 'spider_click', function() {
           infoWindow.setContent("<h1>" + this.title + "</h1><img src='" + this.photo + "' width='150px'><h3>by " + this.author + "</h3><p>" + this.blurb + "</p>");
           infoWindow.open(map, this);
         });
+        oms.addMarker(marker);
       }
     }
     // }
