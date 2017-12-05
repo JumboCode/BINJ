@@ -1071,12 +1071,22 @@ ClusterIcon.prototype.triggerClusterClick = function() {
   var sameCoords = false;
   for (var i = 0; i < numMarkers -1; i++) { //TODO:
     console.log(this.cluster_.markers_[i].position);
-    if (this.cluster_.markers_[i].position.equals(this.cluster_.markers_[i+1].position)) {
+    if (this.cluster_.markers_[i].position.equals(this.cluster_.markers_[i+1].position) ) {
       sameCoords = true;
+      
       var story = this.cluster_.markers_[i];
+      console.log(story);
       var infoWindow = new google.maps.InfoWindow();
       infoWindow.setContent("<h1>" + story.title + "</h1><img src='" + story.photo + "' width='150px'><h3>by " + story.author + "</h3><p>" + story.blurb + "</p>");
-          infoWindow.open(map, story);
+          infoWindow.setPosition(story.position);
+          infoWindow.open(map);
+      story1 = this.cluster_.markers_[i+1];
+
+      infoWindow = new google.maps.InfoWindow();
+      infoWindow.setContent("<h1>" + story1.title + "</h1><img src='" + story1.photo + "' width='150px'><h3>by " + story1.author + "</h3><p>" + story1.blurb + "</p>");
+          var pos = {lat: story1.position.lat() + 0.01,lng: story1.position.lng() + 0.05};
+          infoWindow.setPosition(pos);
+          infoWindow.open(map);
 
     }
   }
