@@ -39,15 +39,12 @@
                                 if (index > -1) tags.splice(index, 1);
                                 // event.item: contains the item
                                 var filters = "map.html?filter=" + getFilters();
-                                console.log(filters);
                                 $("#iframe").attr("src", filters);
-                                console.log(tags);
 
                             });
                             tags.push($("input").val());
 
                             var filters = "map.html" + getFilters();
-                            console.log(filters);
                             $("#iframe").attr("src", filters);
 
                         })
@@ -79,14 +76,14 @@
     <body>
 
         <div class=wrapper>
-            <a href="https://www.google.com" id="signin"> Sign in/Sign up</a>
+            <a href="/account/login" id="login">Log In</a>
         </div>
         <div class=logo>
 
-            <img src="https://cdn-images-1.medium.com/max/246/1*SQumLd1QIKdVJAM5nfvuqA@2x.png"/ />
+            <img src="https://cdn-images-1.medium.com/max/246/1*SQumLd1QIKdVJAM5nfvuqA@2x.png" />
             <div id="title">
                 <h1>
-                    Boston Institute for NonProfit Journalism
+                    Boston Institute for Nonprofit Journalism
                 </h1>
                 <h4>
                     Reporting incubator and convener boosting independent media and journalists in Greater Boston
@@ -107,76 +104,24 @@
                     <div id="filters">
 
                         <form id="form">
-                        <input type="text" id= "search" name="search" placeholder="Search.." data-role="tagsinput" value="">
+                        <input type="text" id= "search" name="search" placeholder="Search for tags..." data-role="tagsinput" value="">
                         </form>
 
                         <h3>Filter stories by...</h3>
                         <button type="button" class="btn btn-lg btn-info collapsed" data-toggle="collapse" data-target="#storytype">Story type</button>
                         <div id="storytype" class="collapse">
-                            <div class="checkbox"><label><input type = "checkbox" value="Politics">Politics</label>
-                            </div>
-                            <div class="checkbox"><label><input type = "checkbox" value="Sports">Sports</label>
-                            </div>
-                            <div class="checkbox"><label><input type = "checkbox" value="Arts">Arts</label>
-                            </div>
-                            <div class="checkbox"><label><input type = "checkbox" value="Feature">Feature</label>
-                            </div>
-                            <div class="checkbox"><label><input type = "checkbox" value="Columns">Columnns</label>
-                            </div></br>
                         </div>
-
-                        <hr />
-
-                        <button type="button" class="btn btn-lg btn-info collapsed" data-toggle="collapse" data-target="#nbhood">Neighborhood</button>
-                        <div id="nbhood" class="collapse">
-                            <div class="checkbox"><label><input type = "checkbox" value="Back Bay">Back Bay</label>
-                            </div>
-                            <div class="checkbox"><label><input type = "checkbox" value="South End">South End</label>
-                            </div>
-                            <div class="checkbox"><label><input type = "checkbox" value="North End">North End</label>
-                            </div>
-                            <div class="checkbox"><label><input type = "checkbox" value="Jamaica Plain">Jamaica Plain</label>
-                            </div>
-                            <div class="checkbox"><label><input type = "checkbox" value="Beacon Hill">Beacon Hill</label></div>
-                            <div class="checkbox"><label><input type = "checkbox" value="Chinatown">Chinatown</label></div>
-                        </div>
-
                         <hr />
 
                         <button type="button" class="btn btn-lg btn-info collapsed" data-toggle="collapse" data-target="#author">Author</button>
                         <div id="author" class="collapse">
-                            <div class="checkbox"><label><input type = "checkbox" value="Author1">Author1</label>
-                            </div>
-                            <div class="checkbox"><label><input type = "checkbox" value="Author2">Author2</label>
-                            </div>
-                            <div class="checkbox"><label><input type = "checkbox" value="Author3">Author3</label>
-                            </div>
-                            <div class="checkbox"><label><input type = "checkbox" value="Author4">Author4</label>
-                            </div>
-                            <div class="checkbox"><label><input type = "checkbox" value="Author5">Author5</label></div>
                         </div>
-
-                        <hr />
-
-                        <button type="button" class="btn btn-lg btn-info collapsed" data-toggle="collapse" data-target="#publisher">Publisher</button>
-                        <div id="publisher" class="collapse">
-                            <div class="checkbox"><label><input type = "checkbox" value="Publisher1">Publisher1</label>
-                            </div>
-                            <div class="checkbox"><label><input type = "checkbox" value="Publisher2">Publisher2</label>
-                            </div>
-                            <div class="checkbox"><label><input type = "checkbox" value="Publisher3">Publisher3</label>
-                            </div>
-                            <div class="checkbox"><label><input type = "checkbox" value="Publisher4">Publisher4</label>
-                            </div>
-                            <div class="checkbox"><label><input type = "checkbox" value="Publisher5">Publisher5</label></div>
-                        </div>
-
                         <hr />
                     </div>
                 </div>
                 <div id="list-view" class="tab-pane fade in">
-                    <h3>LIST VIEW</h3>
-                    <p>Some shit'll get loaded here by some javascript</p>
+                    <h3>Active Stories</h3>
+                    <p id="loading-message"></p>
                 </div>
             </div>
           </div>
@@ -186,7 +131,76 @@
 
         <script>
             $('#content').height($(window).height() - $('.logo').height() - $('.wrapper').height());
+            waitForData();
 
+            function waitForData() {
+                if (localStorage.getItem("storyData") !== null) {
+                    loadCards(JSON.parse(localStorage.getItem("storyData")));
+                    loadFilters(JSON.parse(localStorage.getItem("storyData")));
+
+                } else {
+                    setTimeout(waitForData, 250);
+                }
+            }
+
+            function loadCards(data) {
+                // this is to load the list view
+
+                document.getElementById("loading-message").innerHTML = "";
+                for (var i = 0; i < data.length; i++) {
+                    var newCard = document.createElement("div");
+                    newCard.className = "list-view-card";
+                    // make a title
+                    var title = document.createElement("h2")
+                    title.innerHTML = data[i].title;
+                    newCard.appendChild(title);
+                    // make an author
+                    var author = document.createElement("h3");
+                    author.innerHTML = "By " + data[i].author;
+                    newCard.appendChild(author);
+                    // link to full text
+                    var url = document.createElement("p");
+                    url.innerHTML = '<a href="' + data[i].url + '">Full article</a>';
+                    newCard.appendChild(url);
+                    // make a blurb
+                    var blurb = document.createElement("p");
+                    blurb.innerHTML = data[i].blurb;
+                    newCard.appendChild(blurb);
+                    // maybe header photo?
+                    document.getElementById("list-view").appendChild(newCard);
+                }
+            }
+
+            function loadFilters(data) {
+              var authors = [];
+              var storytypes = [];
+              // to load and show relevant filters
+              document.getElementById("author").innerHTML = "";
+              document.getElementById("storytype").innerHTML = "";
+              for (var i = 0; i < data.length; i++) {
+                  if (authors.includes(data[i].author)) {
+                    // do nothing
+                  } else {
+                    // make author entry
+                    var author = document.createElement("div");
+                    author.className += "checkbox";
+                    author.innerHTML = '<label><input type = "checkbox" value="' + data[i].author + '">' + data[i].author + '</label>';
+                    document.getElementById("author").appendChild(author);
+                    authors.push(data[i].author);
+                  }
+                  if (storytypes.includes(data[i].type)) {
+                    // do nothing
+                  } else {
+                    // make type entry
+                    var type = document.createElement("div");
+                    type.className += "checkbox";
+                    type.innerHTML = '<label><input type = "checkbox" value="' + data[i].type + '">' + data[i].type + '</label>';
+                    document.getElementById("storytype").appendChild(type);
+                    storytypes.push(data[i].type);
+                  }
+              }
+
+            }
         </script>
 
     </body>

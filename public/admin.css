@@ -1,3 +1,9 @@
 .centerButton {
     transform: translateY(60%);
 }
+
+#login {
+	float: right;
+	text-align: right;
+  margin-right: 5%;
+}

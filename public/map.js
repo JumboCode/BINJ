@@ -6,9 +6,6 @@ var bostonLng = -71.10;
 var bostonLatLng = new google.maps.LatLng(bostonLat, bostonLng);
 
 
-// TO GET DATA
-// send get request to http://mysterious-chamber-44366.herokuapp.com/stories/
-
 // Notes from Will:
 // maybe we should consider user this nice looking library to deal with
 // large quantities of markers:
@@ -61,7 +58,6 @@ function addStoryPoints(data, filter) {
                     photo: point.header_photo_url
         });
         markers.push(marker);
-        console.log(markers);
         markerCluster.addMarker(marker);
         var infoWindow = new google.maps.InfoWindow();
         map.panTo(latlng);
@@ -91,14 +87,70 @@ function initMap() {
   } else {
       var url = 'https://' + location.hostname + ':' + location.port;
   }
+
+  // this has been added for testing -wm
+  // url = 'http://binj-map.herokuapp.com';
+
   boston = new google.maps.LatLng(bostonLat, bostonLng);
     map.panTo(boston);
   var urlToParse = location.search;
   var result = parseQueryString(urlToParse );
   $.get(url + '/stories/', function(data){
     addStoryPoints(data, result.filter);
+    localStorage.setItem('storyData', JSON.stringify(data));
+    searchBox();
   });
+
 }
+
+function searchBox()
+  {
+      // Create the search box and link it to the UI element.
+      var input = document.getElementById('loc_search');
+      var searchBox = new google.maps.places.SearchBox(input);
+      map.controls[google.maps.ControlPosition.TOP].push(input);
+
+      // Bias the SearchBox results towards current map's viewport.
+      map.addListener('bounds_changed', function() {
+        searchBox.setBounds(map.getBounds());
+      });
+
+      var markers = [];
+      // Listen for the event fired when the user selects a prediction and retrieve
+      // more details for that place.
+      searchBox.addListener('places_changed', function() {
+        var places = searchBox.getPlaces();
+
+        if (places.length == 0) {
+          return;
+        }
+
+        // Clear out the old markers.
+        markers.forEach(function(marker) {
+          marker.setMap(null);
+        });
+        markers = [];
+
+        // For each place, get the icon, name and location.
+        var bounds = new google.maps.LatLngBounds();
+        places.forEach(function(place) {
+          self.coordinates = [place.geometry.location.lng(), place.geometry.location.lat()];
+          if (!place.geometry) {
+            console.log("Returned place contains no geometry");
+            return;
+          }
+
+          if (place.geometry.viewport) {
+            // Only geocodes have viewport.
+            bounds.union(place.geometry.viewport);
+          } else {
+            bounds.extend(place.geometry.location);
+          }
+        });
+        map.fitBounds(bounds);
+      });
+
+  }
 
 
 

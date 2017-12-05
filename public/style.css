@@ -9,7 +9,7 @@ body {
 	height: 100%;
 	margin: 0px;
 	padding: 0px;
-    background-color: #f5f3a2
+  background-color: #f5f3a2
 }
 
 #map_canvas {
@@ -44,6 +44,12 @@ a {
     flex: flex-grow;
     margin-right: 5%;
 
+}
+
+#login {
+	float: right;
+	text-align: right;
+	margin-right: 5%;
 }
 
 .logo {
@@ -95,6 +101,22 @@ h4 {
     height: 60%;
     margin: 2.5%;
     background-color: #ffffff;
+}
+
+/* some thigs for the list view cards */
+#list-view {
+	margin: 5%;
+	overflow: auto;
+	height: 500px;
+}
+
+.list-view-card {
+		margin: 10px;
+    min-height: 20px;
+    color: black;
+		background-color: #f5f3a2;
+		border-style: solid;
+		padding: 10px;
 }
 
 .btn:after {
@@ -149,7 +171,7 @@ h4 {
 }
 
 
-#search {
+#search, #location_name {
     width: 100%;
 }
 
@@ -170,3 +192,18 @@ hr {
     margin-bottom: 2%;
 
 }
+#loc_search {
+	 background-color: #fff;
+	 font-family: Roboto;
+	 font-size: 15px;
+	 font-weight: 1000;
+	 margin-left: 12px;
+	 padding: 0 11px 0 13px;
+	 text-overflow: ellipsis;
+	 width: 400px;
+	 height: 40px;
+ }
+
+ #loc_search:focus {
+	 border-color: #4d90fe;
+ }

@@ -4,6 +4,8 @@ const bodyParser = require('body-parser');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const cors = require('cors');
+const request = require('request');
+const cheerio = require('cheerio');
 
 const app = express();
 const http = require('http').Server(app);
@@ -70,7 +72,37 @@ app.get('/admin', function(req, res) {
 	res.sendFile('edit.html', {root: path.join(__dirname, 'public')});
 });
 
+
+app.get('/imgurl', function (req, res) {
+	var url = req.query.url;
+    url = (url.substring(0,4) == "http") ? url : "https://" + url;
+
+    request(url, function(error, response, html){
+        if(!error){
+            var $ = cheerio.load(html);
+            var src = "";
+            var i = 0;
+            $('img').filter(function() {
+                if (i == 2) {
+                    var data = $(this);
+                    src = data.attr("src");
+                }
+                i++;
+            });
+
+            if (src == "") {
+            	return res.json("{'error':'Image Not Found'}");
+            }
+            return res.json("{'imageurl':'" + src + "'}");
+        } else {
+            return res.json("{'error':'Query Page Not Found'}");
+        }
+    });
+});
+
+
 app.get('/newStory', function(req, res){
+
 	res.sendFile('admin.html', {root: path.join(__dirname, 'public')});
 });
 
