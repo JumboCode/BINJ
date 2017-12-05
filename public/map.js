@@ -37,7 +37,6 @@ var userInfoWindow = new google.maps.InfoWindow();
 // more on markers https://developers.google.com/maps/documentation/javascript/reference#Marker
 function addStoryPoints(data, tags, authors) {
 
-    console.log(authors);  
     for (var i = 0; i < data.length; i++) {
     var point = data[i];
     // this only handles geojson points!
