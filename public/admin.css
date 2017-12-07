@@ -1,3 +1,126 @@
+/* Some code below is taken from Professor Chow's example here (https://github.com/tuftsdev/WebProgramming/blob/gh-pages/examples/google_maps/geolocation_map_style.css) */
+
+/*same as style.css but without button styles*/
+
+html {
+	height: 100%;
+	font-family: Helvetica, "Helvetica Neue", Arial, sans-serif;
+}
+
+body {
+	height: 100%;
+	margin: 0px;
+	padding: 0px;
+  background-color: #f5f3a2
+}
+
+#map_canvas {
+	width: 100%;
+	height: 100%;
+}
+
+iframe {
+    border: 0;
+    height: 95%;
+    margin-right: 2%;
+}
+
+.wrapper {
+    display: flex;
+    align-items: flex-end;
+    -webkit-justify-content: flex-end;
+    justify-content: flex-end;
+
+}
+form {
+    width: 100%;
+}
+
+.bootstrap-tagsinput {
+    width: 100%;
+}
+
+a {
+    display: flex;
+    flex-basis: content;
+    flex: flex-grow;
+    margin-right: 5%;
+
+}
+
+#login {
+	float: right;
+	text-align: right;
+	margin-right: 5%;
+}
+
+.logo {
+    display: flex;
+
+}
+
+#title {
+    display: flex;
+    -webkit-justify-content: flex-end;
+    flex-direction: column;
+    justify-content: center;
+    margin-right: 10%;
+}
+
+h1 {
+    font-family: medium-content-sans-serif-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Open Sans","Helvetica Neue",sans-serif;
+    font-weight: bold;
+    text-align: left;
+    margin-bottom: 0;
+    margin-top: 0;
+}
+h4 {
+    font-weight: lighter;
+    color: #9f9fa0;
+    margin-top: 0;
+    font-family: medium-content-sans-serif-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Open Sans","Helvetica Neue",sans-serif;
+}
+#content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+#map-list{
+    display: block;
+    width: 40%;
+}
+
+#filters {
+    height: 100%;
+    margin: 5%;
+    display: flex;
+    flex-direction: column;
+}
+#map {
+    width: 45%;
+    height: 60%;
+    margin: 2.5%;
+    background-color: #ffffff;
+}
+
+/* some thigs for the list view cards */
+#list-view {
+	margin: 5%;
+	overflow: auto;
+	height: 500px;
+}
+
+.list-view-card {
+		margin: 10px;
+    min-height: 20px;
+    color: black;
+		background-color: #f5f3a2;
+		border-style: solid;
+		padding: 10px;
+}
+
 .centerButton {
     transform: translateY(60%);
 }

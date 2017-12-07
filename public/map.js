@@ -17,62 +17,117 @@ var bostonLatLng = new google.maps.LatLng(bostonLat, bostonLng);
 // the boston area, in which case default to ... somewhere in boston
 
 var user;
+
 var mapOptions = {
     zoom: 12, // The larger the zoom number, the bigger the zoom
     center: user,
     gestureHandling: 'greedy',
-    mapTypeId: google.maps.MapTypeId.ROADMAP
+    mapTypeId: google.maps.MapTypeId.ROADMAP,
+     styles: [{"featureType":"administrative","elementType":"all","stylers":[{"visibility":"on"},{"lightness":33}]},{"featureType":"administrative","elementType":"labels","stylers":[{"saturation":"-100"}]},{"featureType":"administrative","elementType":"labels.text","stylers":[{"gamma":"0.75"}]},{"featureType":"administrative.neighborhood","elementType":"labels.text.fill","stylers":[{"lightness":"-37"}]},{"featureType":"landscape","elementType":"geometry","stylers":[{"color":"#f9f9f9"}]},{"featureType":"landscape.man_made","elementType":"geometry","stylers":[{"saturation":"-100"},{"lightness":"40"},{"visibility":"off"}]},{"featureType":"landscape.natural","elementType":"labels.text.fill","stylers":[{"saturation":"-100"},{"lightness":"-37"}]},{"featureType":"landscape.natural","elementType":"labels.text.stroke","stylers":[{"saturation":"-100"},{"lightness":"100"},{"weight":"2"}]},{"featureType":"landscape.natural","elementType":"labels.icon","stylers":[{"saturation":"-100"}]},{"featureType":"poi","elementType":"geometry","stylers":[{"saturation":"-100"},{"lightness":"80"}]},{"featureType":"poi","elementType":"labels","stylers":[{"saturation":"-100"},{"lightness":"0"}]},{"featureType":"poi.attraction","elementType":"geometry","stylers":[{"lightness":"-4"},{"saturation":"-100"}]},{"featureType":"poi.park","elementType":"geometry","stylers":[{"color":"#c5dac6"},{"visibility":"on"},{"saturation":"-95"},{"lightness":"62"}]},{"featureType":"poi.park","elementType":"labels","stylers":[{"visibility":"on"},{"lightness":20}]},{"featureType":"road","elementType":"all","stylers":[{"lightness":20}]},{"featureType":"road","elementType":"labels","stylers":[{"saturation":"-100"},{"gamma":"1.00"}]},{"featureType":"road","elementType":"labels.text","stylers":[{"gamma":"0.50"}]},{"featureType":"road","elementType":"labels.icon","stylers":[{"saturation":"-100"},{"gamma":"0.50"}]},{"featureType":"road.highway","elementType":"geometry","stylers":[{"color":"#c5c6c6"},{"saturation":"-100"}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"lightness":"-13"}]},{"featureType":"road.highway","elementType":"labels.icon","stylers":[{"lightness":"0"},{"gamma":"1.09"}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#e4d7c6"},{"saturation":"-100"},{"lightness":"47"}]},{"featureType":"road.arterial","elementType":"geometry.stroke","stylers":[{"lightness":"-12"}]},{"featureType":"road.arterial","elementType":"labels.icon","stylers":[{"saturation":"-100"}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#fbfaf7"},{"lightness":"77"}]},{"featureType":"road.local","elementType":"geometry.fill","stylers":[{"lightness":"-5"},{"saturation":"-100"}]},{"featureType":"road.local","elementType":"geometry.stroke","stylers":[{"saturation":"-100"},{"lightness":"-15"}]},{"featureType":"transit.station.airport","elementType":"geometry","stylers":[{"lightness":"47"},{"saturation":"-100"}]},{"featureType":"water","elementType":"all","stylers":[{"visibility":"on"},{"color":"#acbcc9"}]},{"featureType":"water","elementType":"geometry","stylers":[{"saturation":"53"}]},{"featureType":"water","elementType":"labels.text.fill","stylers":[{"lightness":"-42"},{"saturation":"17"}]},{"featureType":"water","elementType":"labels.text.stroke","stylers":[{"lightness":"61"}]}]
+
 };
 var map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
 var markers = [];
-var markerCluster = new MarkerClusterer(map, markers,
-            {imagePath: '../images/m'});
+// var markerCluster = new MarkerClusterer(map, markers,
+//             {imagePath: '../images/m'});
+var oms = new OverlappingMarkerSpiderfier(map, {
+  markersWontMove: true,
+  markersWontHide: true,
+  basicFormatEvents: true
+});
+
+//look at other icons https://github.com/jawj/OverlappingMarkerSpiderfier
+// oms.addListener('format', function(marker, status) {
+//         var iconURL = status == OverlappingMarkerSpiderfier.markerStatus.SPIDERFIED ? 'images/m1' :
+//           status == OverlappingMarkerSpiderfier.markerStatus.SPIDERFIABLE ? 'images/m2' :
+//           status == OverlappingMarkerSpiderfier.markerStatus.UNSPIDERFIABLE ? 'images/m3' :
+//           null;
+//         var iconSize = new google.maps.Size(23, 32);
+//         marker.setIcon({
+//           url: iconURL,
+//           size: iconSize,
+//           scaledSize: iconSize  // makes SVG icons work in IE
+//         });
+//       });
+
 var userMarker;
 var userInfoWindow = new google.maps.InfoWindow();
 
 // approximately from https://developers.google.com/maps/documentation/javascript/importing_data
 // more on markers https://developers.google.com/maps/documentation/javascript/reference#Marker
-function addStoryPoints(data, filter) {
+function addStoryPoints(data, tags, boxes) {
 
-  var filters = String(filter).split("+");
     for (var i = 0; i < data.length; i++) {
     var point = data[i];
     // this only handles geojson points!
-    // for (var j = 0; i < filters.length; j++) {
-      // var f = filters[j];
-    if (filterTags(point, filters) || typeof filter == "undefined" || filter == "") {
-      var coords = point.coordinates;
 
-      //check for incorrectly formatted coordinates
-      if (coords[1] != "" && typeof coords[1] != "undefined"
-          && coords[0] != "" && coords[0] != "undefined") {
-        var latlng = new google.maps.LatLng(coords[1], coords[0]);
+    // for (var j = 0; i < tags.length; j++) {
+      // var f = tags[j];
+    if ((inBoxes(point, boxes) || inTags(point, tags)) || ((boxes.length == 0) && tags.length == 0)) {
+        var coords = point.coordinates;
+        //check for incorrectly formatted coordinates
+        if (coords[1] != "" && typeof coords[1] != "undefined"
+            && coords[0] != "" && coords[0] != "undefined") {
+          var latlng = new google.maps.LatLng(coords[1], coords[0]);
 
 
-        var marker = new google.maps.Marker({
-          position: latlng,
-          map: map,
-          title: point.title,
-                    author: point.author,
-                    blurb: point.blurb,
-                    photo: point.header_photo_url
-        });
-        markers.push(marker);
-        markerCluster.addMarker(marker);
-        var infoWindow = new google.maps.InfoWindow();
-        map.panTo(latlng);
-        google.maps.event.addListener(marker, 'click', function() {
-          infoWindow.setContent("<h1>" + this.title + "</h1><img src='" + this.photo + "' width='150px'><h3>by " + this.author + "</h3><p>" + this.blurb + "</p>");
-          infoWindow.open(map, this);
-        });
+          if (point.type == "Arts") {
+            icon = "../images/arts.png";
+          }
+          switch(point.type) {
+            case "Arts":
+              icon = "../images/arts.png";
+              break;
+            case "Politics":
+              icon = "../images/politics.png";
+              break;
+            case "Science":
+              icon = "../images/science.png";
+              break;
+            case "Sports":
+              icon = "../images/sports.png";
+              break;
+            default:
+              icon = "../images/alert.png";
+          }
+          var marker = new google.maps.Marker({
+            position: latlng,
+            map: map,
+            title: point.title,
+                      author: point.author,
+                      blurb: point.blurb,
+                      photo: point.header_photo_url,
+                      icon: icon
+          });
+          markers.push(marker);
+          // markerCluster.addMarker(marker);
+          var infoWindow = new google.maps.InfoWindow();
+          map.panTo(latlng);
+          google.maps.event.addListener(marker, 'click', function() {
+            infoWindow.setContent("<h1>" + this.title + "</h1><img src='" + this.photo + "' width='150px'><h3>by " + this.author + "</h3><p>" + this.blurb + "</p>");
+            infoWindow.open(map, this);
+          });
+          oms.addMarker(marker);
+
+        }
       }
     }
-    // }
 
   }
+
+function inBoxes(story, boxes) {
+  if (boxes.length == 0) {
+    return false;
+  } else if (boxes.includes(story.type) || boxes.includes(story.author)) {
+    return true;
+  }
+  return false;
 }
 
-function filterTags(story, filter) {
+function inTags(story, filter) {
+  if (filter.length == 0) {
+    return false;
+  }
   var tags = story.tags;
   for (var i = 0; i < filter.length; i++) {
     if (filter[i] != "" && tags.includes(filter[i])) return true;
@@ -82,21 +137,19 @@ function filterTags(story, filter) {
 }
 
 function initMap() {
+  var filter = JSON.parse(localStorage.getItem("filter"));
   if (location.hostname == "localhost") {
       var url = 'http://' + location.hostname + ':' + location.port;
   } else {
       var url = 'https://' + location.hostname + ':' + location.port;
   }
 
-  // this has been added for testing -wm
-  // url = 'http://binj-map.herokuapp.com';
-
   boston = new google.maps.LatLng(bostonLat, bostonLng);
     map.panTo(boston);
   var urlToParse = location.search;
   var result = parseQueryString(urlToParse );
   $.get(url + '/stories/', function(data){
-    addStoryPoints(data, result.filter);
+    addStoryPoints(data, filter.tags, filter.boxes);
     localStorage.setItem('storyData', JSON.stringify(data));
     searchBox();
   });
@@ -151,71 +204,6 @@ function searchBox()
       });
 
   }
-
-
-
-// here lies some sample data
-var point1 = {
-    _id: null,
-    title: "Somerville House Cat Completes Moon Mission",
-    author: "Dennis the Cat",
-    url: "hmm.com/story",
-    header_photo_url: "https://i.ytimg.com/vi/E7BnKFl7lYI/hqdefault.jpg",
-    published_date: new Date(),
-    blurb: "Cat-stronaut pilots dry-food fueled engine to dark side of moon",
-    tags: ["somerville", "cats", "news", "moon"],
-    coordinates: [
-          -71.12341225147247,
-          42.402303114395295],
-    location_name: "28 Whitman St"
-};
-
-var point2 = {
-    _id: null,
-    title: "Tufts Students Discover Gold in Sewer",
-    author: "Tricky Snarkaretos",
-    url: "this.isnt.real.co.uk",
-    header_photo_url: "http://1.bp.blogspot.com/-5ZbU7ui6v_Q/Ti26NCiFeuI/AAAAAAAAHxw/B2HBln5KQcg/s1600/fW5nZ.St.11.jpg",
-    published_date: Date(),
-    blurb: "Three Tufts students stuck it rich, discovering hidden gold in a storm drain while looking for that old iPhone 6 they dropped on the way to spanish class",
-    tags: ["somerville", "tufts", "sewer", "poop"],
-    coordinates: [
-          -71.12189412117003,
-          42.406751426673765],
-    location_name: "That one storm drain by Monaco's house"
-};
-
-var point3 = {
-    _id: null,
-    title: "Boy Trips on Shoelace, Stays on Ground",
-    author: "Squilliam Fancypants",
-    url: "another-fake-url.io",
-    header_photo_url: "https://fittingchildrenshoes.com/wp-content/uploads/2016/02/38970378_s.jpg",
-    published_date: Date(),
-    blurb: "Local boy who never learned to tie his shoes falls yet again, but this time decides to cut his loses and just stay on the ground forever.",
-    tags: ["somerville", "tufts", "news"],
-    coordinates: [
-          -71.120490,
-          42.404189],
-    location_name: "Right by South, I mean Harleston"
-};
-
-var point4 = {
-    _id: null,
-    title: "Tufts Passes Legislation Offcially Combining Sports and Fraternity Houses",
-    author: "Squilliam Fancysuds",
-    url: "yet_another-fake-url.io",
-    header_photo_url: "https://fittingchildrenshoes.com/wp-content/uploads/2016/02/38970378_s.jpg",
-    published_date: Date(),
-    blurb: "Some things happened. Some more things were done.",
-    tags: ["somerville", "tufts", "news", "satire"],
-    coordinates: [
-          -71.120499,
-          42.404183],
-    location_name: "Around Tufts Somewhere"
-};
-
-var samplePoints = [point1, point2, point3, point4];
 
 // parsing url parameters
 // special thanks to https://cmatskas.com/get-url-parameters-using-javascript/
