@@ -138,7 +138,6 @@ function inTags(story, filter) {
 
 function initMap() {
   var filter = JSON.parse(localStorage.getItem("filter"));
-  console.log(filter);
   if (location.hostname == "localhost") {
       var url = 'http://' + location.hostname + ':' + location.port;
   } else {
