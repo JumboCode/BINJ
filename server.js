@@ -99,7 +99,7 @@ app.get('/imgurl', function (req, res) {
             if (src == "") {
             	return res.sendStatus(400);
             }
-            return res.send(url);
+            return res.send(src);
         } else {
             return res.sendStatus(400);
         }
