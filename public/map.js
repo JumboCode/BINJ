@@ -94,17 +94,19 @@ function addStoryPoints(data, tags, boxes) {
             position: latlng,
             map: map,
             title: point.title,
-                      author: point.author,
-                      blurb: point.blurb,
-                      photo: point.header_photo_url,
-                      icon: icon
+            author: point.author,
+            blurb: point.blurb,
+            photo: point.header_photo_url,
+            icon: icon,
+            tags: point.tags,
+            url: point.url
           });
           markers.push(marker);
           // markerCluster.addMarker(marker);
           var infoWindow = new google.maps.InfoWindow();
           map.panTo(latlng);
           google.maps.event.addListener(marker, 'click', function() {
-            infoWindow.setContent("<h1>" + this.title + "</h1><img src='" + this.photo + "' width='150px'><h3>by " + this.author + "</h3><p>" + this.blurb + "</p>");
+            infoWindow.setContent("<h1 class='bubbleTitle'>" + this.title + "</h1><br><img src='" + this.photo + "' class='bubbleImg'><h3 class='bubbleAuthor'>by " + this.author + "</h3><br><a href=" + this.url + " target='_blank'>Full story</a><br><p>" + this.blurb + "</p><br><p> Tags: " + this.tags.join(", ") + "</p>");
             infoWindow.open(map, this);
           });
           oms.addMarker(marker);

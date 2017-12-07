@@ -236,3 +236,13 @@ hr {
  #loc_search:focus {
 	 border-color: #4d90fe;
  }
+
+ .bubbleTitle {
+	 text-align: center;
+ }
+
+ .bubbleImg {
+	 display: block;
+	 margin: auto;
+	 width: 300px;
+ }
