@@ -19,6 +19,4 @@ router.get('/register', accountController.registerpage)
 
 router.post('/register', ensureAuthenticated, accountController.register);
 
-router.get('/server', ensureAuthenticated, accountController.server);
-
 module.exports = router;

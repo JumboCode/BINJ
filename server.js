@@ -72,7 +72,13 @@ app.get('/admin', function(req, res) {
 	res.sendFile('edit.html', {root: path.join(__dirname, 'public')});
 });
 
-
+/*
+ * To use: 
+ * https://binj-map.herokuapp.com/imgurl?url=https://website.com
+ *
+ * Example use:
+ * https://binj-map.herokuapp.com/imgurl?url=https://medium.com/binj-reports/we-came-we-saw-we-covered-a-fightsupremacy-composite-retrospect-941966fd60d4
+ */
 app.get('/imgurl', function (req, res) {
 	var url = req.query.url;
     url = (url.substring(0,4) == "http") ? url : "https://" + url;
@@ -91,11 +97,11 @@ app.get('/imgurl', function (req, res) {
             });
 
             if (src == "") {
-            	return res.json("{'error':'Image Not Found'}");
+            	return res.sendStatus(400);
             }
-            return res.json("{'imageurl':'" + src + "'}");
+            return res.send(url);
         } else {
-            return res.json("{'error':'Query Page Not Found'}");
+            return res.sendStatus(400);
         }
     });
 });
