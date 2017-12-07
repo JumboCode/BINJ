@@ -15,7 +15,7 @@ var changed = false;
 $(document).ready(function () {
   // gotta initialize things, kids
   localStorage.setItem('filter', JSON.stringify({"tags" : [], "boxes" : []}));
-  
+
     $('#form')
         .find('[name="search"]')
             .change(function (e) {
@@ -54,13 +54,17 @@ function getFilters() {
     changed = true;
     localStorage.setItem("filter", JSON.stringify({"tags": filterTags,
                                                    "boxes": filterBoxes}));
+
+   var filters = "map.html";
+   $("#iframe").attr("src", filters);
+
     if (str != "") return ("?filter=" + str.substring(0, str.length - 1));
     else return "";
 
 }
 
 
-// this shit has to do with loading the list view and the filters 
+// this shit has to do with loading the list view and the filters
 // currently displayed
 $('#content').height($(window).height() - $('.logo').height() - $('.wrapper').height());
 
@@ -119,7 +123,7 @@ function loadFilters(data) {
         // make author entry
         var author = document.createElement("div");
         author.className += "checkbox";
-        author.innerHTML = '<label><input type = "checkbox" onclick="authorCheck(this);" value="' + data[i].author + '">' + data[i].author + '</label>';
+        author.innerHTML = '<label><input type = "checkbox" onclick="getFilters();" value="' + data[i].author + '">' + data[i].author + '</label>';
         document.getElementById("author").appendChild(author);
         authors.push(data[i].author);
       }
@@ -129,13 +133,13 @@ function loadFilters(data) {
         // make type entry
         var type = document.createElement("div");
         type.className += "checkbox";
-        type.innerHTML = '<label><input type = "checkbox" name="storytype" value="' + data[i].type + '">' + data[i].type + '</label>';
+        type.innerHTML = '<label><input type = "checkbox" onclick="getFilters();" name="storytype" value="' + data[i].type + '">' + data[i].type + '</label>';
         document.getElementById("storytype").appendChild(type);
         storytypes.push(data[i].type);
       }
   }
 }
-/*    filtering checkboxes - disabled for now
+/*    filtering checkboxes - disabled for now *
 function authorCheck(cb) {
   if ($(cb).is(':checked')) {
     filterAuthors.push($(cb).val());

@@ -40,7 +40,7 @@ var oms = new OverlappingMarkerSpiderfier(map, {
 // oms.addListener('format', function(marker, status) {
 //         var iconURL = status == OverlappingMarkerSpiderfier.markerStatus.SPIDERFIED ? 'images/m1' :
 //           status == OverlappingMarkerSpiderfier.markerStatus.SPIDERFIABLE ? 'images/m2' :
-//           status == OverlappingMarkerSpiderfier.markerStatus.UNSPIDERFIABLE ? 'images/m3' : 
+//           status == OverlappingMarkerSpiderfier.markerStatus.UNSPIDERFIABLE ? 'images/m3' :
 //           null;
 //         var iconSize = new google.maps.Size(23, 32);
 //         marker.setIcon({
@@ -55,7 +55,7 @@ var userInfoWindow = new google.maps.InfoWindow();
 
 // approximately from https://developers.google.com/maps/documentation/javascript/importing_data
 // more on markers https://developers.google.com/maps/documentation/javascript/reference#Marker
-function addStoryPoints(data, tags, authors) {
+function addStoryPoints(data, tags, boxes) {
 
     for (var i = 0; i < data.length; i++) {
     var point = data[i];
@@ -63,8 +63,7 @@ function addStoryPoints(data, tags, authors) {
 
     // for (var j = 0; i < tags.length; j++) {
       // var f = tags[j];
-    if (authors.length == 0 || filterAuthor(point, authors)) {
-      if (tags.length == 0 || filterTags(point, tags)) {
+    if ((inBoxes(point, boxes) || inTags(point, tags)) || ((boxes.length == 0) && tags.length == 0)) {
         var coords = point.coordinates;
         //check for incorrectly formatted coordinates
         if (coords[1] != "" && typeof coords[1] != "undefined"
@@ -115,14 +114,20 @@ function addStoryPoints(data, tags, authors) {
     }
 
   }
-}
 
-function filterAuthor(story, authors) {
-  if (authors.includes(story.author)) return true;
+function inBoxes(story, boxes) {
+  if (boxes.length == 0) {
+    return false;
+  } else if (boxes.includes(story.type) || boxes.includes(story.author)) {
+    return true;
+  }
   return false;
 }
 
-function filterTags(story, filter) {
+function inTags(story, filter) {
+  if (filter.length == 0) {
+    return false;
+  }
   var tags = story.tags;
   for (var i = 0; i < filter.length; i++) {
     if (filter[i] != "" && tags.includes(filter[i])) return true;
@@ -133,6 +138,7 @@ function filterTags(story, filter) {
 
 function initMap() {
   var filter = JSON.parse(localStorage.getItem("filter"));
+  console.log(filter);
   if (location.hostname == "localhost") {
       var url = 'http://' + location.hostname + ':' + location.port;
   } else {
