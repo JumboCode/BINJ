@@ -123,4 +123,17 @@ $(document).ready(function() {
             "coordinates": self.coordinates
         }, function() {window.location.replace("admin");})
     });
+
+    const headerPhotoUrl = $("#header_photo_url");
+    headerPhotoUrl.focusout(() => {
+        $.getJSON("/imgurl", {url: headerPhotoUrl.val()}, (error, response) => {
+            if (error) {
+                alert("Invalid URL");
+            } else {
+                const img = $('<img id="preview-image">'); //Equivalent: $(document.createElement('img'))
+                img.attr('src', response);
+                headerPhotoUrl.append(img);
+            }
+        });
+    });
 });
