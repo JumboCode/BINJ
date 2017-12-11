@@ -23,7 +23,6 @@ function getStories() {
     });
 };
 
-
 function deleteStory(story) {
     var id = $(story).data('id');
     $.ajax({
@@ -65,7 +64,7 @@ $(document).ready(function() {
         console.log(published_date.toString());
         var clean_date=cleanDate(published_date.toString());
         console.log(clean_date);
-        tempHTML =  '<div class="list-group-item clearfix">' + '<div class="container-fluid"><div class="col-xs-6">' + '<div id="overview" class="d-flex w-100 justify-content-between">' +
+        tempHTML =  '<div class="list-group-item clearfix" id=eachStory>' + '<div class="container-fluid"><div class="col-xs-6">' + '<div id="overview" class="d-flex w-100 justify-content-between">' +
                           '<h5 id="title">' + tempStory['title'] +
                           '</h5> <small id="published_date">' + clean_date +
                          ' </small></div><p id="blurb">' + tempStory['blurb'] +
