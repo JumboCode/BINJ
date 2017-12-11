@@ -113,7 +113,6 @@ p {
 #list-view {
 	padding: 5%;
 	overflow: auto;
-	height: 500px;
 	background: white;
 }
 

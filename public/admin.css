@@ -11,7 +11,7 @@ body {
 	height: 100%;
 	margin: 0px;
 	padding: 0px;
-  background-color: #f5f3a2
+  background-color: #f3f694;
 }
 
 #map_canvas {
@@ -122,11 +122,68 @@ h4 {
 }
 
 .centerButton {
-    transform: translateY(60%);
+    padding: 5px;
+		padding-left: 0px;
 }
 
 #login {
 	float: right;
 	text-align: right;
   margin-right: 5%;
+}
+
+#eachStory {
+	 margin-bottom: 15px;
+}
+
+.btn-primary {
+  color: #fff;
+  border-color: #142b61;
+	background-image: -webkit-linear-gradient(top,#142b61 0,#142b61 100%);
+	background-image: -o-linear-gradient(top,#142b61 0,#142b61 100%);
+	background-image: -webkit-gradient(linear,left top,left bottom,from(#142b61),to(#142b61));
+	background-image: linear-gradient(to bottom,#142b61 0,#142b61 100%);
+}
+
+.btn.btn-primary:hover {
+	background-image: linear-gradient(to bottom,#555859 0,#555859 100%);
+  color: #fff;
+  background-color: #555859;
+  border-color: #142b61;
+  outline: none;
+  box-shadow: none;
+}
+.btn-warning, .btn-warning:focus {
+  color: #fff;
+  border-color: #555859;
+	background-color: #555859;
+	background-image: linear-gradient(to bottom,#555859 0,#555859 100%);
+}
+.btn-warning:active {
+  color: #fff;
+  border-color: #555859;
+	background-image: linear-gradient(to bottom,#555859 0,#555859 100%);
+}
+
+.btn.btn-warning:hover {
+	background-image: linear-gradient(to bottom,#142b61 0,#142b61 100%);
+  color: #fff;
+  background-color: #142b61;
+  border-color: black;
+  outline: none;
+  box-shadow: none;
+}
+.btn-danger {
+  color: white;
+  border-color: black;
+	background-image: linear-gradient(to bottom,black 0,black 100%);
+}
+
+.btn.btn-danger:hover {
+	background-image: linear-gradient(to bottom,red 0,red 100%);
+  color: white;
+  background-color: red;
+  border-color: black;
+  outline: none;
+  box-shadow: none;
 }
