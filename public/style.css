@@ -54,7 +54,7 @@ a {
 
 .logo {
     display: flex;
-
+		height: 20%;
 }
 
 #title {
