@@ -58,22 +58,17 @@ app.get('/', function(req, res){
 	res.sendFile('index2.html', {root: path.join(__dirname, 'public')});
 });
 
-// authentication for admin page. necessary in the future, but not yet.
-/*app.get('/admin', ensureAuthenticated, function(req, res) {
+app.get('/admin', ensureAuthenticated, function(req, res) {
 	res.sendFile('admin.html', {root: path.join(__dirname, 'public')});
-});*/
+});
 
 app.post('*', function(req, res) {
 	console.log(req.url.substring(1));
 	res.send("200")
 });
 
-app.get('/admin', function(req, res) {
-	res.sendFile('edit.html', {root: path.join(__dirname, 'public')});
-});
-
 /*
- * To use: 
+ * To use:
  * https://binj-map.herokuapp.com/imgurl?url=https://website.com
  *
  * Example use:
@@ -107,7 +102,7 @@ app.get('/imgurl', function (req, res) {
 });
 
 
-app.get('/newStory', function(req, res){
+app.get('/newStory', ensureAuthenticated, function(req, res){
 
 	res.sendFile('admin.html', {root: path.join(__dirname, 'public')});
 });
