@@ -55,11 +55,11 @@ function ensureAuthenticated(req, res, next) {
 }
 
 app.get('/', function(req, res){
-	res.sendFile('index2.html', {root: path.join(__dirname, 'public')});
+	res.sendFile('index.html', {root: path.join(__dirname, 'public')});
 });
 
 app.get('/admin', ensureAuthenticated, function(req, res) {
-	res.sendFile('admin.html', {root: path.join(__dirname, 'public')});
+	res.sendFile('edit.html', {root: path.join(__dirname, 'public')});
 });
 
 app.post('*', function(req, res) {

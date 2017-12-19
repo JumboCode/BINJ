@@ -99,7 +99,7 @@ function loadCards(data) {
         newCard.appendChild(author);
         // link to full text
         var url = document.createElement("p");
-        url.innerHTML = '<a href="' + data[i].url + '">Full article</a>';
+        url.innerHTML = '<a href="' + data[i].url + '" target="_blank">Full article</a>';
         newCard.appendChild(url);
         // make a blurb
         var blurb = document.createElement("p");
