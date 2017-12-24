@@ -114,7 +114,7 @@ p {
 	padding: 5%;
 	overflow: auto;
 	background: white;
-	height: 525px;
+	max-height: 525px;
 }
 
 .list-view-card {
@@ -246,3 +246,16 @@ hr {
 	 margin: auto;
 	 width: 300px;
  }
+
+.storyLink {
+	float: right;
+	background-color: #f3f694;
+	width: 25%;
+	border-radius: 5px;
+}
+
+#linkText {
+	text-decoration: none;
+	color: black;
+	text-align: center;
+}

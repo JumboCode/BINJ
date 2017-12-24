@@ -95,6 +95,7 @@ function addStoryPoints(data, tags, boxes) {
             photo: point.header_photo_url,
             icon: icon,
             tags: point.tags,
+            published_date: point.published_date,
             url: point.url
           });
           markers.push(marker);
@@ -102,7 +103,14 @@ function addStoryPoints(data, tags, boxes) {
           var infoWindow = new google.maps.InfoWindow();
           map.panTo(latlng);
           google.maps.event.addListener(marker, 'click', function() {
-            infoWindow.setContent("<h1 class='bubbleTitle'>" + this.title + "</h1><br><img src='" + this.photo + "' class='bubbleImg'><h3 class='bubbleAuthor'>by " + this.author + "</h3><br><a href=" + this.url + " target='_blank'>Full story</a><br><p>" + this.blurb + "</p><br><p> Tags: " + this.tags.join(", ") + "</p>");
+            infoWindow.setContent("<h1 class='bubbleTitle'>" + this.title +
+                                  "</h1><br><img src='" + this.photo +
+                                  "' class='bubbleImg'></img><br><h4>" + cleanDate(this.published_date.toString()) +
+                                  "</h4><i><h4 class='bubbleAuthor'>By " + this.author +
+                                  "</i> | Tags: " + this.tags.join(", ") +
+                                  "</h4><p>" + this.blurb +
+                                  "</p><br><button class='storyLink'><a id='linkText' href=" + this.url +
+                                  " target='_blank'>Full story</a></button>");
             infoWindow.open(map, this);
           });
           oms.addMarker(marker);
@@ -112,6 +120,14 @@ function addStoryPoints(data, tags, boxes) {
     }
 
   }
+
+  function cleanDate(published_date)
+  {
+      var year = published_date.slice(0, 4);
+      var month = published_date.slice(5, 7);
+      var day = published_date.slice(8, 10);
+      return clean_date = (month + "/" + day + "/" + year);
+  };
 
 function inBoxes(story, boxes) {
   if (boxes.length == 0) {

@@ -101,14 +101,14 @@ function loadCards(data) {
         var title = document.createElement("h2")
         title.innerHTML = data[i].title;
         newCard.appendChild(title);
-        // make an author
-        var author = document.createElement("h4");
-        author.innerHTML = "By " + data[i].author;
-        newCard.appendChild(author);
         // date of publication
         var date = document.createElement("h4");
         date.innerHTML = cleanDate(data[i].published_date.toString());
         newCard.appendChild(date);
+        // make an author
+        var author = document.createElement("h4");
+        author.innerHTML = "<i>By " + data[i].author + "</i> | Tags: " + data[i].tags;
+        newCard.appendChild(author);
         // link to full text
         var url = document.createElement("p");
         url.innerHTML = '<a href="' + data[i].url + '" target="_blank">Full article</a>';
