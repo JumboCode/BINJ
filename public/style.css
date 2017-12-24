@@ -114,6 +114,7 @@ p {
 	padding: 5%;
 	overflow: auto;
 	background: white;
+	height: 525px;
 }
 
 .list-view-card {

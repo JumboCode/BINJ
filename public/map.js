@@ -70,10 +70,6 @@ function addStoryPoints(data, tags, boxes) {
             && coords[0] != "" && coords[0] != "undefined") {
           var latlng = new google.maps.LatLng(coords[1], coords[0]);
 
-
-          if (point.type == "Arts") {
-            icon = "../images/arts.png";
-          }
           switch(point.type) {
             case "Arts":
               icon = "../images/arts.png";
@@ -191,7 +187,6 @@ function searchBox()
         places.forEach(function(place) {
           self.coordinates = [place.geometry.location.lng(), place.geometry.location.lat()];
           if (!place.geometry) {
-            console.log("Returned place contains no geometry");
             return;
           }
 

@@ -112,16 +112,22 @@ $(document).ready(function() {
         } else {
             url = "https://" + location.hostname + ":" + location.port + "/stories";
         }
+        if ($("input[name='storytype']:checked").val() == undefined) {
+          type = "Other";
+        } else {
+          type = $("input[name='storytype']:checked").val();
+        }
+
         $.post(url, {
             "title": $('#title').val(),
             "author": $('#author').val(),
             "url": $('#url').val(),
             "header_photo_url": $('#header_photo_url').val(),
-            "published_date": new Date(),
+            "published_date": $('#date').val(),
             "blurb": $('#blurb').val(),
             "tags": $("#tags").tagsinput('items'),
             "location_name": $('#location_name').val(),
-            "type": $("input[name='storytype']:checked").val(),
+            "type": type,
             "coordinates": self.coordinates
         }, function() {window.location.replace("admin");})
     });

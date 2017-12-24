@@ -39,16 +39,42 @@ function editStory(story) {
     storyId = $(story).data('id');
     $.get(self.url + $(story).data('id'), function( data ) {
         artInfo = data;
+        console.log(artInfo);
         initMap(artInfo["coordinates"]);
         self.coordinates = artInfo["coordinates"];
         $("#titleId").replaceWith( '<input type="text" class="form-control" id="titleId" value="'+ artInfo["title"] + '">');
         $("#modal_author").replaceWith( '<input type="text" class="form-control" id="author" value="'+ artInfo["author"] + '">');
+        $("#date").replaceWith( '<input type="date" class="form-control" id="date" value="'+ artInfo["published_date"].slice(0,10) + '">');
         $("#blurbId").replaceWith( '<textarea id="blurbId" class="form-control" rows="15" >' + artInfo["blurb"] + '</textarea>');
         $("#location_name_modal").replaceWith( '<input type="text" class="form-control" id="location_name_modal" value="'+ artInfo["location_name"] + '">');
-        $("#tags").replaceWith( '<input type="text" class="form-control" id="tags" value="'+ artInfo["type"] + '">');
         $("#url").replaceWith( '<input type="text" class="form-control" id="url" rows="1" value="'+ artInfo["url"] + '">');
         $("#header_photo_url").replaceWith( '<input type="text" class="form-control" id="header_photo_url" rows="1" value="'+ artInfo["header_photo_url"] + '">');
+        $("#checkboxes").replaceWith(checkBox(artInfo["type"]));
+        console.log(checkBox(artInfo["type"]));
+        $("#modalTags").tagsinput();
+        artInfo["tags"].forEach(function(elem) {
+          $("#modalTags").tagsinput('add', elem);
+        })
     });
+}
+function checkBox(storytype) {
+  // or, as the locals call it, the SpaghettiCodeGenerator3000
+  switch(storytype) {
+    case "Arts":
+      return '<label for="storytype">Story type</label><div class="radio"><label><input type="radio" name="storytype" value="Politics">Politics</label></div><div class="radio"><label><input type="radio" name="storytype" value="Science">Science</label></div><div class="radio"><label><input type="radio" name="storytype" value="Arts" checked>Arts</label></div><div class="radio"><label><input type="radio" name="storytype" value="Sports">Sports</label></div>'
+      break;
+    case "Politics":
+      return '<label for="storytype">Story type</label><div class="radio"><label><input type="radio" name="storytype" value="Politics" checked>Politics</label></div><div class="radio"><label><input type="radio" name="storytype" value="Science">Science</label></div><div class="radio"><label><input type="radio" name="storytype" value="Arts">Arts</label></div><div class="radio"><label><input type="radio" name="storytype" value="Sports">Sports</label></div>'
+      break;
+    case "Science":
+      return '<label for="storytype">Story type</label><div class="radio"><label><input type="radio" name="storytype" value="Politics">Politics</label></div><div class="radio"><label><input type="radio" name="storytype" value="Science" checked>Science</label></div><div class="radio"><label><input type="radio" name="storytype" value="Arts">Arts</label></div><div class="radio"><label><input type="radio" name="storytype" value="Sports">Sports</label></div>'
+      break;
+    case "Sports":
+      return '<label for="storytype">Story type</label><div class="radio"><label><input type="radio" name="storytype" value="Politics">Politics</label></div><div class="radio"><label><input type="radio" name="storytype" value="Science">Science</label></div><div class="radio"><label><input type="radio" name="storytype" value="Arts">Arts</label></div><div class="radio"><label><input type="radio" name="storytype" value="Sports" checked>Sports</label></div>'
+      break;
+    default:
+      return '<label for="storytype">Story type</label><div class="radio"><label><input type="radio" name="storytype" value="Politics">Politics</label></div><div class="radio"><label><input type="radio" name="storytype" value="Science">Science</label></div><div class="radio"><label><input type="radio" name="storytype" value="Arts">Arts</label></div><div class="radio"><label><input type="radio" name="storytype" value="Sports">Sports</label></div>'
+  }
 }
 function cleanDate(published_date)
 {
@@ -61,10 +87,8 @@ function cleanDate(published_date)
 $(document).ready(function() {
     $.each(stories, function(index) {
         tempStory = stories[index];
-        published_date=tempStory["published_date"];
-        console.log(published_date.toString());
-        var clean_date=cleanDate(published_date.toString());
-        console.log(clean_date);
+        published_date = tempStory["published_date"];
+        var clean_date = cleanDate(published_date.toString());
         tempHTML =  '<div class="list-group-item clearfix" id="eachStory">' + '<div class="container-fluid"><div class="col-xs-6">' + '<div id="overview" class="d-flex w-100 justify-content-between">' +
                           '<h5 id="title">' + tempStory['title'] +
                           '</h5> <small id="published_date">' + clean_date +
@@ -174,13 +198,18 @@ function initMap(coords)
         PUTurl = "https://" + location.hostname + ":" + location.port + "/stories/" + storyId;
     }
     window.location.reload();
+    if ($("input[name='storytype']:checked").val() == undefined) {
+      type = "Other";
+    } else {
+      type = $("input[name='storytype']:checked").val();
+    }
     toSubmit = {
         "title": $('#titleId').val(),
         "author": $('#author').val(),
         "url": $('#url').val(),
         "blurb": $('#blurbId').val(),
         "location_name": $('#location').val(),
-        "type": $("input[name='storytype']:checked").val(),
+        "type": type,
         "tags": $("#modalTags").tagsinput('items'),
         "header_photo_url": $('#header_photo_url').val(),
         "coordinates": self.coordinates
