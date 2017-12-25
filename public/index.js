@@ -107,7 +107,7 @@ function loadCards(data) {
         newCard.appendChild(date);
         // make an author
         var author = document.createElement("h4");
-        author.innerHTML = "<i>By " + data[i].author + "</i> | Tags: " + data[i].tags;
+        author.innerHTML = "<i>By " + data[i].author + "</i> | Tags: " + data[i].tags.join(", ");
         newCard.appendChild(author);
         // link to full text
         var url = document.createElement("p");
