@@ -163,7 +163,11 @@ function initMap() {
   var urlToParse = location.search;
   var result = parseQueryString(urlToParse );
   $.get(url + '/stories/', function(data){
-    addStoryPoints(data, filter.tags, filter.boxes);
+    if (filter == undefined) {
+      addStoryPoints(data, [], []);
+    } else {
+      addStoryPoints(data, filter.tags, filter.boxes);
+    }
     localStorage.setItem('storyData', JSON.stringify(data));
     searchBox();
   });
