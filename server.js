@@ -107,6 +107,11 @@ app.get('/newStory', ensureAuthenticated, function(req, res){
 	res.sendFile('admin.html', {root: path.join(__dirname, 'public')});
 });
 
+app.get('/map', function(req, res){
+
+	res.sendFile('map.html', {root: path.join(__dirname, 'public')});
+});
+
 http.listen(process.env.PORT || 3000, function() {
   	console.log('Node app is running on port 3000');
 });
