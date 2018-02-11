@@ -132,16 +132,40 @@ $(document).ready(function() {
         }, function() {window.location.replace("admin");})
     });
 
+
+    function updatedImgUrl() {
+        const headerPhotoUrl = $("#header_photo_url");
+        const img = $('<img id="preview-image">'); //Equivalent: $(document.createElement('img'))
+        img.attr('src', headerPhotoUrl.val());
+
+        // Add img styling here
+        $("#header_photo_url_parent").append(img);
+    }
+
     const headerPhotoUrl = $("#header_photo_url");
     headerPhotoUrl.focusout(() => {
-        $.getJSON("/imgurl", {url: headerPhotoUrl.val()}, (error, response) => {
-            if (error) {
-                alert("Invalid URL");
-            } else {
-                const img = $('<img id="preview-image">'); //Equivalent: $(document.createElement('img'))
-                img.attr('src', response);
-                headerPhotoUrl.append(img);
-            }
+        console.log("focusing out: ")
+        updatedImgUrl()
+
+    });
+
+    const articleUrl = $("#url");
+    articleUrl.focusout(() => {
+        $.get("/imgurl?url=" + articleUrl.val(), function(response) { 
+            console.log("got a valid url:")
+            console.log(response)
+            $("#header_photo_url").val(response)
+            updatedImgUrl()
+        }).fail(function(status) {
+            // Add a better error handler here (possibly an error message)
+            console.log(status)
+            console.log("invalid url")
         });
     });
+
 });
+
+
+
+
+
