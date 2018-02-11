@@ -137,6 +137,7 @@ $(document).ready(function() {
         const headerPhotoUrl = $("#header_photo_url");
         const img = $('<img id="preview-image">'); //Equivalent: $(document.createElement('img'))
         img.attr('src', headerPhotoUrl.val());
+        $("#header_photo_url_parent img").remove();
 
         // Add img styling here
         $("#header_photo_url_parent").append(img);
