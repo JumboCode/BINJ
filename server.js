@@ -68,28 +68,40 @@ app.post('*', function(req, res) {
 });
 
 /*
+ * Guesses which image url could be used from news article page. 
+ * 
  * To use:
  * https://binj-map.herokuapp.com/imgurl?url=https://website.com
- *
- * Example use:
- * https://binj-map.herokuapp.com/imgurl?url=https://medium.com/binj-reports/we-came-we-saw-we-covered-a-fightsupremacy-composite-retrospect-941966fd60d4
  */
 app.get('/imgurl', function (req, res) {
 	var url = req.query.url;
     url = (url.substring(0,4) == "http") ? url : "https://" + url;
+
+    if (url.indexOf("digboston") != -1) {
+        var digboston = true;
+    } else {
+        var digboston = false;
+    }
 
     request(url, function(error, response, html){
         if(!error){
             var $ = cheerio.load(html);
             var src = "";
             var i = 0;
-            $('img').filter(function() {
-                if (i == 2) {
-                    var data = $(this);
-                    src = data.attr("src");
-                }
-                i++;
-            });
+            
+            // custom filter for digboston pages
+            if (digboston) {
+                limit = 0
+                src = $('img').filter('.size-full').attr("src");
+            } else {
+                limit = 2
+                $('img').filter(function() {
+                    if (i == 2) {
+                        src = $(this).data.attr("src");
+                    }
+                    i++;
+                });
+            }
 
             if (src == "") {
             	return res.sendStatus(400);
