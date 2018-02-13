@@ -77,7 +77,7 @@ app.get('/imgurl', function (req, res) {
 	var url = req.query.url;
     url = (url.substring(0,4) == "http") ? url : "https://" + url;
 
-    if (url.indexOf("digboston") != -1) {
+    if (url.indexOf("digboston.com") != -1) {
         var digboston = true;
     } else {
         var digboston = false;
