@@ -112,10 +112,12 @@ $(document).ready(function() {
         } else {
             url = "https://" + location.hostname + ":" + location.port + "/stories";
         }
-        if ($("input[name='storytype']:checked").val() == undefined) {
-          type = "Other";
-        } else {
-          type = $("input[name='storytype']:checked").val();
+
+        types = []
+        if (($("input[name='storytype']:checked").length) != 0) {
+          $.each($("input[name='storytype']:checked"), function() {
+              types.push($(this)[0].value);
+          });
         }
 
         $.post(url, {
@@ -127,7 +129,7 @@ $(document).ready(function() {
             "blurb": $('#blurb').val(),
             "tags": $("#tags").tagsinput('items'),
             "location_name": $('#location_name').val(),
-            "type": type,
+            "type": types,
             "coordinates": self.coordinates
         }, function() {window.location.replace("admin");})
     });
@@ -152,7 +154,7 @@ $(document).ready(function() {
 
     const articleUrl = $("#url");
     articleUrl.focusout(() => {
-        $.get("/imgurl?url=" + articleUrl.val(), function(response) { 
+        $.get("/imgurl?url=" + articleUrl.val(), function(response) {
             console.log("got a valid url:")
             console.log(response)
             $("#header_photo_url").val(response)
@@ -165,8 +167,3 @@ $(document).ready(function() {
     });
 
 });
-
-
-
-
-

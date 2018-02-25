@@ -58,7 +58,7 @@ app.get('/', function(req, res){
 	res.sendFile('index.html', {root: path.join(__dirname, 'public')});
 });
 
-app.get('/admin', ensureAuthenticated, function(req, res) {
+app.get('/admin', /*ensureAuthenticated,*/ function(req, res) {
 	res.sendFile('edit.html', {root: path.join(__dirname, 'public')});
 });
 
@@ -68,8 +68,8 @@ app.post('*', function(req, res) {
 });
 
 /*
- * Guesses which image url could be used from news article page. 
- * 
+ * Guesses which image url could be used from news article page.
+ *
  * To use:
  * https://binj-map.herokuapp.com/imgurl?url=https://website.com
  */
@@ -88,7 +88,7 @@ app.get('/imgurl', function (req, res) {
             var $ = cheerio.load(html);
             var src = "";
             var i = 0;
-            
+
             // custom filter for digboston pages
             if (digboston) {
                 limit = 0
@@ -114,7 +114,7 @@ app.get('/imgurl', function (req, res) {
 });
 
 
-app.get('/newStory', ensureAuthenticated, function(req, res){
+app.get('/newStory', /*ensureAuthenticated,*/ function(req, res){
 
 	res.sendFile('admin.html', {root: path.join(__dirname, 'public')});
 });
