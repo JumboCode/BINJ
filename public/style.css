@@ -9,7 +9,13 @@ body {
 	height: 100%;
 	margin: 0px;
 	padding: 0px;
-  background-color: #f3f694;
+  /*background-color: #f3f694;*/
+	background: url("BOSTONMAP.jpg") no-repeat center center fixed;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	overflow: hidden;
 }
 
 #map_canvas {
@@ -55,6 +61,11 @@ a {
 .logo {
     display: flex;
 		height: 20%;
+}
+
+#logoImg {
+	max-width: 30%;
+	margin-left: 35%;
 }
 
 #title {
@@ -128,7 +139,7 @@ p {
 		background-color: #f3f694;
 }
 .nav-tabs {
-		background: #f3f694;
+		/*background: #f3f694;*/
 }
 .nav-tabs > li > a {
 		background: white;
