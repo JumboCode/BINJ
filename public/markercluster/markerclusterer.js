@@ -1067,10 +1067,36 @@ ClusterIcon.prototype.triggerClusterClick = function() {
   // Trigger the clusterclick event.
   google.maps.event.trigger(markerClusterer.map_, 'clusterclick', this.cluster_);
 
-  if (markerClusterer.isZoomOnClick()) {
+  var numMarkers = (this.cluster_.markers_).length;
+  var sameCoords = false;
+  for (var i = 0; i < numMarkers -1; i++) { //TODO:
+    console.log(this.cluster_.markers_[i].position);
+    if (this.cluster_.markers_[i].position.equals(this.cluster_.markers_[i+1].position) ) {
+      sameCoords = true;
+      
+      var story = this.cluster_.markers_[i];
+      console.log(story);
+      var infoWindow = new google.maps.InfoWindow();
+      infoWindow.setContent("<h1>" + story.title + "</h1><img src='" + story.photo + "' width='150px'><h3>by " + story.author + "</h3><p>" + story.blurb + "</p>");
+          infoWindow.setPosition(story.position);
+          infoWindow.open(map);
+      story1 = this.cluster_.markers_[i+1];
+
+      infoWindow = new google.maps.InfoWindow();
+      infoWindow.setContent("<h1>" + story1.title + "</h1><img src='" + story1.photo + "' width='150px'><h3>by " + story1.author + "</h3><p>" + story1.blurb + "</p>");
+          var pos = {lat: story1.position.lat() + 0.01,lng: story1.position.lng() + 0.05};
+          infoWindow.setPosition(pos);
+          infoWindow.open(map);
+
+    }
+  }
+  if (!sameCoords) {
+    if (markerClusterer.isZoomOnClick()) {
     // Zoom into the cluster.
     this.map_.fitBounds(this.cluster_.getBounds());
+    }
   }
+  
 };
 
 
@@ -1248,7 +1274,7 @@ ClusterIcon.prototype.createCss = function(pos) {
         this.height_ + 'px; width:' + this.width_ + 'px; text-align:center;');
   }
 
-  var txtColor = this.textColor_ ? this.textColor_ : 'black';
+  var txtColor = this.textColor_ ? this.textColor_ : 'white';
   var txtSize = this.textSize_ ? this.textSize_ : 11;
 
   style.push('cursor:pointer; top:' + pos.y + 'px; left:' +
@@ -1308,11 +1334,11 @@ ClusterIcon.prototype['onAdd'] = ClusterIcon.prototype.onAdd;
 ClusterIcon.prototype['draw'] = ClusterIcon.prototype.draw;
 ClusterIcon.prototype['onRemove'] = ClusterIcon.prototype.onRemove;
 
-Object.keys = Object.keys || function(o) {  
-    var result = [];  
-    for(var name in o) {  
-        if (o.hasOwnProperty(name))  
-          result.push(name);  
-    }  
-    return result;  
+Object.keys = Object.keys || function(o) {
+    var result = [];
+    for(var name in o) {
+        if (o.hasOwnProperty(name))
+          result.push(name);
+    }
+    return result;
 };

@@ -19,8 +19,8 @@
             xhr.onreadystatechange = function() {//Call a function when the state changes.
                 if(xhr.readyState == XMLHttpRequest.DONE){
                     if (xhr.status == 200) {
-                        // Logged in, redirect to home page.
-                        window.location = window.location.origin;
+                        // Logged in, redirect to admin page.
+                        window.location = window.location.origin + "/admin";
                     } else if (xhr.status == 401) {
                         document.getElementById("message").innerHTML =
                             "Incorrect username or password.";
@@ -28,7 +28,7 @@
                 }
             }
 
-            xhr.send("username=" + username + "&password=" + password); 
+            xhr.send("username=" + username + "&password=" + password);
         }
     </script>
 
@@ -45,7 +45,7 @@
         <br><br>
         <input type="submit" value="Submit" onclick="submit()">
         <p id="message" style="color:red"/>
-    </form> 
+    </form>
 </body>
 
 </html>

@@ -1,4 +1,4 @@
-# BINJ [![Build Status](https://travis-ci.org/jumbocodefall2017/BINJ.svg?branch=master)](https://travis-ci.org/jumbocodefall2017/BINJ)
+# BINJ [![Build Status](https://travis-ci.org/JumboCode/BINJ.svg?branch=master)](https://travis-ci.org/JumboCode/BINJ)
 ## Boston Institute for Nonprofit Journalism
 
 #### A heroku-served instance of this project is running [here](https://binj-map.herokuapp.com/)

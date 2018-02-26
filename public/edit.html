@@ -27,120 +27,143 @@
 </head>
 <body>
 
-    <a href="/account/logout" id="login">Logout</a>
-    <form>
-    <div class="container" id="newStoryBlock">
-        <div class="row">
-            <div class="col-xs-6">
-                <h1>Active Articles</h1>
-            </div>
-            <div class="col-xs-6 centerButton text-right">
-                 <a href="newStory" class="btn btn-success" role="button">Create a new story</a>
-            </div>
-        </div>
-        <br />
-        <div class="list-group" id="storiesList"></div>
+    <div class="row">
+      <div class="col-xs-2">
+        <a href="/"> <img src="https://cdn-images-1.medium.com/max/246/1*SQumLd1QIKdVJAM5nfvuqA@2x.png" /> </a>
+        <br>
+        <a href="/account/logout" class="btn btn-primary" role="button" id="submitbutton">Log out</a>
+        <br>
+        <br>
+        <a href="/account/register" class="btn btn-primary" role="button" id="submitbutton">Register a new user</a>
+        <br>
+        <br>
+        <a href="https://goo.gl/forms/8aF3F4ybsKePOBKm2" target="_blank" class="btn btn-primary" role="button" id="submitbutton">Send us a suggestion</a>
 
-        <!--Open Modal-->
-        <div class="modal fade" id="edit-modal">
-          <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-
-                <!-- Modal Header -->
-              <div class="modal-header">
-                <h3 class="modal-title">Edit Article</h3>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                </button>
-              </div>
-
-                <!--<div class="container" id="newStoryBlock">-->
-                <div class="modal-body">
-
-                <!-- Title -->
-                <div class="form-group">
-                    <label for="title">Title</label>
-                    <textarea class="form-control" id="titleId" rows="1"></textarea>
+      </div>
+      <div class="col-xs-8">
+        <form>
+        <br><br>
+        <div class="container-fluid" id="newStoryBlock">
+            <div class="row">
+                <div class="col-xs-6">
+                    <h1>Active Articles</h1>
                 </div>
-
-                <!-- Author -->
-                <div class="form-group">
-                    <label for="author">Author</label>
-                    <textarea class="form-control" id="modal-author" rows="1"></textarea>
+                <div class="col-xs-6 centerButton text-right">
+                     <a href="newStory" class="btn btn-primary" role="button">Create a new story</a>
                 </div>
+            </div>
+            <br />
+            <div class="list-group" id="storiesList"></div>
 
-                <!-- Summary -->
-                <div class="row">
-                  <div class="col-xs-6">
-                        <label for="summary">Summary</label>
-                        <textarea class="form-control" id="blurbId" rows="18"></textarea>
+            <!--Open Modal-->
+            <div class="modal fade" id="edit-modal">
+              <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+
+                    <!-- Modal Header -->
+                  <div class="modal-header">
+                    <h3 class="modal-title">Edit Article</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    </button>
                   </div>
 
-                <!-- Map -->
-                  <div class="col-xs-6 centered-map" id="map_canvas" style="height:400px; width:400px"></div>
-                </div>
+                    <!--<div class="container" id="newStoryBlock">-->
+                    <div class="modal-body">
 
-                <!-- URL -->
-              <div class="row">
-                  <div class="col-md-12">
-                    <label for="url">URL</label>
-                    <textarea class="form-control" id="url" rows="4"></textarea>
+                    <!-- Title -->
+                    <div class="form-group">
+                        <label for="title">Title</label>
+                        <textarea class="form-control" id="titleId" rows="1"></textarea>
+                    </div>
+
+                    <!-- Author -->
+                    <div class="form-group">
+                        <label for="author">Author</label>
+                        <textarea class="form-control" id="modal_author" rows="1"></textarea>
+                    </div>
+
+                    <!-- URL -->
+                    <div class="form-group">
+                      <label for="url">URL</label>
+                      <textarea class="form-control" id="url" rows="4"></textarea>
+                    </div>
+
+
+                 <div class="form-group">
+                     <label for="date">Date of publication</label>
+                     <input type="date" class="form-control" id="date">
+                 </div>
+
+                    <!-- Summary -->
+                    <div class="row">
+                      <div class="col-xs-6">
+                            <label for="summary">Summary</label>
+                            <textarea class="form-control" id="blurbId" rows="18"></textarea>
+                      </div>
+
+                    <!-- Map -->
+                      <div class="col-xs-6 centered-map" id="map_canvas" style="height:400px; width:400px"></div>
+                    </div>
+
+                  <!-- Location -->
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                         <label for="location">Location</label>
+                         <input type="locationType" class="form-control" id="location_name_modal" placeholder="Click on map or type location">
+                      </div>
+                    </div>
                   </div>
-             </div>
 
-              <!-- Location -->
-              <div class="row">
-                <div class="col-md-12">
+                  <!-- Picture -->
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label for="exampleInputFile">Picture URL</label>
+                        <textarea class="form-control" id="header_photo_url" rows="1"></textarea>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div id="checkboxes">
+                      <label for="storytype">Story type</label>
+                      <div class="radio">
+                          <label><input type="radio" name="storytype" value="Politics">Politics</label>
+                      </div>
+                      <div class="radio">
+                          <label><input type="radio" name="storytype" value="Science">Science</label>
+                      </div>
+                      <div class="radio">
+                          <label><input type="radio" name="storytype" value="Arts">Arts</label>
+                      </div>
+                      <div class="radio">
+                          <label><input type="radio" name="storytype" value="Sports">Sports</label>
+                      </div>
+                  </div>
+
+                  <!--tags-->
                   <div class="form-group">
-                     <label for="location">Location</label>
-                     <input type="locationType" class="form-control" id="location_name_modal" placeholder="Click on map or type location">
+                      <label for="tags">Tags</label>
+                      <input id="modalTags" type="text" placeholder="Enter story tags">
                   </div>
+
+
+                <!-- Modal Footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="submitButton" data-dismiss="modal">Save changes</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                </div>
+
                 </div>
               </div>
-
-              <!-- Picture -->
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="form-group">
-                    <label for="exampleInputFile">Picture URL</label>
-                    <textarea class="form-control" id="header_photo_url" rows="1"></textarea>
-                  </div>
-                </div>
-              </div>
-
-              <form>
-                  <label for="storytype">Story type</label>
-                  <div class="radio">
-                      <label><input type="radio" name="storytype" value="Politics">Politics</label>
-                  </div>
-                  <div class="radio">
-                      <label><input type="radio" name="storytype" value="Science">Science</label>
-                  </div>
-                  <div class="radio">
-                      <label><input type="radio" name="storytype" value="Arts">Arts</label>
-                  </div>
-                  <div class="radio">
-                      <label><input type="radio" name="storytype" value="Education">Education</label>
-                  </div>
-              </form>
-
-              <!--tags-->
-              <div class="form-group">
-                  <label for="tags">Tags</label>
-                  <input type="text" data-role="tagsinput" id="modalTags" placeholder="Enter story tags">
-              </div>
-
-
-            <!-- Modal Footer -->
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" id="submitButton" data-dismiss="modal">Save changes</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-            </div>
-
             </div>
           </div>
         </div>
       </div>
+      <div class="col-xs-2">
+      </div>
     </div>
+
 
     <script type="text/javascript" src="tags/bootstrap-tagsinput.js"></script>
     <script type="text/javascript" src="edit.js"></script>
@@ -148,3 +171,6 @@
 
     </form>
 </body>
+<style>
+    background-color: #f5f3a2
+</style>

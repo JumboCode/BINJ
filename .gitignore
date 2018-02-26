@@ -3,3 +3,4 @@ BINJ-admin/
 admin_files/
 ./dist/
 lib/
+package-lock.json

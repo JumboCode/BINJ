@@ -51,10 +51,5 @@ module.exports = {
                 });
             }
         });
-    },
-
-    server: function(req, res) {
-        res.send("you are authenticated");
     }
-
 }

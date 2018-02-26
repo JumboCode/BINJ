@@ -4,6 +4,8 @@ const bodyParser = require('body-parser');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const cors = require('cors');
+const request = require('request');
+const cheerio = require('cheerio');
 
 const app = express();
 const http = require('http').Server(app);
@@ -53,25 +55,73 @@ function ensureAuthenticated(req, res, next) {
 }
 
 app.get('/', function(req, res){
-	res.sendFile('index2.html', {root: path.join(__dirname, 'public')});
+	res.sendFile('index.html', {root: path.join(__dirname, 'public')});
 });
 
-// authentication for admin page. necessary in the future, but not yet.
-/*app.get('/admin', ensureAuthenticated, function(req, res) {
-	res.sendFile('admin.html', {root: path.join(__dirname, 'public')});
-});*/
+app.get('/admin', ensureAuthenticated, function(req, res) {
+	res.sendFile('edit.html', {root: path.join(__dirname, 'public')});
+});
 
 app.post('*', function(req, res) {
 	console.log(req.url.substring(1));
 	res.send("200")
 });
 
-app.get('/admin', function(req, res) {
-	res.sendFile('edit.html', {root: path.join(__dirname, 'public')});
+/*
+ * Guesses which image url could be used from news article page. 
+ * 
+ * To use:
+ * https://binj-map.herokuapp.com/imgurl?url=https://website.com
+ */
+app.get('/imgurl', function (req, res) {
+	var url = req.query.url;
+    url = (url.substring(0,4) == "http") ? url : "https://" + url;
+
+    if (url.indexOf("digboston.com") != -1) {
+        var digboston = true;
+    } else {
+        var digboston = false;
+    }
+
+    request(url, function(error, response, html){
+        if(!error){
+            var $ = cheerio.load(html);
+            var src = "";
+            var i = 0;
+            
+            // custom filter for digboston pages
+            if (digboston) {
+                limit = 0
+                src = $('img').filter('.size-full').attr("src");
+            } else {
+                limit = 2
+                $('img').filter(function() {
+                    if (i == 2) {
+                        src = $(this).data.attr("src");
+                    }
+                    i++;
+                });
+            }
+
+            if (src == "") {
+            	return res.sendStatus(400);
+            }
+            return res.send(src);
+        } else {
+            return res.sendStatus(400);
+        }
+    });
 });
 
-app.get('/newStory', function(req, res){
+
+app.get('/newStory', ensureAuthenticated, function(req, res){
+
 	res.sendFile('admin.html', {root: path.join(__dirname, 'public')});
+});
+
+app.get('/map', function(req, res){
+
+	res.sendFile('map.html', {root: path.join(__dirname, 'public')});
 });
 
 http.listen(process.env.PORT || 3000, function() {

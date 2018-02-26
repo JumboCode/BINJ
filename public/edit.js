@@ -39,16 +39,42 @@ function editStory(story) {
     storyId = $(story).data('id');
     $.get(self.url + $(story).data('id'), function( data ) {
         artInfo = data;
+        console.log(artInfo);
         initMap(artInfo["coordinates"]);
         self.coordinates = artInfo["coordinates"];
         $("#titleId").replaceWith( '<input type="text" class="form-control" id="titleId" value="'+ artInfo["title"] + '">');
-        $("#author").replaceWith( '<input type="text" class="form-control" id="author" value="'+ artInfo["author"] + '">');
+        $("#modal_author").replaceWith( '<input type="text" class="form-control" id="author" value="'+ artInfo["author"] + '">');
+        $("#date").replaceWith( '<input type="date" class="form-control" id="date" value="'+ artInfo["published_date"].slice(0,10) + '">');
         $("#blurbId").replaceWith( '<textarea id="blurbId" class="form-control" rows="15" >' + artInfo["blurb"] + '</textarea>');
         $("#location_name_modal").replaceWith( '<input type="text" class="form-control" id="location_name_modal" value="'+ artInfo["location_name"] + '">');
-        $("#tags").replaceWith( '<input type="text" class="form-control" id="tags" value="'+ artInfo["type"] + '">');
         $("#url").replaceWith( '<input type="text" class="form-control" id="url" rows="1" value="'+ artInfo["url"] + '">');
         $("#header_photo_url").replaceWith( '<input type="text" class="form-control" id="header_photo_url" rows="1" value="'+ artInfo["header_photo_url"] + '">');
+        $("#checkboxes").replaceWith(checkBox(artInfo["type"]));
+        console.log(checkBox(artInfo["type"]));
+        $("#modalTags").tagsinput();
+        artInfo["tags"].forEach(function(elem) {
+          $("#modalTags").tagsinput('add', elem);
+        })
     });
+}
+function checkBox(storytype) {
+  // or, as the locals call it, the SpaghettiCodeGenerator3000
+  switch(storytype) {
+    case "Arts":
+      return '<label for="storytype">Story type</label><div class="radio"><label><input type="radio" name="storytype" value="Politics">Politics</label></div><div class="radio"><label><input type="radio" name="storytype" value="Science">Science</label></div><div class="radio"><label><input type="radio" name="storytype" value="Arts" checked>Arts</label></div><div class="radio"><label><input type="radio" name="storytype" value="Sports">Sports</label></div>'
+      break;
+    case "Politics":
+      return '<label for="storytype">Story type</label><div class="radio"><label><input type="radio" name="storytype" value="Politics" checked>Politics</label></div><div class="radio"><label><input type="radio" name="storytype" value="Science">Science</label></div><div class="radio"><label><input type="radio" name="storytype" value="Arts">Arts</label></div><div class="radio"><label><input type="radio" name="storytype" value="Sports">Sports</label></div>'
+      break;
+    case "Science":
+      return '<label for="storytype">Story type</label><div class="radio"><label><input type="radio" name="storytype" value="Politics">Politics</label></div><div class="radio"><label><input type="radio" name="storytype" value="Science" checked>Science</label></div><div class="radio"><label><input type="radio" name="storytype" value="Arts">Arts</label></div><div class="radio"><label><input type="radio" name="storytype" value="Sports">Sports</label></div>'
+      break;
+    case "Sports":
+      return '<label for="storytype">Story type</label><div class="radio"><label><input type="radio" name="storytype" value="Politics">Politics</label></div><div class="radio"><label><input type="radio" name="storytype" value="Science">Science</label></div><div class="radio"><label><input type="radio" name="storytype" value="Arts">Arts</label></div><div class="radio"><label><input type="radio" name="storytype" value="Sports" checked>Sports</label></div>'
+      break;
+    default:
+      return '<label for="storytype">Story type</label><div class="radio"><label><input type="radio" name="storytype" value="Politics">Politics</label></div><div class="radio"><label><input type="radio" name="storytype" value="Science">Science</label></div><div class="radio"><label><input type="radio" name="storytype" value="Arts">Arts</label></div><div class="radio"><label><input type="radio" name="storytype" value="Sports">Sports</label></div>'
+  }
 }
 function cleanDate(published_date)
 {
@@ -61,11 +87,9 @@ function cleanDate(published_date)
 $(document).ready(function() {
     $.each(stories, function(index) {
         tempStory = stories[index];
-        published_date=tempStory["published_date"];
-        console.log(published_date.toString());
-        var clean_date=cleanDate(published_date.toString());
-        console.log(clean_date);
-        tempHTML =  '<div class="list-group-item clearfix">' + '<div class="container-fluid"><div class="col-xs-6">' + '<div id="overview" class="d-flex w-100 justify-content-between">' +
+        published_date = tempStory["published_date"];
+        var clean_date = cleanDate(published_date.toString());
+        tempHTML =  '<div class="list-group-item clearfix" id="eachStory">' + '<div class="container-fluid"><div class="col-xs-6">' + '<div id="overview" class="d-flex w-100 justify-content-between">' +
                           '<h5 id="title">' + tempStory['title'] +
                           '</h5> <small id="published_date">' + clean_date +
                          ' </small></div><p id="blurb">' + tempStory['blurb'] +
@@ -81,7 +105,9 @@ function initMap(coords)
     map = new google.maps.Map(document.getElementById('map_canvas'), {
         zoom: 12,
         center: {lat: coords[1], lng: coords[0]},
-        gestureHandling: 'greedy'
+        gestureHandling: 'greedy',
+        styles: [{"featureType":"administrative","elementType":"all","stylers":[{"visibility":"on"},{"lightness":33}]},{"featureType":"administrative","elementType":"labels","stylers":[{"saturation":"-100"}]},{"featureType":"administrative","elementType":"labels.text","stylers":[{"gamma":"0.75"}]},{"featureType":"administrative.neighborhood","elementType":"labels.text.fill","stylers":[{"lightness":"-37"}]},{"featureType":"landscape","elementType":"geometry","stylers":[{"color":"#f9f9f9"}]},{"featureType":"landscape.man_made","elementType":"geometry","stylers":[{"saturation":"-100"},{"lightness":"40"},{"visibility":"off"}]},{"featureType":"landscape.natural","elementType":"labels.text.fill","stylers":[{"saturation":"-100"},{"lightness":"-37"}]},{"featureType":"landscape.natural","elementType":"labels.text.stroke","stylers":[{"saturation":"-100"},{"lightness":"100"},{"weight":"2"}]},{"featureType":"landscape.natural","elementType":"labels.icon","stylers":[{"saturation":"-100"}]},{"featureType":"poi","elementType":"geometry","stylers":[{"saturation":"-100"},{"lightness":"80"}]},{"featureType":"poi","elementType":"labels","stylers":[{"saturation":"-100"},{"lightness":"0"}]},{"featureType":"poi.attraction","elementType":"geometry","stylers":[{"lightness":"-4"},{"saturation":"-100"}]},{"featureType":"poi.park","elementType":"geometry","stylers":[{"color":"#c5dac6"},{"visibility":"on"},{"saturation":"-95"},{"lightness":"62"}]},{"featureType":"poi.park","elementType":"labels","stylers":[{"visibility":"on"},{"lightness":20}]},{"featureType":"road","elementType":"all","stylers":[{"lightness":20}]},{"featureType":"road","elementType":"labels","stylers":[{"saturation":"-100"},{"gamma":"1.00"}]},{"featureType":"road","elementType":"labels.text","stylers":[{"gamma":"0.50"}]},{"featureType":"road","elementType":"labels.icon","stylers":[{"saturation":"-100"},{"gamma":"0.50"}]},{"featureType":"road.highway","elementType":"geometry","stylers":[{"color":"#c5c6c6"},{"saturation":"-100"}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"lightness":"-13"}]},{"featureType":"road.highway","elementType":"labels.icon","stylers":[{"lightness":"0"},{"gamma":"1.09"}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#e4d7c6"},{"saturation":"-100"},{"lightness":"47"}]},{"featureType":"road.arterial","elementType":"geometry.stroke","stylers":[{"lightness":"-12"}]},{"featureType":"road.arterial","elementType":"labels.icon","stylers":[{"saturation":"-100"}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#fbfaf7"},{"lightness":"77"}]},{"featureType":"road.local","elementType":"geometry.fill","stylers":[{"lightness":"-5"},{"saturation":"-100"}]},{"featureType":"road.local","elementType":"geometry.stroke","stylers":[{"saturation":"-100"},{"lightness":"-15"}]},{"featureType":"transit.station.airport","elementType":"geometry","stylers":[{"lightness":"47"},{"saturation":"-100"}]},{"featureType":"water","elementType":"all","stylers":[{"visibility":"on"},{"color":"#acbcc9"}]},{"featureType":"water","elementType":"geometry","stylers":[{"saturation":"53"}]},{"featureType":"water","elementType":"labels.text.fill","stylers":[{"lightness":"-42"},{"saturation":"17"}]},{"featureType":"water","elementType":"labels.text.stroke","stylers":[{"lightness":"61"}]}]
+
     });
     geocoder = new google.maps.Geocoder();
     google.maps.event.addListener(map, 'click', function(event) {getAddress(event.latLng);});
@@ -172,13 +198,18 @@ function initMap(coords)
         PUTurl = "https://" + location.hostname + ":" + location.port + "/stories/" + storyId;
     }
     window.location.reload();
+    if ($("input[name='storytype']:checked").val() == undefined) {
+      type = "Other";
+    } else {
+      type = $("input[name='storytype']:checked").val();
+    }
     toSubmit = {
         "title": $('#titleId').val(),
         "author": $('#author').val(),
         "url": $('#url').val(),
         "blurb": $('#blurbId').val(),
         "location_name": $('#location').val(),
-        "type": $("input[name='storytype']:checked").val(),
+        "type": type,
         "tags": $("#modalTags").tagsinput('items'),
         "header_photo_url": $('#header_photo_url').val(),
         "coordinates": self.coordinates
