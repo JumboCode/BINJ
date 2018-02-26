@@ -130,10 +130,16 @@ function addStoryPoints(data, tags, boxes) {
   };
 
 function inBoxes(story, boxes) {
+  types = story.type;
   if (boxes.length == 0) {
     return false;
-  } else if (boxes.includes(story.type) || boxes.includes(story.author)) {
-    return true;
+  } else {
+    types = story.type;
+    for(var i = 0; i < types.length; i++) {
+      if (boxes.includes(types[i]) || boxes.includes(story.author)) {
+        return true;
+      }
+    }
   }
   return false;
 }
