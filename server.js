@@ -58,7 +58,7 @@ app.get('/', function(req, res){
 	res.sendFile('index.html', {root: path.join(__dirname, 'public')});
 });
 
-app.get('/admin', /*ensureAuthenticated,*/ function(req, res) {
+app.get('/admin', ensureAuthenticated, function(req, res) {
 	res.sendFile('edit.html', {root: path.join(__dirname, 'public')});
 });
 
@@ -115,7 +115,7 @@ app.get('/imgurl', function (req, res) {
 });
 
 
-app.get('/newStory', /*ensureAuthenticated,*/ function(req, res){
+app.get('/newStory', ensureAuthenticated, function(req, res){
 
 	res.sendFile('admin.html', {root: path.join(__dirname, 'public')});
 });
