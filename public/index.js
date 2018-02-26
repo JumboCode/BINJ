@@ -125,6 +125,19 @@ function loadCards(data) {
 function loadFilters(data) {
   var authors = [];
   var storytypes = [];
+  var onDisplay = [];
+  typeDict = {
+      "ArtsAndEntertainment" :"Arts and Entertainment",
+      "BusinessNonprofitsCommerce" : "Business, Nonprofits, Commerce",
+      "CommunityAndNeighborhoods" : "Community and Neighborhoods",
+      "EducationAndFamilies" : "Education and Families",
+      "HousingAndHealth" : "Housing and Health",
+      "LaborAndActivism" : "Labor and Activism",
+      "Poliics" : "Politics",
+      "Sports" : "Sports",
+      "Transit" : "Transit",
+      "Other" : "Other"
+  };
   // to load and show relevant filters
   document.getElementById("author").innerHTML = "";
   document.getElementById("storytype").innerHTML = "";
@@ -139,30 +152,29 @@ function loadFilters(data) {
         document.getElementById("author").appendChild(author);
         authors.push(data[i].author);
       }
-      if (storytypes.includes(data[i].type)) {
-        // do nothing
-      } else {
-        // make type entry
-        var type = document.createElement("div");
-        type.className += "checkbox";
-        type.innerHTML = '<label><input type = "checkbox" onclick="getFilters();" name="storytype" value="' + data[i].type + '">' + data[i].type + '</label>';
-        document.getElementById("storytype").appendChild(type);
-        storytypes.push(data[i].type);
-      }
-  }
-}
-/*    filtering checkboxes - disabled for now *
-function authorCheck(cb) {
-  if ($(cb).is(':checked')) {
-    filterAuthors.push($(cb).val());
-  } else if (filterAuthors.includes($(cb).val())) {
-      filterAuthors.pop(filterAuthors.indexOf($(cb).val()), 1);
-  }
-  query = "map.html?author=" + filterAuthors.join('+');
-  console.log(filterAuthors);
-  $("#iframe").attr("src", query);
-}
+      types = data[i].type.split(',');
 
-$('input[name="storytype"]').click(function () {
-  alert($(this).val());
-}); */
+      for (var j = 0; j < types.length; j++) {
+
+          displayName = typeDict[types[j]];
+          if (displayName == undefined) {
+             displayName = types[j];
+          }
+
+          if (storytypes.includes(types[j])) {
+            // do nothing
+          } else if (onDisplay.includes(displayName)) {
+            // also do nothing
+          } else {
+            // make type entry
+            var type = document.createElement("div");
+            type.className += "checkbox";
+            type.innerHTML = '<label><input type = "checkbox" onclick="getFilters();" name="storytype" value="' + types[j] + '">' + displayName + '</label>';
+            document.getElementById("storytype").appendChild(type);
+            storytypes.push(types[j]);
+            onDisplay.push(displayName);
+          }
+      }
+
+  }
+}
