@@ -141,7 +141,9 @@ $(document).ready(function() {
         img.attr('src', headerPhotoUrl.val());
         $("#header_photo_url_parent img").remove();
 
-        // Add img styling here
+        // img styling here
+        img.attr('width', 450)
+
         $("#header_photo_url_parent").append(img);
     }
 
@@ -154,9 +156,13 @@ $(document).ready(function() {
 
     const articleUrl = $("#url");
     articleUrl.focusout(() => {
+<<<<<<< HEAD
         $.get("/imgurl?url=" + articleUrl.val(), function(response) {
             console.log("got a valid url:")
             console.log(response)
+=======
+        $.get("/imgurl?url=" + articleUrl.val(), function(response) { 
+>>>>>>> 67d7af24caee5a82080a188d30a1358d9a331add
             $("#header_photo_url").val(response)
             updatedImgUrl()
         }).fail(function(status) {
