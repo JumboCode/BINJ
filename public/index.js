@@ -130,6 +130,7 @@ function loadFilters(data) {
       "ArtsAndEntertainment" :"Arts and Entertainment",
       "BusinessNonprofitsCommerce" : "Business, Nonprofits, Commerce",
       "CommunityAndNeighborhoods" : "Community and Neighborhoods",
+      "EducationAndFamilies" : "Education and Families",
       "HousingAndHealth" : "Housing and Health",
       "LaborAndActivism" : "Labor and Activism",
       "Poliics" : "Politics",

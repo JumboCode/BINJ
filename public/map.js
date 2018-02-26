@@ -71,21 +71,38 @@ function addStoryPoints(data, tags, boxes) {
             && coords[0] != "" && coords[0] != "undefined") {
           var latlng = new google.maps.LatLng(coords[1], coords[0]);
 
-          switch(point.type) {
-            case "Arts":
-              icon = "../images/arts.png";
+          // right now just defaults to the first type in the list of each point's types - will add
+          // ability to pick icon in newStory and edit pages later - AK 2/25
+          switch(point.type[0]) {
+            case "ArtsAndEntertainment":
+              icon = "../images/AE.png";
+              break;
+            case "BusinessNonprofitsCommerce":
+              icon = "../images/BN.png";
+              break;
+            case "CommunityAndNeighborhoods":
+              icon = "../images/CN.png";
+              break;
+            case "EducationAndFamilies":
+              icon = "../images/EF.png";
+              break;
+            case "HousingAndHealth":
+              icon = "../images/HH.png";
+              break;
+            case "LaborAndActivism":
+              icon = "../images/LA.png";
               break;
             case "Politics":
-              icon = "../images/politics.png";
-              break;
-            case "Science":
-              icon = "../images/science.png";
+              icon = "../images/POLITICS.png";
               break;
             case "Sports":
-              icon = "../images/sports.png";
+              icon = "../images/SPORTS.png";
+              break;
+            case "Transit":
+              icon = "../images/TRANSIT.png";
               break;
             default:
-              icon = "../images/alert.png";
+              icon = "../images/OTHER.png";
           }
           var marker = new google.maps.Marker({
             position: latlng,

@@ -75,6 +75,11 @@ function checkBox(storytype) {
   } else {
     html += '<div class="checkbox"><label><input type="checkbox" name="storytype" value="CommunityAndNeighborhoods">Community and Neighborhoods</label></div>';
   }
+  if (storytype.indexOf('EducationAndFamilies') != -1) {
+    html += '<div class="checkbox"><label><input type="checkbox" name="storytype" value="EducationAndFamilies" checked>Education and Families</label></div>';
+  } else {
+    html += '<div class="checkbox"><label><input type="checkbox" name="storytype" value="EducationAndFamilies">Education and Families</label></div>';
+  }
   if (storytype.indexOf('HousingAndHealth') != -1) {
     html += '<div class="checkbox"><label><input type="checkbox" name="storytype" value="HousingAndHealth" checked>Housing and Health</label></div>';
   } else {
