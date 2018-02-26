@@ -58,7 +58,7 @@ app.get('/', function(req, res){
 	res.sendFile('index.html', {root: path.join(__dirname, 'public')});
 });
 
-app.get('/admin', /*ensureAuthenticated,*/ function(req, res) {
+app.get('/admin', ensureAuthenticated, function(req, res) {
 	res.sendFile('edit.html', {root: path.join(__dirname, 'public')});
 });
 
@@ -97,7 +97,8 @@ app.get('/imgurl', function (req, res) {
                 limit = 2
                 $('img').filter(function() {
                     if (i == 2) {
-                        src = $(this).data.attr("src");
+                        var data = $(this);
+                        src = data.attr("src");
                     }
                     i++;
                 });
@@ -114,7 +115,7 @@ app.get('/imgurl', function (req, res) {
 });
 
 
-app.get('/newStory', /*ensureAuthenticated,*/ function(req, res){
+app.get('/newStory', ensureAuthenticated, function(req, res){
 
 	res.sendFile('admin.html', {root: path.join(__dirname, 'public')});
 });
