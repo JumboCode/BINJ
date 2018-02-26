@@ -55,6 +55,7 @@ var userInfoWindow = new google.maps.InfoWindow();
 
 // approximately from https://developers.google.com/maps/documentation/javascript/importing_data
 // more on markers https://developers.google.com/maps/documentation/javascript/reference#Marker
+// hereAK I think this is where to look for filtering
 function addStoryPoints(data, tags, boxes) {
 
     for (var i = 0; i < data.length; i++) {
@@ -99,7 +100,6 @@ function addStoryPoints(data, tags, boxes) {
             url: point.url
           });
           markers.push(marker);
-          // markerCluster.addMarker(marker);
           var infoWindow = new google.maps.InfoWindow();
           map.panTo(latlng);
           google.maps.event.addListener(marker, 'click', function() {
@@ -130,10 +130,16 @@ function addStoryPoints(data, tags, boxes) {
   };
 
 function inBoxes(story, boxes) {
+  types = story.type;
   if (boxes.length == 0) {
     return false;
-  } else if (boxes.includes(story.type) || boxes.includes(story.author)) {
-    return true;
+  } else {
+    types = story.type;
+    for(var i = 0; i < types.length; i++) {
+      if (boxes.includes(types[i]) || boxes.includes(story.author)) {
+        return true;
+      }
+    }
   }
   return false;
 }

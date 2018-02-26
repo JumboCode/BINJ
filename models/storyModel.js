@@ -10,7 +10,7 @@ var storySchema = new Schema({
 	'published_date' : Date,
 	'tags' : [{type: String, lowercase: true}],
 	'location_name' : String,
-	'type' : String,
+	'type' : [String],
 	'coordinates' : [{type: Number}]
 });
 

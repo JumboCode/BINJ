@@ -50,7 +50,6 @@ function editStory(story) {
         $("#url").replaceWith( '<input type="text" class="form-control" id="url" rows="1" value="'+ artInfo["url"] + '">');
         $("#header_photo_url").replaceWith( '<input type="text" class="form-control" id="header_photo_url" rows="1" value="'+ artInfo["header_photo_url"] + '">');
         $("#checkboxes").replaceWith(checkBox(artInfo["type"]));
-        console.log(checkBox(artInfo["type"]));
         $("#modalTags").tagsinput();
         artInfo["tags"].forEach(function(elem) {
           $("#modalTags").tagsinput('add', elem);
@@ -59,7 +58,57 @@ function editStory(story) {
 }
 function checkBox(storytype) {
   // or, as the locals call it, the SpaghettiCodeGenerator3000
-  switch(storytype) {
+
+  html = '<label for="storytype">Story type</label><div id="checkboxes">';
+  if (storytype.indexOf('ArtsAndEntertainment') != -1) {
+    html += '<div class="checkbox"><label><input type="checkbox" name="storytype" value="ArtsAndEntertainment" checked>Arts and Entertainment</label></div>';
+  } else {
+    html += '<div class="checkbox"><label><input type="checkbox" name="storytype" value="ArtsAndEntertainment">Arts and Entertainment</label></div>';
+  }
+  if (storytype.indexOf('BusinessNonprofitCommerce') != -1) {
+    html += '<div class="checkbox"><label><input type="checkbox" name="storytype" value="BusinessNonprofitCommerce" checked>Business, Nonprofits, Commerce</label></div>';
+  } else {
+    html += '<div class="checkbox"><label><input type="checkbox" name="storytype" value="BusinessNonprofitCommerce">Business, Nonprofits, Commerce</label></div>';
+  }
+  if (storytype.indexOf('CommunityAndNeighborhoods') != -1) {
+    html += '<div class="checkbox"><label><input type="checkbox" name="storytype" value="CommunityAndNeighborhoods" checked>Community and Neighborhoods</label></div>';
+  } else {
+    html += '<div class="checkbox"><label><input type="checkbox" name="storytype" value="CommunityAndNeighborhoods">Community and Neighborhoods</label></div>';
+  }
+  if (storytype.indexOf('HousingAndHealth') != -1) {
+    html += '<div class="checkbox"><label><input type="checkbox" name="storytype" value="HousingAndHealth" checked>Housing and Health</label></div>';
+  } else {
+    html +='<div class="checkbox"><label><input type="checkbox" name="storytype" value="HousingAndHealth">Housing and Health</label></div>'
+  }
+  if (storytype.indexOf('LaborAndActivism') != -1) {
+    html += '<div class="checkbox"><label><input type="checkbox" name="storytype" value="LaborAndActivism" checked>Labor and Activism</label></div>';
+  } else {
+    html += '<div class="checkbox"><label><input type="checkbox" name="storytype" value="LaborAndActivism">Labor and Activism</label></div>';
+  }
+  if (storytype.indexOf('Politics') != -1) {
+    html += '<div class="checkbox"><label><input type="checkbox" name="storytype" value="Politics" checked>Politics</label></div>';
+  } else {
+    html += '<div class="checkbox"><label><input type="checkbox" name="storytype" value="Politics">Politics</label></div>';
+  }
+  if (storytype.indexOf('Sports') != -1) {
+    html += '<div class="checkbox"><label><input type="checkbox" name="storytype" value="Sports" checked>Sports</label></div>';
+  } else {
+    html += '<div class="checkbox"><label><input type="checkbox" name="storytype" value="Sports">Sports</label></div>';
+  }
+  if (storytype.indexOf('Transit') != -1) {
+    html += '<div class="checkbox"><label><input type="checkbox" name="storytype" value="Transit" checked>Transit</label></div>';
+  } else {
+    html += '<div class="checkbox"><label><input type="checkbox" name="storytype" value="Transit">Transit</label></div>';
+  }
+  if (storytype.indexOf('Other') != -1) {
+    html += '<div class="checkbox"><label><input type="checkbox" name="storytype" value="Other" checked>Other</label></div>';
+  } else {
+    html += '<div class="checkbox"><label><input type="checkbox" name="storytype" value="Other">Other</label></div>';
+  }
+
+  html += "</div>"
+  return html;
+  /*switch(storytype) {
     case "Arts":
       return '<label for="storytype">Story type</label><div class="radio"><label><input type="radio" name="storytype" value="Politics">Politics</label></div><div class="radio"><label><input type="radio" name="storytype" value="Science">Science</label></div><div class="radio"><label><input type="radio" name="storytype" value="Arts" checked>Arts</label></div><div class="radio"><label><input type="radio" name="storytype" value="Sports">Sports</label></div>'
       break;
@@ -74,8 +123,9 @@ function checkBox(storytype) {
       break;
     default:
       return '<label for="storytype">Story type</label><div class="radio"><label><input type="radio" name="storytype" value="Politics">Politics</label></div><div class="radio"><label><input type="radio" name="storytype" value="Science">Science</label></div><div class="radio"><label><input type="radio" name="storytype" value="Arts">Arts</label></div><div class="radio"><label><input type="radio" name="storytype" value="Sports">Sports</label></div>'
-  }
+  } */
 }
+
 function cleanDate(published_date)
 {
     var year = published_date.slice(0, 4);
@@ -198,18 +248,26 @@ function initMap(coords)
         PUTurl = "https://" + location.hostname + ":" + location.port + "/stories/" + storyId;
     }
     window.location.reload();
+    types = []
+    if (($("input[name='storytype']:checked").length) != 0) {
+      $.each($("input[name='storytype']:checked"), function() {
+          types.push($(this)[0].value);
+      });
+    }
+    /*
     if ($("input[name='storytype']:checked").val() == undefined) {
       type = "Other";
     } else {
       type = $("input[name='storytype']:checked").val();
     }
+    */
     toSubmit = {
         "title": $('#titleId').val(),
         "author": $('#author').val(),
         "url": $('#url').val(),
         "blurb": $('#blurbId').val(),
         "location_name": $('#location').val(),
-        "type": type,
+        "type": types,
         "tags": $("#modalTags").tagsinput('items'),
         "header_photo_url": $('#header_photo_url').val(),
         "coordinates": self.coordinates
