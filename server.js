@@ -50,7 +50,7 @@ mongoose.connect(mongoUri, err => {
 });
 
 function ensureAuthenticated(req, res, next) {
-		return next();
+		//return next();
     if (req.isAuthenticated()) { return next(); }
     res.redirect('/account/login');
 }
