@@ -99,7 +99,7 @@ function addStoryPoints(data, tags, boxes) {
               icon = "../images/SPORTS.png";
               break;
             case "Transit":
-              icon = "../images/TRANSIT.png";
+              icon = "../images/TT.png";
               break;
             default:
               icon = "../images/OTHER.png";
