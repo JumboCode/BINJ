@@ -152,8 +152,8 @@ function loadFilters(data) {
         document.getElementById("author").appendChild(author);
         authors.push(data[i].author);
       }
-      types = data[i].type;
-      //types = data[i].type.split(',');
+      types = data[i].type.split(',');
+
       for (var j = 0; j < types.length; j++) {
 
           displayName = typeDict[types[j]];
@@ -178,18 +178,3 @@ function loadFilters(data) {
 
   }
 }
-/*    filtering checkboxes - disabled for now *
-function authorCheck(cb) {
-  if ($(cb).is(':checked')) {
-    filterAuthors.push($(cb).val());
-  } else if (filterAuthors.includes($(cb).val())) {
-      filterAuthors.pop(filterAuthors.indexOf($(cb).val()), 1);
-  }
-  query = "map.html?author=" + filterAuthors.join('+');
-  console.log(filterAuthors);
-  $("#iframe").attr("src", query);
-}
-
-$('input[name="storytype"]').click(function () {
-  alert($(this).val());
-}); */
