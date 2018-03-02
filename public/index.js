@@ -152,8 +152,8 @@ function loadFilters(data) {
         document.getElementById("author").appendChild(author);
         authors.push(data[i].author);
       }
-      types = data[i].type.split(',');
 
+      types = data[i].type.splice(',');
       for (var j = 0; j < types.length; j++) {
 
           displayName = typeDict[types[j]];
