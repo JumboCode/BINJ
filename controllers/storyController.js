@@ -18,7 +18,7 @@ function getStoryImageURL (url) {
 
             })
             return src;
-            
+
         } else {
             console.log("error in request:");
             console.log(error);
@@ -93,7 +93,7 @@ module.exports = {
         });
     },
 
-    
+
 
     /**
      * storyController.create()
@@ -109,6 +109,7 @@ module.exports = {
             tags : req.body.tags,
             location_name : req.body.location_name,
             type : req.body.type,
+            icon : req.body.icon,
             coordinates : req.body.coordinates
         });
 
@@ -122,7 +123,7 @@ module.exports = {
             }
             return res.status(201).json(story);
         });
-        
+
     },
 
     /**
@@ -152,6 +153,7 @@ module.exports = {
 			story.tags = req.body.tags ? req.body.tags : story.tags;
 			story.location_name = req.body.location_name ? req.body.location_name : story.location_name;
 			story.type = req.body.type ? req.body.type : story.type;
+      story.icon = req.body.icon ? req.body.icon : story.icon;
             story.coordinates = req.body.coordinates ? req.body.coordinates : story.coordinates;
 
             story.save(function (err, story) {

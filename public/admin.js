@@ -119,6 +119,7 @@ $(document).ready(function() {
               types.push($(this)[0].value);
           });
         }
+        icon = $("input[name='icon']:checked").val()
 
         $.post(url, {
             "title": $('#title').val(),
@@ -130,6 +131,7 @@ $(document).ready(function() {
             "tags": $("#tags").tagsinput('items'),
             "location_name": $('#location_name').val(),
             "type": types,
+            "icon": icon,
             "coordinates": self.coordinates
         }, function() {window.location.replace("admin");})
     });
@@ -149,7 +151,6 @@ $(document).ready(function() {
 
     const headerPhotoUrl = $("#header_photo_url");
     headerPhotoUrl.focusout(() => {
-        console.log("focusing out: ")
         updatedImgUrl()
 
     });

@@ -39,7 +39,6 @@ function editStory(story) {
     storyId = $(story).data('id');
     $.get(self.url + $(story).data('id'), function( data ) {
         artInfo = data;
-        console.log(artInfo);
         initMap(artInfo["coordinates"]);
         self.coordinates = artInfo["coordinates"];
         $("#titleId").replaceWith( '<input type="text" class="form-control" id="titleId" value="'+ artInfo["title"] + '">');
@@ -50,6 +49,7 @@ function editStory(story) {
         $("#url").replaceWith( '<input type="text" class="form-control" id="url" rows="1" value="'+ artInfo["url"] + '">');
         $("#header_photo_url").replaceWith( '<input type="text" class="form-control" id="header_photo_url" rows="1" value="'+ artInfo["header_photo_url"] + '">');
         $("#checkboxes").replaceWith(checkBox(artInfo["type"]));
+        $("#icons").replaceWith(icons(artInfo["icon"]));
         $("#modalTags").tagsinput();
         artInfo["tags"].forEach(function(elem) {
           $("#modalTags").tagsinput('add', elem);
@@ -59,7 +59,7 @@ function editStory(story) {
 function checkBox(storytype) {
   // or, as the locals call it, the SpaghettiCodeGenerator3000
 
-  html = '<label for="storytype">Story type</label><div id="checkboxes">';
+  html = '<label for="storytype">Story type and icon</label><div id="checkboxes">';
   if (storytype.indexOf('ArtsAndEntertainment') != -1) {
     html += '<div class="checkbox"><label><input type="checkbox" name="storytype" value="ArtsAndEntertainment" checked>Arts and Entertainment</label></div>';
   } else {
@@ -113,22 +113,63 @@ function checkBox(storytype) {
 
   html += "</div>"
   return html;
-  /*switch(storytype) {
-    case "Arts":
-      return '<label for="storytype">Story type</label><div class="radio"><label><input type="radio" name="storytype" value="Politics">Politics</label></div><div class="radio"><label><input type="radio" name="storytype" value="Science">Science</label></div><div class="radio"><label><input type="radio" name="storytype" value="Arts" checked>Arts</label></div><div class="radio"><label><input type="radio" name="storytype" value="Sports">Sports</label></div>'
-      break;
-    case "Politics":
-      return '<label for="storytype">Story type</label><div class="radio"><label><input type="radio" name="storytype" value="Politics" checked>Politics</label></div><div class="radio"><label><input type="radio" name="storytype" value="Science">Science</label></div><div class="radio"><label><input type="radio" name="storytype" value="Arts">Arts</label></div><div class="radio"><label><input type="radio" name="storytype" value="Sports">Sports</label></div>'
-      break;
-    case "Science":
-      return '<label for="storytype">Story type</label><div class="radio"><label><input type="radio" name="storytype" value="Politics">Politics</label></div><div class="radio"><label><input type="radio" name="storytype" value="Science" checked>Science</label></div><div class="radio"><label><input type="radio" name="storytype" value="Arts">Arts</label></div><div class="radio"><label><input type="radio" name="storytype" value="Sports">Sports</label></div>'
-      break;
-    case "Sports":
-      return '<label for="storytype">Story type</label><div class="radio"><label><input type="radio" name="storytype" value="Politics">Politics</label></div><div class="radio"><label><input type="radio" name="storytype" value="Science">Science</label></div><div class="radio"><label><input type="radio" name="storytype" value="Arts">Arts</label></div><div class="radio"><label><input type="radio" name="storytype" value="Sports" checked>Sports</label></div>'
-      break;
-    default:
-      return '<label for="storytype">Story type</label><div class="radio"><label><input type="radio" name="storytype" value="Politics">Politics</label></div><div class="radio"><label><input type="radio" name="storytype" value="Science">Science</label></div><div class="radio"><label><input type="radio" name="storytype" value="Arts">Arts</label></div><div class="radio"><label><input type="radio" name="storytype" value="Sports">Sports</label></div>'
-  } */
+}
+
+function icons(icon) {
+  html = '<div class="col-md-3">';
+  if (icon == "ArtsAndEntertainment") {
+    html += '<div id="icon"> <label><input type="radio" name="icon" value="ArtsAndEntertainment" checked><img src="../images/AE.png" alt="Arts and Entertainment" /></label></div>';
+  } else {
+    html += '<div id="icon"> <label><input type="radio" name="icon" value="ArtsAndEntertainment"><img src="../images/AE.png" alt="Arts and Entertainment" /></label></div>';
+  }
+  if (icon == "BusinessNonprofitCommerce") {
+    html += '<div id="icon"><label><input type="radio" name="icon" value="BusinessNonprofitCommerce" checked><img src="../images/BN.png" alt="Business/Nonprofit/Commerce" /></label></div>';
+  } else {
+    html += '<div id="icon"><label><input type="radio" name="icon" value="BusinessNonprofitCommerce"><img src="../images/BN.png" alt="Business/Nonprofit/Commerce" /></label></div>';
+  }
+  if (icon == "CommunityAndNeighborhoods") {
+    html += '<div id="icon"><label><input type="radio" name="icon" value="CommunityAndNeighborhoods" checked><img src="../images/CN.png" alt="Community and Neighborhoods" /></label></div>';
+  } else {
+    html += '<div id="icon"><label><input type="radio" name="icon" value="CommunityAndNeighborhoods"><img src="../images/CN.png" alt="Community and Neighborhoods" /></label></div>';
+  }
+  if (icon == "EducationAndFamilies") {
+    html += '<div id="icon"><label><input type="radio" name="icon" value="EducationAndFamilies" checked><img src="../images/EF.png" alt="Education and Families" /></label></div>';
+  } else {
+    html += '<div id="icon"><label><input type="radio" name="icon" value="EducationAndFamilies"><img src="../images/EF.png" alt="Education and Families" /></label></div>';
+  }
+  if (icon == "HousingAndHealth") {
+    html += '<div id="icon"><label><input type="radio" name="icon" value="HousingAndHealth" checked><img src="../images/HH.png" alt="Housing and Health" /></label></div>';
+  } else {
+    html += '<div id="icon"><label><input type="radio" name="icon" value="HousingAndHealth"><img src="../images/HH.png" alt="Housing and Health" /></label></div>';
+  }
+  html += '</div><div class="col-md-3">';
+  if (icon == "LaborAndActivism") {
+    html += '<div id="icon"><label><input type="radio" name="icon" value="LaborAndActivism" checked><img src="../images/LA.png" alt="Labor and Activism" /></label></div>';
+  } else {
+    html += '<div id="icon"><label><input type="radio" name="icon" value="LaborAndActivism"><img src="../images/LA.png" alt="Labor and Activism" /></label></div>';
+  }
+  if (icon == "Politics") {
+    html += '<div id="icon"><label><input type="radio" name="icon" value="Politics" checked><img src="../images/POLITICS.png" alt="Politics" /></label></div>';
+  } else {
+    html += '<div id="icon"><label><input type="radio" name="icon" value="Politics"><img src="../images/POLITICS.png" alt="Politics" /></label></div>';
+  }
+  if (icon == "Sports") {
+    html += '<div id="icon"><label><input type="radio" name="icon" value="Sports" checked><img src="../images/SPORTS.png" alt="Sports" /></label></div>';
+  } else {
+    html += '<div id="icon"><label><input type="radio" name="icon" value="Sports"><img src="../images/SPORTS.png" alt="Sports" /></label></div>';
+  }
+  if (icon == "Transit") {
+    html += '<div id="icon"><label><input type="radio" name="icon" value="Transit" checked><img src="../images/TT.png" alt="Transit" /></label></div>';
+  } else {
+    html += '<div id="icon"><label><input type="radio" name="icon" value="Transit"><img src="../images/TT.png" alt="Transit" /></label></div>';
+  }
+  if (icon == "Other" || icon == undefined) {
+    html += '<div id="icon"><label><input type="radio" name="icon" value="Other" checked><img src="../images/OTHER.png" alt="Other" /></label></div>';
+  } else {
+    html += '<div id="icon"><label><input type="radio" name="icon" value="Other"><img src="../images/OTHER.png" alt="Other" /></label></div>';
+  }
+  html += '</div';
+  return html
 }
 
 function cleanDate(published_date)
@@ -143,7 +184,12 @@ $(document).ready(function() {
     $.each(stories, function(index) {
         tempStory = stories[index];
         published_date = tempStory["published_date"];
-        var clean_date = cleanDate(published_date.toString());
+        if(published_date != undefined) {
+            var clean_date = cleanDate(published_date.toString());
+        } else {
+            var clean_data = "0-0-0";
+        }
+
         tempHTML =  '<div class="list-group-item clearfix" id="eachStory">' + '<div class="container-fluid"><div class="col-xs-6">' + '<div id="overview" class="d-flex w-100 justify-content-between">' +
                           '<h5 id="title">' + tempStory['title'] +
                           '</h5> <small id="published_date">' + clean_date +
@@ -259,13 +305,8 @@ function initMap(coords)
           types.push($(this)[0].value);
       });
     }
-    /*
-    if ($("input[name='storytype']:checked").val() == undefined) {
-      type = "Other";
-    } else {
-      type = $("input[name='storytype']:checked").val();
-    }
-    */
+    icon = $("input[name='icon']:checked").val();
+
     toSubmit = {
         "title": $('#titleId').val(),
         "author": $('#author').val(),
@@ -273,6 +314,7 @@ function initMap(coords)
         "blurb": $('#blurbId').val(),
         "location_name": $('#location').val(),
         "type": types,
+        "icon": icon,
         "tags": $("#modalTags").tagsinput('items'),
         "header_photo_url": $('#header_photo_url').val(),
         "coordinates": self.coordinates

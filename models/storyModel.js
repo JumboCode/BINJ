@@ -11,6 +11,7 @@ var storySchema = new Schema({
 	'tags' : [{type: String, lowercase: true}],
 	'location_name' : String,
 	'type' : [String],
+	'icon' : String,
 	'coordinates' : [{type: Number}]
 });
 

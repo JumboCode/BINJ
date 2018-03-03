@@ -71,9 +71,7 @@ function addStoryPoints(data, tags, boxes) {
             && coords[0] != "" && coords[0] != "undefined") {
           var latlng = new google.maps.LatLng(coords[1], coords[0]);
 
-          // right now just defaults to the first type in the list of each point's types - will add
-          // ability to pick icon in newStory and edit pages later - AK 2/25
-          switch(point.type[0]) {
+          switch(point.icon) {
             case "ArtsAndEntertainment":
               icon = "../images/AE.png";
               break;

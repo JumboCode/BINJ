@@ -103,7 +103,11 @@ function loadCards(data) {
         newCard.appendChild(title);
         // date of publication
         var date = document.createElement("h4");
-        date.innerHTML = cleanDate(data[i].published_date.toString());
+        if(data[i].published_date != undefined){
+          date.innerHTML = cleanDate(data[i].published_date.toString());
+        } else {
+          date.innerHTML = "No date";
+        }
         newCard.appendChild(date);
         // make an author
         var author = document.createElement("h4");
