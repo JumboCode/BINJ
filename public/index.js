@@ -132,7 +132,7 @@ function loadFilters(data) {
   var onDisplay = [];
   typeDict = {
       "ArtsAndEntertainment" :"Arts and Entertainment",
-      "BusinessNonprofitsCommerce" : "Business, Nonprofits, Commerce",
+      "BusinessNonprofitCommerce" : "Business, Nonprofits, Commerce",
       "CommunityAndNeighborhoods" : "Community and Neighborhoods",
       "EducationAndFamilies" : "Education and Families",
       "HousingAndHealth" : "Housing and Health",
