@@ -107,6 +107,7 @@ module.exports = {
             blurb : req.body.blurb,
             published_date : req.body.published_date,
             tags : req.body.tags,
+            publication_name : req.body.publication_name,
             location_name : req.body.location_name,
             type : req.body.type,
             icon : req.body.icon,
@@ -151,9 +152,10 @@ module.exports = {
 			story.blurb = req.body.blurb ? req.body.blurb : story.blurb;
 			story.published_date = req.body.published_date ? req.body.published_date : story.published_date;
 			story.tags = req.body.tags ? req.body.tags : story.tags;
-			story.location_name = req.body.location_name ? req.body.location_name : story.location_name;
+            story.publication_name = req.body.publication_name ? req.body.publication_name : story.publication_name;
+            story.location_name = req.body.location_name ? req.body.location_name : story.location_name;
 			story.type = req.body.type ? req.body.type : story.type;
-      story.icon = req.body.icon ? req.body.icon : story.icon;
+            story.icon = req.body.icon ? req.body.icon : story.icon;
             story.coordinates = req.body.coordinates ? req.body.coordinates : story.coordinates;
 
             story.save(function (err, story) {
