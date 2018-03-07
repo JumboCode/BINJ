@@ -137,10 +137,9 @@ function loadFilters(data) {
       "EducationAndFamilies" : "Education and Families",
       "HousingAndHealth" : "Housing and Health",
       "LaborAndActivism" : "Labor and Activism",
-      "Poliics" : "Politics",
+      "Politics" : "Politics",
       "Sports" : "Sports",
-      "Transit" : "Transit",
-      "Other" : "Other"
+      "Transit" : "Transit"
   };
   // to load and show relevant filters
   document.getElementById("author").innerHTML = "";
@@ -152,7 +151,7 @@ function loadFilters(data) {
 
         displayName = typeDict[types[j]];
         if (displayName == undefined) {
-           displayName = 'Other';
+           displayName = "Other";
         }
         if (onDisplay.includes(displayName)) {
           // do nothing
@@ -174,6 +173,7 @@ function loadFilters(data) {
       }
     }
 
+    console.log(authors);
     authors.sort(compare);
     console.log(authors);
     onDisplay.sort(compare);
