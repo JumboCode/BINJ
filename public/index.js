@@ -152,7 +152,7 @@ function loadFilters(data) {
 
         displayName = typeDict[types[j]];
         if (displayName == undefined) {
-           displayName = types[j];
+           displayName = 'Other';
         }
         if (onDisplay.includes(displayName)) {
           // do nothing
@@ -175,6 +175,7 @@ function loadFilters(data) {
     }
 
     authors.sort(compare);
+    console.log(authors);
     onDisplay.sort(compare);
     storytypes.sort(compare);
 
