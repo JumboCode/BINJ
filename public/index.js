@@ -173,9 +173,7 @@ function loadFilters(data) {
       }
     }
 
-    console.log(authors);
     authors.sort(compare);
-    console.log(authors);
     onDisplay.sort(compare);
     storytypes.sort(compare);
 
