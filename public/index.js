@@ -146,39 +146,76 @@ function loadFilters(data) {
   document.getElementById("author").innerHTML = "";
   document.getElementById("storytype").innerHTML = "";
   for (var i = 0; i < data.length; i++) {
+
+    types = data[i].type.splice(',');
+    for (var j = 0; j < types.length; j++) {
+
+        displayName = typeDict[types[j]];
+        if (displayName == undefined) {
+           displayName = types[j];
+        }
+        if (onDisplay.includes(displayName)) {
+          // do nothing
+        } else {
+          onDisplay.push(displayName);
+        }
+        if (storytypes.includes(types[j])) {
+          // do nothing
+        } else {
+          storytypes.push(types[j]);
+        }
+      }
+
       if (authors.includes(data[i].author)) {
         // do nothing
       } else {
         // make author entry
-        var author = document.createElement("div");
-        author.className += "checkbox";
-        author.innerHTML = '<label><input type = "checkbox" onclick="getFilters();" value="' + data[i].author + '">' + data[i].author + '</label>';
-        document.getElementById("author").appendChild(author);
         authors.push(data[i].author);
       }
+    }
 
-      types = data[i].type.splice(',');
-      for (var j = 0; j < types.length; j++) {
+    authors.sort(compare);
+    onDisplay.sort(compare);
+    storytypes.sort(compare);
 
-          displayName = typeDict[types[j]];
-          if (displayName == undefined) {
-             displayName = types[j];
-          }
-
-          if (storytypes.includes(types[j])) {
-            // do nothing
-          } else if (onDisplay.includes(displayName)) {
-            // also do nothing
-          } else {
-            // make type entry
-            var type = document.createElement("div");
-            type.className += "checkbox";
-            type.innerHTML = '<label><input type = "checkbox" onclick="getFilters();" name="storytype" value="' + types[j] + '">' + displayName + '</label>';
-            document.getElementById("storytype").appendChild(type);
-            storytypes.push(types[j]);
-            onDisplay.push(displayName);
-          }
+    for (var i = 0; i < authors.length; i++) {
+      var author = document.createElement("div");
+      author.className += "checkbox";
+      author.innerHTML = '<label><input type = "checkbox" onclick="getFilters();" value="' + authors[i] + '">' + authors[i] + '</label>';
+      document.getElementById("author").appendChild(author);
+    }
+    for (var i = 0; i < storytypes.length; i++) {
+      var displayName = typeDict[storytypes[i]];
+      if (displayName == undefined) {
+        displayName = "Other";
       }
+      var type = document.createElement("div");
+      type.className += "checkbox";
+      type.innerHTML = '<label><input type = "checkbox" onclick="getFilters();" name="storytype" value="' + storytypes[i] + '">' + displayName + '</label>';
+      document.getElementById("storytype").appendChild(type);
 
+
+    }
+
+}
+
+
+function compare(a, b) {
+
+  // Creates two arrays that each contain two strings; a first and last name
+  var arrayA = a.split(" ");
+  var arrayB = b.split(" ");
+
+  // Gets the last name from each array
+  var lastNameA = arrayA[arrayA.length - 1];
+  var lastNameB = arrayB[arrayB.length - 1];
+
+  // Return of value < 0 to the sort function places the names at a lower
+  // index in the array, and the opposite is true for a return value > 0
+  if (lastNameA < lastNameB) {
+    return -1;
+  }
+  if (lastNameA > lastNameB) {
+    return 1;
   }
 }
