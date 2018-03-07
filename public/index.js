@@ -103,7 +103,12 @@ function loadCards(data) {
         newCard.appendChild(title);
         // date of publication
         var date = document.createElement("h4");
-        date.innerHTML = cleanDate(data[i].published_date.toString());
+        if (data[i].published_date == undefined) {
+          date.innerHTML = "None";
+        } else {
+          date.innerHTML = cleanDate(data[i].published_date.toString());
+
+        }
         newCard.appendChild(date);
         // make an author
         var author = document.createElement("h4");
@@ -133,24 +138,60 @@ function loadFilters(data) {
         // do nothing
       } else {
         // make author entry
-        var author = document.createElement("div");
-        author.className += "checkbox";
-        author.innerHTML = '<label><input type = "checkbox" onclick="getFilters();" value="' + data[i].author + '">' + data[i].author + '</label>';
-        document.getElementById("author").appendChild(author);
         authors.push(data[i].author);
       }
       if (storytypes.includes(data[i].type)) {
         // do nothing
       } else {
         // make type entry
-        var type = document.createElement("div");
-        type.className += "checkbox";
-        type.innerHTML = '<label><input type = "checkbox" onclick="getFilters();" name="storytype" value="' + data[i].type + '">' + data[i].type + '</label>';
-        document.getElementById("storytype").appendChild(type);
         storytypes.push(data[i].type);
       }
+    }
+
+    authors.sort(compare);
+    storytypes.sort(compare);
+    console.log(authors);
+    console.log(storytypes);
+    for (var i = 0; i < authors.length; i++) {
+      var author = document.createElement("div");
+      author.className += "checkbox";
+      author.innerHTML = '<label><input type = "checkbox" onclick="getFilters();" value="' + authors[i] + '">' + authors[i] + '</label>';
+      document.getElementById("author").appendChild(author);
+    }
+    for (var i = 0; i < storytypes.length; i++) {
+
+      var type = document.createElement("div");
+      type.className += "checkbox";
+      type.innerHTML = '<label><input type = "checkbox" onclick="getFilters();" name="storytype" value="' + storytypes[i] + '">' + storytypes[i] + '</label>';
+      document.getElementById("storytype").appendChild(type);
+
+    }
+
+}
+
+
+function compare(a, b) {
+  // Creates two arrays that each contain two strings; a first and last name
+  var arrayA = a.split(" ");
+  var arrayB = b.split(" ");
+
+  // Gets the last name from each array
+  var lastNameA = arrayA[arrayA.length - 1];
+  var lastNameB = arrayB[arrayB.length - 1];
+
+  // Return of value < 0 to the sort function places the names at a lower
+  // index in the array, and the opposite is true for a return value > 0
+  if (lastNameA < lastNameB) {
+    return -1;
+  }
+  if (lastNameA > lastNameB) {
+    return 1;
   }
 }
+
+
+
+
 /*    filtering checkboxes - disabled for now *
 function authorCheck(cb) {
   if ($(cb).is(':checked')) {
