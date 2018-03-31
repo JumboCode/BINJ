@@ -10,6 +10,7 @@ var storySchema = new Schema({
 	'published_date' : Date,
 	'tags' : [{type: String, lowercase: true}],
 	'publication_name' : String,
+	'publication_logo_url' : String, 
 	'location_name' : String,
 	'type' : [String],
 	'icon' : String,

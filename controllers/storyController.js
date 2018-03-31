@@ -108,6 +108,7 @@ module.exports = {
             published_date : req.body.published_date,
             tags : req.body.tags,
             publication_name : req.body.publication_name,
+            publication_logo_url : req.body.publication_logo_url,
             location_name : req.body.location_name,
             type : req.body.type,
             icon : req.body.icon,
@@ -153,6 +154,7 @@ module.exports = {
 			story.published_date = req.body.published_date ? req.body.published_date : story.published_date;
 			story.tags = req.body.tags ? req.body.tags : story.tags;
             story.publication_name = req.body.publication_name ? req.body.publication_name : story.publication_name;
+            story.publication_logo_url = req.body.publication_logo_url ? req.body.publication_logo_url : story.publication_logo_url;
             story.location_name = req.body.location_name ? req.body.location_name : story.location_name;
 			story.type = req.body.type ? req.body.type : story.type;
             story.icon = req.body.icon ? req.body.icon : story.icon;

@@ -129,6 +129,8 @@ $(document).ready(function() {
             "published_date": $('#date').val(),
             "blurb": $('#blurb').val(),
             "tags": $("#tags").tagsinput('items'),
+            "publication_name" : $("#publication_name").val(),
+            "publication_logo_url" : $("#publication_logo_url").val(),
             "location_name": $('#location_name').val(),
             "type": types,
             "icon": icon,
