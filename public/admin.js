@@ -154,18 +154,13 @@ $(document).ready(function() {
     const headerPhotoUrl = $("#header_photo_url");
     headerPhotoUrl.focusout(() => {
         updatedImgUrl()
-
     });
 
     const articleUrl = $("#url");
     articleUrl.focusout(() => {
         $.get("/imgurl?url=" + articleUrl.val(), function(response) {
-            $("#header_photo_url").val(response)
-            updatedImgUrl()
-        }).fail(function(status) {
-            // Add a better error handler here (possibly an error message)
-            console.log(status)
-            console.log("invalid url")
+            $("#header_photo_url").val(response);
+            updatedImgUrl();
         });
     });
 
