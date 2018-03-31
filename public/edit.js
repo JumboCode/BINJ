@@ -44,6 +44,8 @@ function editStory(story) {
         $("#titleId").replaceWith( '<input type="text" class="form-control" id="titleId" value="'+ artInfo["title"] + '">');
         $("#modal_author").replaceWith( '<input type="text" class="form-control" id="author" value="'+ artInfo["author"] + '">');
         $("#date").replaceWith( '<input type="date" class="form-control" id="date" value="'+ artInfo["published_date"].slice(0,10) + '">');
+        $("#publication_name").replaceWith('<input type="linkType" class="form-control" id="publication_name" value="' + artInfo["publication_name"] + '">');
+        $("#publication_logo_url").replaceWith('<input type="linkType" class="form-control" id="publication_logo_url" value="' + artInfo["publication_logo_url"] + '">')
         $("#blurbId").replaceWith( '<textarea id="blurbId" class="form-control" rows="15" >' + artInfo["blurb"] + '</textarea>');
         $("#location_name_modal").replaceWith( '<input type="text" class="form-control" id="location_name_modal" value="'+ artInfo["location_name"] + '">');
         $("#url").replaceWith( '<input type="text" class="form-control" id="url" rows="1" value="'+ artInfo["url"] + '">');
@@ -311,8 +313,11 @@ function initMap(coords)
         "title": $('#titleId').val(),
         "author": $('#author').val(),
         "url": $('#url').val(),
+        "publication_name": $('#publication_name').val(),
+        "publication_logo_url": $('#publication_logo_url').val(),
         "blurb": $('#blurbId').val(),
         "location_name": $('#location').val(),
+        "published_date": $('#date').val(),
         "type": types,
         "icon": icon,
         "tags": $("#modalTags").tagsinput('items'),

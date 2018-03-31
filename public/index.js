@@ -130,6 +130,7 @@ function loadFilters(data) {
   var authors = [];
   var storytypes = [];
   var onDisplay = [];
+  var publications = [];
   typeDict = {
       "ArtsAndEntertainment" :"Arts and Entertainment",
       "BusinessNonprofitCommerce" : "Business, Nonprofits, Commerce",
@@ -144,6 +145,7 @@ function loadFilters(data) {
   // to load and show relevant filters
   document.getElementById("author").innerHTML = "";
   document.getElementById("storytype").innerHTML = "";
+  document.getElementById("publication_name").innerHTML = "";
   for (var i = 0; i < data.length; i++) {
 
     types = data[i].type.splice(',');
@@ -171,11 +173,19 @@ function loadFilters(data) {
         // make author entry
         authors.push(data[i].author);
       }
+
+      if (publications.includes(data[i].publication_name)) {
+        // do nothing
+      } else {
+        // make author entry
+        publications.push(data[i].publication_name);
+      }
     }
 
     authors.sort(compare);
     onDisplay.sort(compare);
     storytypes.sort(compare);
+    publications.sort(compare);
 
     for (var i = 0; i < authors.length; i++) {
       var author = document.createElement("div");
@@ -192,8 +202,14 @@ function loadFilters(data) {
       type.className += "checkbox";
       type.innerHTML = '<label><input type = "checkbox" onclick="getFilters();" name="storytype" value="' + storytypes[i] + '">' + displayName + '</label>';
       document.getElementById("storytype").appendChild(type);
-
-
+    }
+    for (var i = 0; i < publications.length; i++) {
+      var publication = document.createElement("div");
+      if (publications[i] != undefined) {
+        publication.className += "checkbox";
+        publication.innerHTML = '<label><input type = "checkbox" onclick="getFilters();" value="' + publications[i] + '">' + publications[i] + '</label>';
+        document.getElementById("publication_name").appendChild(publication);
+      }
     }
 
 }
