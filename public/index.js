@@ -109,11 +109,17 @@ function loadCards(data) {
           date.innerHTML = "No date";
         }
         newCard.appendChild(date);
+        // publication name, if applicable
+        if (data[i].publication_name != undefined) {
+          var pub = document.createElement("h4");
+          pub.innerHTML = "Publication: " + data[i].publication_name;
+          newCard.appendChild(pub);
+        }
         // make an author
         var author = document.createElement("h4");
         author.innerHTML = "<i>By " + data[i].author + "</i> | Tags: " + data[i].tags.join(", ");
         newCard.appendChild(author);
-        // link to full text
+        // link to full article
         var url = document.createElement("p");
         url.innerHTML = '<a href="' + data[i].url + '" target="_blank">Full article</a>';
         newCard.appendChild(url);

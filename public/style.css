@@ -252,6 +252,10 @@ hr {
 	 text-align: center;
  }
 
+ .pubName {
+	 text-align: center;
+ }
+
  .bubbleImg {
 	 display: block;
 	 margin: auto;

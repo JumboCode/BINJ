@@ -110,13 +110,14 @@ function addStoryPoints(data, tags, boxes) {
             icon: icon,
             tags: point.tags,
             published_date: point.published_date,
+            publication_name: point.publication_name,
             url: point.url
           });
           markers.push(marker);
           var infoWindow = new google.maps.InfoWindow();
           google.maps.event.addListener(marker, 'click', function() {
             infoWindow.setContent("<h1 class='bubbleTitle'>" + this.title +
-                                  "</h1><br><img src='" + this.photo +
+                                  "</h1><h2 class='pubName'>" + this.publication_name + "</h2><br><img src='" + this.photo +
                                   "' class='bubbleImg'></img><br><h4>" + cleanDate(this.published_date.toString()) +
                                   "</h4><i><h4 class='bubbleAuthor'>By " + this.author +
                                   "</i> | Tags: " + this.tags.join(", ") +
