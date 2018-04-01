@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+    <title>New Article</title>
+    <link rel="stylesheet" href="tags/bootstrap-tagsinput.css">
+    <!-- Boostrap links -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCCPJ3Q8yqIUnauTodS9RgJWLNeQmxHEiw&libraries=geometry,places"></script>
+
+    <link rel="stylesheet" href="map.css">
+    <link rel="stylesheet" href="newstory.css">
+
+
+</head>
+<body>
+  <div class="container-fluid">
+    <div class="row">
+  <div class="col-xs-2">
+    <a href="/"> <img src="https://cdn-images-1.medium.com/max/246/1*SQumLd1QIKdVJAM5nfvuqA@2x.png" /> </a>
+  </div>
+  <div class="col-xs-8">
+  <form>
+    <div id="newStoryBlock">
+      <br>
+        <h1>New Article</h1>
+        <br>
+        <div class="form-group">
+            <label for="title">Article Title</label>
+            <input type="storyTitleType" class="form-control" id="title">
+        </div>
+
+        <div class="form-group">
+            <label for="author">Author</label>
+            <input type="organizationType" class="form-control" id="author">
+        </div>
+
+        <div class="form-group">
+            <label for="date">Date of publication</label>
+            <input type="date" class="form-control" id="date">
+        </div>
+
+        <div class="form-group">
+            <label for="link">URL</label>
+            <input type="linkType" class="form-control" id="url">
+        </div>
+
+        <div class="form-group">
+            <label for="link">Publication Name</label>
+            <input type="linkType" class="form-control" id="publication_name">
+        </div>
+
+        <div class="form-group">
+            <label for="link">Publication Logo URL</label>
+            <input type="linkType" class="form-control" id="publication_logo_url">
+        </div>
+
+
+        <div class="row">
+            <div class="col-xs-6">
+                 <label for="summary">Summary</label>
+                <textarea class="form-control" id="blurb" rows="18"></textarea>
+            </div>
+            <div class="col-xs-6 centered-map" id="map_canvas" style="height:400px; width:400px;"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                  <div class="form-group">
+                     <label for="location">Location</label>
+                    <input type="locationType" class="form-control" id="location_name" placeholder="Click on map or type location">
+                </div>
+                <div class="form-group" id="header_photo_url_parent">
+                    <label for="exampleInputFile">Picture URL</label>
+                    <input type="linkType" class="form-control" id="header_photo_url">
+                </div>
+                <div class="col-md-6">
+                <form>
+                    <label for="storytype">Story type and icon</label>
+                    <div class="checkbox">
+                        <label><input type="checkbox" name="storytype" value="ArtsAndEntertainment">Arts and Entertainment</label>
+                    </div>
+                    <div class="checkbox">
+                        <label><input type="checkbox" name="storytype" value="BusinessNonprofitCommerce">Business, Nonprofits, Commerce</label>
+                    </div>
+                    <div class="checkbox">
+                        <label><input type="checkbox" name="storytype" value="CommunityAndNeighborhoods">Community and Neighborhoods</label>
+                    </div>
+                    <div class="checkbox">
+                        <label><input type="checkbox" name="storytype" value="EducationAndFamilies">Education and Families</label>
+                    </div>
+                    <div class="checkbox">
+                        <label><input type="checkbox" name="storytype" value="HousingAndHealth">Housing and Health</label>
+                    </div>
+                    <div class="checkbox">
+                        <label><input type="checkbox" name="storytype" value="LaborAndActivism">Labor and Activism</label>
+                    </div>
+                    <div class="checkbox">
+                        <label><input type="checkbox" name="storytype" value="Politics">Politics</label>
+                    </div>
+                    <div class="checkbox">
+                        <label><input type="checkbox" name="storytype" value="Sports">Sports</label>
+                    </div>
+                    <div class="checkbox">
+                        <label><input type="checkbox" name="storytype" value="Transit">Transit</label>
+                    </div>
+                    <div class="checkbox">
+                        <label><input type="checkbox" name="storytype" value="Other">Other</label>
+                    </div>
+                </form>
+              </div>
+              <div class="col-md-3">
+                  <div id="icon">
+                    <label><input type="radio" name="icon" value="ArtsAndEntertainment"><img src="../images/AE.png" alt="Arts and Entertainment" /></label>
+                  </div>
+                  <div id="icon">
+                    <label><input type="radio" name="icon" value="BusinessNonprofitCommerce"><img src="../images/BN.png" alt="Business/Nonprofit/Commerce" /></label>
+                  </div>
+                  <div id="icon">
+                    <label><input type="radio" name="icon" value="CommunityAndNeighborhoods"><img src="../images/CN.png" alt="Community and Neighborhoods" /></label>
+                  </div>
+                  <div id="icon">
+                    <label><input type="radio" name="icon" value="EducationAndFamilies"><img src="../images/EF.png" alt="Education and Families" /></label>
+                  </div>
+                  <div id="icon">
+                    <label><input type="radio" name="icon" value="HousingAndHealth"><img src="../images/HH.png" alt="Housing and Health" /></label>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div id="icon">
+                    <label><input type="radio" name="icon" value="LaborAndActivism"><img src="../images/LA.png" alt="Labor and Activism" /></label>
+                  </div>
+                  <div id="icon">
+                    <label><input type="radio" name="icon" value="Politics"><img src="../images/POLITICS.png" alt="Politics" /></label>
+                  </div>
+                  <div id="icon">
+                    <label><input type="radio" name="icon" value="Sports"><img src="../images/SPORTS.png" alt="Sports" /></label>
+                  </div>
+                  <div id="icon">
+                    <label><input type="radio" name="icon" value="Transit"><img src="../images/TT.png" alt="Transit" /></label>
+                  </div>
+                  <div id="icon">
+                    <label><input type="radio" name="icon" value="Other"><img src="../images/OTHER.png" alt="Other" /></label>
+                  </div>
+              </div>
+            </div>
+            </div>
+        </div>
+        <br />
+        <div class="form-group">
+            <label for="tags">Tags</label>
+            <input type="text" data-role="tagsinput" id="tags" placeholder="Enter story tags">
+        </div>
+        <br />
+        <button type="button" class="btn btn-primary" id="submitbutton">Submit</button>
+        <br />
+        <br />
+        <br />
+    </div>
+  </div>
+</div>
+</div>
+</form>
+
+    <script type="text/javascript" src="tags/bootstrap-tagsinput.js"></script>
+
+
+</body>
+
+<script type="text/javascript" src="newstory.js"></script>

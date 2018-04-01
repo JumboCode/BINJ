@@ -50,7 +50,7 @@ mongoose.connect(mongoUri, err => {
 });
 
 function ensureAuthenticated(req, res, next) {
-	//return next();
+	return next();
     if (req.isAuthenticated()) { return next(); }
     res.redirect('/account/login');
 }
@@ -60,7 +60,7 @@ app.get('/', function(req, res){
 });
 
 app.get('/admin', ensureAuthenticated, function(req, res) {
-	res.sendFile('edit.html', {root: path.join(__dirname, 'public')});
+	res.sendFile('admin.html', {root: path.join(__dirname, 'public')});
 });
 
 app.post('*', function(req, res) {
@@ -118,7 +118,7 @@ app.get('/imgurl', function (req, res) {
 
 app.get('/newStory', ensureAuthenticated, function(req, res){
 
-	res.sendFile('admin.html', {root: path.join(__dirname, 'public')});
+	res.sendFile('newstory.html', {root: path.join(__dirname, 'public')});
 });
 
 app.get('/map', function(req, res){
