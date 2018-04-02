@@ -274,3 +274,7 @@ hr {
 	color: black;
 	text-align: center;
 }
+
+.loginBlock {
+	margin: 20px;
+}
