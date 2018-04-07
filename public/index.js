@@ -64,8 +64,6 @@ function getFilters() {
 }
 
 
-// this shit has to do with loading the list view and the filters
-// currently displayed
 $('#content').height($(window).height() - $('.logo').height() - $('.wrapper').height());
 
 waitForData();
@@ -128,6 +126,10 @@ function loadCards(data) {
         blurb.innerHTML = data[i].blurb;
         newCard.appendChild(blurb);
         // maybe header photo?
+        newCard.setAttribute("storyId", data[i]._id);
+        newCard.onclick = function () {
+          sessionStorage.setItem('storyToOpen', this.getAttribute("storyId"));
+        };
         document.getElementById("list-view").appendChild(newCard);
     }
 }

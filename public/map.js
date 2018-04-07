@@ -5,18 +5,9 @@ var bostonLat =  42.3601;
 var bostonLng = -71.0589;
 var bostonLatLng = new google.maps.LatLng(bostonLat, bostonLng);
 
-
-// Notes from Will:
-// maybe we should consider user this nice looking library to deal with
-// large quantities of markers:
-// https://developers.google.com/maps/documentation/javascript/marker-clustering
-
-// Here is the BINJ API key: AIzaSyCCPJ3Q8yqIUnauTodS9RgJWLNeQmxHEiw
-
-// maybe it'd be nice to go to user's location, unless user isn't in
-// the boston area, in which case default to ... somewhere in boston
-
 var user;
+
+var storyId = "";
 
 var mapOptions = {
     zoom: 12, // The larger the zoom number, the bigger the zoom
@@ -28,27 +19,11 @@ var mapOptions = {
 };
 var map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
 var markers = [];
-// var markerCluster = new MarkerClusterer(map, markers,
-//             {imagePath: '../images/m'});
 var oms = new OverlappingMarkerSpiderfier(map, {
   markersWontMove: true,
   markersWontHide: true,
   basicFormatEvents: true
 });
-
-//look at other icons https://github.com/jawj/OverlappingMarkerSpiderfier
-// oms.addListener('format', function(marker, status) {
-//         var iconURL = status == OverlappingMarkerSpiderfier.markerStatus.SPIDERFIED ? 'images/m1' :
-//           status == OverlappingMarkerSpiderfier.markerStatus.SPIDERFIABLE ? 'images/m2' :
-//           status == OverlappingMarkerSpiderfier.markerStatus.UNSPIDERFIABLE ? 'images/m3' :
-//           null;
-//         var iconSize = new google.maps.Size(23, 32);
-//         marker.setIcon({
-//           url: iconURL,
-//           size: iconSize,
-//           scaledSize: iconSize  // makes SVG icons work in IE
-//         });
-//       });
 
 var userMarker;
 var userInfoWindow = new google.maps.InfoWindow();
@@ -111,7 +86,8 @@ function addStoryPoints(data, tags, boxes) {
             tags: point.tags,
             published_date: point.published_date,
             publication_name: point.publication_name,
-            url: point.url
+            url: point.url,
+            storyId: point._id
           });
           markers.push(marker);
           var infoWindow = new google.maps.InfoWindow();
@@ -127,12 +103,27 @@ function addStoryPoints(data, tags, boxes) {
             infoWindow.open(map, this);
           });
           oms.addMarker(marker);
-
         }
       }
     }
-
   }
+
+  $(window).bind('storage', function (e) {
+    tempId = sessionStorage.getItem("storyToOpen");
+    if((tempId != storyId) || (storyId == "")) {
+      openStory(tempId);
+      storyId = tempId;
+    }
+  });
+
+  function openStory(id) {
+    for (var i = 0; i < markers.length; i++) {
+      if (markers[i].storyId == id) {
+        google.maps.event.trigger(markers[i], 'click');
+      }
+    }
+  }
+
 
   function cleanDate(published_date)
   {
@@ -177,6 +168,8 @@ function initMap() {
       var url = 'https://' + location.hostname + ':' + location.port;
   }
 
+  storyId = "";
+
   boston = new google.maps.LatLng(bostonLat, bostonLng);
     map.panTo(boston);
   var urlToParse = location.search;
@@ -205,7 +198,7 @@ function searchBox()
         searchBox.setBounds(map.getBounds());
       });
 
-      var markers = [];
+      //markers = [];
       // Listen for the event fired when the user selects a prediction and retrieve
       // more details for that place.
       searchBox.addListener('places_changed', function() {
@@ -216,10 +209,10 @@ function searchBox()
         }
 
         // Clear out the old markers.
-        markers.forEach(function(marker) {
-          marker.setMap(null);
-        });
-        markers = [];
+        //markers.forEach(function(marker) {
+        //  marker.setMap(null);
+        //});
+        //markers = [];
 
         // For each place, get the icon, name and location.
         var bounds = new google.maps.LatLngBounds();
