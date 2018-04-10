@@ -16,11 +16,11 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 
 // Enabling CORS:
-app.use(cors());
+//app.use(cors());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(session({ secret: 'keyboard cat' }));
+//app.use(session({ secret: 'keyboard cat' }));
 app.use(cookieParser());
 app.use(passport.initialize());
 app.use(passport.session());

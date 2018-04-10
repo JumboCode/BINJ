@@ -196,10 +196,12 @@ function loadFilters(data) {
     publications.sort(compare);
 
     for (var i = 0; i < authors.length; i++) {
-      var author = document.createElement("div");
-      author.className += "checkbox";
-      author.innerHTML = '<label><input type = "checkbox" onclick="getFilters();" value="' + authors[i] + '">' + authors[i] + '</label>';
-      document.getElementById("author").appendChild(author);
+      if ((authors[i] != undefined) && (authors[i] != "")) {
+        var author = document.createElement("div");
+        author.className += "checkbox";
+        author.innerHTML = '<label><input type = "checkbox" onclick="getFilters();" value="' + authors[i] + '">' + authors[i] + '</label>';
+        document.getElementById("author").appendChild(author);
+      }
     }
     for (var i = 0; i < storytypes.length; i++) {
       var displayName = typeDict[storytypes[i]];

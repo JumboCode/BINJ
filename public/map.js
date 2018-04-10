@@ -92,6 +92,9 @@ function addStoryPoints(data, tags, boxes) {
           markers.push(marker);
           var infoWindow = new google.maps.InfoWindow();
           google.maps.event.addListener(marker, 'click', function() {
+            if(this.publication_name == undefined) {
+              
+            }
             infoWindow.setContent("<h1 class='bubbleTitle'>" + this.title +
                                   "</h1><h2 class='pubName'>" + this.publication_name + "</h2><br><img src='" + this.photo +
                                   "' class='bubbleImg'></img><br><h4>" + cleanDate(this.published_date.toString()) +
