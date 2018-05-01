@@ -93,7 +93,10 @@ function addStoryPoints(data, tags, boxes) {
           var infoWindow = new google.maps.InfoWindow();
           google.maps.event.addListener(marker, 'click', function() {
             if(this.publication_name == undefined) {
-              
+               this.publication_name = "";
+            }
+            if(this.published_date == undefined) {
+              this.published_date = "";
             }
             infoWindow.setContent("<h1 class='bubbleTitle'>" + this.title +
                                   "</h1><h2 class='pubName'>" + this.publication_name + "</h2><br><img src='" + this.photo +
@@ -130,10 +133,13 @@ function addStoryPoints(data, tags, boxes) {
 
   function cleanDate(published_date)
   {
+      if(published_date == "") {
+        return "No date";
+      }
       var year = published_date.slice(0, 4);
       var month = published_date.slice(5, 7);
       var day = published_date.slice(8, 10);
-      return clean_date = (month + "/" + day + "/" + year);
+      return month + "/" + day + "/" + year;
   };
 
 function inBoxes(story, boxes) {
